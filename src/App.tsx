@@ -11,6 +11,10 @@ import { ModulePage } from "@/routes/ModulePage/ModulePage";
 import { QuizPage } from "@/routes/QuizPage/QuizPage";
 import { ResultsPage } from "@/routes/ResultsPage/ResultsPage";
 import { DesignSystem } from "@/routes/DesignSystem/DesignSystem";
+import { InProgressPage } from "@/routes/InProgressPage/InProgressPage";
+import { AllModulesPage } from "@/routes/AllModulesPage/AllModulesPage";
+import { AppSettingsPage } from "@/routes/AppSettingsPage/AppSettingsPage";
+import { PreferencesPage } from "@/routes/PreferencesPage/PreferencesPage";
 import styles from "@/App.module.css";
 
 export function App() {
@@ -41,6 +45,26 @@ export function App() {
           </Route>
           <Route path="/_design">
             <DesignSystem />
+          </Route>
+          <Route path="/in-progress">
+            <RequireAuth>
+              <InProgressPage />
+            </RequireAuth>
+          </Route>
+          <Route path="/all-modules">
+            <RequireAuth>
+              <AllModulesPage />
+            </RequireAuth>
+          </Route>
+          <Route path="/app-settings">
+            <RequireAuth>
+              <AppSettingsPage />
+            </RequireAuth>
+          </Route>
+          <Route path="/preferences">
+            <RequireAuth>
+              <PreferencesPage />
+            </RequireAuth>
           </Route>
           <Route path="/">
             <RequireAuth>
