@@ -14,49 +14,42 @@ type Params = {
 };
 
 export function QuizPage({ params }: { params: Params }) {
-  const sessionId = useSessionStore((s) => s.sessionId);
-  const mode = useSessionStore((s) => s.mode);
-  const questions = useSessionStore((s) => s.questions);
-  const currentIndex = useSessionStore((s) => s.currentIndex);
-  const answers = useSessionStore((s) => s.answers);
+  const session = useSessionStore((s) => s.sessions[params.slug]);
   const record = useSessionStore((s) => s.recordAnswer);
   const advance = useSessionStore((s) => s.advance);
   const setIndex = useSessionStore((s) => s.setIndex);
   const [, navigate] = useLocation();
 
+  const hasSession = !!session && session.questions.length > 0;
+
   useEffect(() => {
-    if (!sessionId || !mode || questions.length === 0) {
+    if (!hasSession) {
       navigate(`/m/${params.slug}`, { replace: true });
     }
-  }, [sessionId, mode, questions.length, navigate, params.slug]);
+  }, [hasSession, navigate, params.slug]);
 
   const normalizedRef = useRef(false);
   useEffect(() => {
     if (normalizedRef.current) return;
-    if (!sessionId || questions.length === 0) return;
+    if (!session || session.questions.length === 0) return;
     normalizedRef.current = true;
-    if (answers.length >= questions.length) {
+    if (session.answers.length >= session.questions.length) {
+      const sid = session.sessionId;
+      const score = session.answers.filter((a) => a.isCorrect).length;
       (async () => {
-        const score = answers.filter((a) => a.isCorrect).length;
-        await completeSession({ sessionId, score });
-        navigate(`/m/${params.slug}/results/${sessionId}`, { replace: true });
+        await completeSession({ sessionId: sid, score });
+        navigate(`/m/${params.slug}/results/${sid}`, { replace: true });
       })();
       return;
     }
-    if (currentIndex < answers.length) {
-      setIndex(answers.length);
+    if (session.currentIndex < session.answers.length) {
+      setIndex(params.slug, session.answers.length);
     }
-  }, [
-    sessionId,
-    answers,
-    currentIndex,
-    questions.length,
-    params.slug,
-    navigate,
-    setIndex,
-  ]);
+  }, [session, params.slug, navigate, setIndex]);
 
-  if (!sessionId || !mode || questions.length === 0) return null;
+  if (!session || session.questions.length === 0) return null;
+
+  const { sessionId, mode, questions, currentIndex, answers } = session;
   if (currentIndex >= questions.length) return null;
 
   const question = questions[currentIndex];
@@ -73,7 +66,7 @@ export function QuizPage({ params }: { params: Params }) {
     choiceId: string;
     isCorrect: boolean;
   }) => {
-    record({
+    record(params.slug, {
       questionId: question.id,
       choiceId: payload.choiceId,
       selfGrade: null,
@@ -92,7 +85,7 @@ export function QuizPage({ params }: { params: Params }) {
     selfGrade: boolean;
     isCorrect: boolean;
   }) => {
-    record({
+    record(params.slug, {
       questionId: question.id,
       choiceId: null,
       selfGrade: payload.selfGrade,
@@ -108,10 +101,9 @@ export function QuizPage({ params }: { params: Params }) {
   };
 
   const handleNext = async () => {
-    advance();
-    // After advance, if we've now answered all questions, finish.
-    const nextAnswers = useSessionStore.getState().answers;
-    await finishIfDone(nextAnswers);
+    advance(params.slug);
+    const next = useSessionStore.getState().sessions[params.slug];
+    if (next) await finishIfDone(next.answers);
   };
 
   const handleExit = () => navigate("/");
@@ -133,7 +125,10 @@ export function QuizPage({ params }: { params: Params }) {
             <span>Save &amp; exit</span>
           </button>
         </div>
-        <ProgressBar current={currentIndex + (answers.length > currentIndex ? 1 : 0)} total={total} />
+        <ProgressBar
+          current={currentIndex + (answers.length > currentIndex ? 1 : 0)}
+          total={total}
+        />
       </div>
 
       {mode === "multiple_choice" ? (

@@ -86,7 +86,7 @@ export function ModulePage({ params }: { params: Params }) {
         mode,
         sessionSize: picked.length,
       });
-      start({
+      start(module.slug, {
         sessionId: session.id,
         moduleId: module.id,
         mode,
