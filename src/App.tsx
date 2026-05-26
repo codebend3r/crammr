@@ -9,6 +9,7 @@ import { HomePage } from "@/routes/HomePage/HomePage";
 import { ModulePage } from "@/routes/ModulePage/ModulePage";
 import { QuizPage } from "@/routes/QuizPage/QuizPage";
 import { ResultsPage } from "@/routes/ResultsPage/ResultsPage";
+import { DesignSystem } from "@/routes/DesignSystem/DesignSystem";
 
 export function App() {
   const bootstrap = useAuthStore((s) => s.bootstrap);
@@ -33,6 +34,9 @@ export function App() {
         <Switch>
           <Route path="/login">
             <LoginPage />
+          </Route>
+          <Route path="/_design">
+            <DesignSystem />
           </Route>
           <Route path="/">
             <RequireAuth>
