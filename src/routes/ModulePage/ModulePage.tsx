@@ -47,22 +47,22 @@ export function ModulePage({ params }: { params: Params }) {
   const [, navigate] = useLocation();
 
   useEffect(() => {
-    let alive = true;
+    const state = { alive: true };
     (async () => {
       try {
         const m = await fetchModuleBySlug(params.slug);
-        if (!alive) return;
+        if (!state.alive) return;
         setModule(m);
         if (m?.type === "dynamic") setSize(20);
       } catch (e) {
-        if (!alive) return;
+        if (!state.alive) return;
         setError(e instanceof Error ? e.message : "Failed to load");
       } finally {
-        if (alive) setLoading(false);
+        if (state.alive) setLoading(false);
       }
     })();
     return () => {
-      alive = false;
+      state.alive = false;
     };
   }, [params.slug]);
 

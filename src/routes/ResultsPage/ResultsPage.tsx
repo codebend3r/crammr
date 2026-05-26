@@ -23,21 +23,21 @@ export function ResultsPage({ params }: { params: Params }) {
   const [, navigate] = useLocation();
 
   useEffect(() => {
-    let alive = true;
+    const state = { alive: true };
     (async () => {
       try {
         const d = await fetchSessionWithAnswers(params.id);
-        if (!alive) return;
+        if (!state.alive) return;
         setData(d);
       } catch (e) {
-        if (!alive) return;
+        if (!state.alive) return;
         setError(e instanceof Error ? e.message : "Failed to load");
       } finally {
-        if (alive) setLoading(false);
+        if (state.alive) setLoading(false);
       }
     })();
     return () => {
-      alive = false;
+      state.alive = false;
     };
   }, [params.id]);
 

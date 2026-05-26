@@ -16,25 +16,25 @@ export function HomePage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let alive = true;
+    const state = { alive: true };
     (async () => {
       try {
         const [ms, ls] = await Promise.all([
           fetchModules(),
           fetchLastScoreByModule(),
         ]);
-        if (!alive) return;
+        if (!state.alive) return;
         setModules(ms);
         setLastScores(ls);
       } catch (e) {
-        if (!alive) return;
+        if (!state.alive) return;
         setError(e instanceof Error ? e.message : "Failed to load");
       } finally {
-        if (alive) setLoading(false);
+        if (state.alive) setLoading(false);
       }
     })();
     return () => {
-      alive = false;
+      state.alive = false;
     };
   }, []);
 

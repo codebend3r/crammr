@@ -42,12 +42,13 @@ export function MultipleChoice({ question, onAnswer, onNext }: Props) {
       </h2>
       <div className={styles.choices}>
         {choices.map((c) => {
-          let cls = styles.choice;
-          if (locked) {
-            if (c.id === correctId) cls = styles.correct;
-            else if (c.id === selectedId) cls = styles.incorrect;
-            else cls = styles.dim;
-          }
+          const cls = !locked
+            ? styles.choice
+            : c.id === correctId
+            ? styles.correct
+            : c.id === selectedId
+            ? styles.incorrect
+            : styles.dim;
           return (
             <button
               key={c.id}
