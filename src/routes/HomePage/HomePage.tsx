@@ -24,12 +24,8 @@ export function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [, navigate] = useLocation();
 
-  const sessionId = useSessionStore((s) => s.sessionId);
-  const sessionModuleId = useSessionStore((s) => s.moduleId);
-  const sessionMode = useSessionStore((s) => s.mode);
-  const totalQuestions = useSessionStore((s) => s.questions.length);
-  const answeredCount = useSessionStore((s) => s.answers.length);
-  const resetSession = useSessionStore((s) => s.reset);
+  const sessions = useSessionStore((s) => s.sessions);
+  const discard = useSessionStore((s) => s.discard);
 
   useEffect(() => {
     const state = { alive: true };
@@ -54,43 +50,46 @@ export function HomePage() {
     };
   }, []);
 
-  const activeModule = useMemo(() => {
-    if (!sessionId || !sessionModuleId) return null;
-    return modules.find((m) => m.id === sessionModuleId) ?? null;
-  }, [modules, sessionId, sessionModuleId]);
-
-  const showResume =
-    activeModule &&
-    sessionMode &&
-    totalQuestions > 0 &&
-    answeredCount < totalQuestions;
+  const inProgress = useMemo(() => {
+    const moduleBySlug = new Map(modules.map((m) => [m.slug, m]));
+    return Object.values(sessions)
+      .filter((s) => s.answers.length < s.questions.length)
+      .map((s) => ({ session: s, module: moduleBySlug.get(s.slug) ?? null }))
+      .filter(
+        (p): p is { session: typeof p.session; module: Module } =>
+          p.module !== null
+      )
+      .sort((a, b) => b.session.startedAt - a.session.startedAt);
+  }, [sessions, modules]);
 
   if (loading) return <div className={styles.state}>Loading…</div>;
   if (error) return <div className={styles.state}>Error: {error}</div>;
 
   return (
     <div className={styles.page}>
-      {showResume && activeModule && sessionMode ? (
-        <Card className={styles.resume}>
-          <div className={styles.resumeBody}>
-            <div className={styles.resumeLabel}>In progress</div>
-            <h2 className={styles.resumeTitle}>{activeModule.name}</h2>
-            <p className={styles.resumeMeta}>
-              {answeredCount} of {totalQuestions} answered ·{" "}
-              {MODE_LABEL[sessionMode]}
-            </p>
-          </div>
-          <div className={styles.resumeActions}>
-            <Button variant="ghost" onClick={() => resetSession()}>
-              Discard
-            </Button>
-            <Button
-              onClick={() => navigate(`/m/${activeModule.slug}/quiz`)}
-            >
-              Resume
-            </Button>
-          </div>
-        </Card>
+      {inProgress.length > 0 ? (
+        <div className={styles.resumeList}>
+          {inProgress.map(({ session, module }) => (
+            <Card key={session.slug} className={styles.resume}>
+              <div className={styles.resumeBody}>
+                <div className={styles.resumeLabel}>In progress</div>
+                <h2 className={styles.resumeTitle}>{module.name}</h2>
+                <p className={styles.resumeMeta}>
+                  {session.answers.length} of {session.questions.length}{" "}
+                  answered · {MODE_LABEL[session.mode]}
+                </p>
+              </div>
+              <div className={styles.resumeActions}>
+                <Button variant="ghost" onClick={() => discard(session.slug)}>
+                  Discard
+                </Button>
+                <Button onClick={() => navigate(`/m/${module.slug}/quiz`)}>
+                  Resume
+                </Button>
+              </div>
+            </Card>
+          ))}
+        </div>
       ) : null}
       <h1 className={styles.heading}>What are we locking in today?</h1>
       <div className={styles.grid}>
