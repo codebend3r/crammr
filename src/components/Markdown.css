@@ -1,0 +1,33 @@
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: rgba(27, 31, 35, 0.06);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  white-space: break-spaces;
+}
+
+pre {
+  background: #f6f8fa;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin: var(--space-3) 0;
+  border: 1px solid var(--color-border);
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.875em;
+  white-space: pre;
+}
+
+code.hljs {
+  display: inline;
+}
+
+pre code.hljs {
+  display: block;
+}
