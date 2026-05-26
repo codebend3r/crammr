@@ -3,10 +3,10 @@ import styles from "./Button.module.css";
 
 type Variant = "primary" | "secondary" | "ghost" | "danger";
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: Variant;
   block?: boolean;
-}
+};
 
 export function Button({
   variant = "primary",

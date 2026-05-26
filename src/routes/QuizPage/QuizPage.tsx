@@ -8,9 +8,9 @@ import { Flashcards } from "../../modes/Flashcards/Flashcards";
 import { Recap } from "../../modes/Recap/Recap";
 import styles from "./QuizPage.module.css";
 
-interface Params {
+type Params = {
   slug: string;
-}
+};
 
 export function QuizPage({ params }: { params: Params }) {
   const sessionId = useSessionStore((s) => s.sessionId);

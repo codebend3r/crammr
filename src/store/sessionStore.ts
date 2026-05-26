@@ -1,14 +1,14 @@
 import { create } from "zustand";
 import type { Mode, Question } from "../lib/types";
 
-export interface RecordedAnswer {
+export type RecordedAnswer = {
   questionId: string;
   choiceId: string | null;
   selfGrade: boolean | null;
   isCorrect: boolean;
-}
+};
 
-interface SessionState {
+type SessionState = {
   sessionId: string | null;
   moduleId: string | null;
   mode: Mode | null;
@@ -27,7 +27,7 @@ interface SessionState {
   recordAnswer: (answer: RecordedAnswer) => void;
   advance: () => void;
   reset: () => void;
-}
+};
 
 export const useSessionStore = create<SessionState>((set) => ({
   sessionId: null,

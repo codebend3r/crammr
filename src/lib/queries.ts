@@ -101,11 +101,11 @@ export async function completeSession(args: {
   if (error) throw error;
 }
 
-export interface SessionWithAnswers {
+export type SessionWithAnswers = {
   session: Session;
   answers: SessionAnswer[];
   questions: Question[];
-}
+};
 
 export async function fetchSessionWithAnswers(
   sessionId: string
@@ -148,12 +148,12 @@ export async function fetchSessionWithAnswers(
   };
 }
 
-export interface LastScore {
+export type LastScore = {
   moduleId: string;
   score: number;
   sessionSize: number;
   completedAt: string;
-}
+};
 
 export async function fetchLastScoreByModule(): Promise<
   Record<string, LastScore>

@@ -32,9 +32,9 @@ const MODES: Array<{ value: Mode; label: string; help: string }> = [
 
 const SIZE_OPTIONS = [10, 20, 50] as const;
 
-interface Params {
+type Params = {
   slug: string;
-}
+};
 
 export function ModulePage({ params }: { params: Params }) {
   const [module, setModule] = useState<Module | null>(null);
