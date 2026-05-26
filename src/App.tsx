@@ -3,6 +3,7 @@ import { Route, Switch } from "wouter";
 import { useAuthStore } from "./store/authStore";
 import { RequireAuth } from "./components/RequireAuth";
 import { Header } from "./components/Header";
+import { LoginPage } from "./routes/LoginPage/LoginPage";
 
 function Placeholder({ name }: { name: string }) {
   return <div style={{ padding: 24 }}>{name} (todo)</div>;
@@ -30,7 +31,7 @@ export function App() {
       <main>
         <Switch>
           <Route path="/login">
-            <Placeholder name="LoginPage" />
+            <LoginPage />
           </Route>
           <Route path="/">
             <RequireAuth>
