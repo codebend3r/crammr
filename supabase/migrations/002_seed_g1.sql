@@ -469,10 +469,10 @@ with q as (
     flashcard_back, recap_answer, order_index
   )
   select id, 'signs',
-         'What is the difference between a red-and-white "No Stopping" sign and a blue-and-white "No Parking" sign?',
-         'No Stopping means you cannot stop at all — not even momentarily. No Parking means you may stop briefly to drop off or pick up passengers but cannot leave your vehicle unattended.',
+         'What is the difference between a "No Stopping" sign and a "No Parking" sign in Ontario?',
+         'Both No Stopping and No Parking signs are red-and-white circles. The distinction is the symbol: No Stopping shows a stylized "S" (or circle-slash over a stopped icon), meaning you cannot stop at all — not even momentarily. No Parking shows a "P" with a diagonal slash, meaning you may stop briefly to drop off or pick up passengers but cannot leave your vehicle unattended.',
          'No Stopping = no stop at all; No Parking = brief stop OK',
-         'A red-and-white "No Stopping" sign means you cannot stop your vehicle there under any circumstances. A blue-and-white "No Parking" sign means you may stop briefly to load or unload passengers but cannot park (leave the vehicle unattended).',
+         'In Ontario, both No Stopping and No Parking signs are red-and-white circles — they share the same colour scheme. The difference is the symbol: a "P" with a diagonal slash means No Parking (brief stop to load or unload is allowed, but you cannot leave the vehicle unattended), while a stylized "S" or circle-slash over a stopped-vehicle icon means No Stopping (you cannot stop at all under any circumstances).',
          18
   from modules where slug = 'g1'
   returning id
@@ -494,10 +494,10 @@ with q as (
     flashcard_back, recap_answer, order_index
   )
   select id, 'signs',
-         'What does a yellow diamond-shaped sign with an X inside a circle mean?',
-         'This is the "Hidden Intersection" or "Concealed Intersection" warning sign. It alerts you that a cross-road ahead may not be easily visible — reduce speed and be ready to yield.',
+         'What does a yellow diamond-shaped sign with a large black X mean?',
+         'This is the "Hidden Intersection" or "Concealed Intersection" warning sign. The large black X on a yellow diamond alerts you that a cross-road ahead may not be easily visible — reduce speed and be ready to yield.',
          'Hidden intersection ahead',
-         'A yellow diamond sign with an X inside a circle warns of a hidden or concealed intersection ahead. Drivers should reduce speed and watch carefully for vehicles entering from side roads that may not be visible.',
+         'A yellow diamond sign with a large black X warns of a hidden or concealed intersection ahead. Drivers should reduce speed and watch carefully for vehicles entering from side roads that may not be visible.',
          19
   from modules where slug = 'g1'
   returning id
