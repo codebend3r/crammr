@@ -7,10 +7,7 @@ import { LoginPage } from "./routes/LoginPage/LoginPage";
 import { HomePage } from "./routes/HomePage/HomePage";
 import { ModulePage } from "./routes/ModulePage/ModulePage";
 import { QuizPage } from "./routes/QuizPage/QuizPage";
-
-function Placeholder({ name }: { name: string }) {
-  return <div style={{ padding: 24 }}>{name} (todo)</div>;
-}
+import { ResultsPage } from "./routes/ResultsPage/ResultsPage";
 
 export function App() {
   const bootstrap = useAuthStore((s) => s.bootstrap);
@@ -58,9 +55,7 @@ export function App() {
           <Route path="/m/:slug/results/:id">
             {(params) => (
               <RequireAuth>
-                <Placeholder
-                  name={`ResultsPage(${params.slug}/${params.id})`}
-                />
+                <ResultsPage params={params} />
               </RequireAuth>
             )}
           </Route>
