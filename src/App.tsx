@@ -3,6 +3,7 @@ import { Route, Switch } from "wouter";
 import { useAuthStore } from "@/store/authStore";
 import { RequireAuth } from "@/components/RequireAuth";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { LoginPage } from "@/routes/LoginPage/LoginPage";
 import { HomePage } from "@/routes/HomePage/HomePage";
 import { ModulePage } from "@/routes/ModulePage/ModulePage";
@@ -64,6 +65,7 @@ export function App() {
           </Route>
         </Switch>
       </main>
+      <Footer />
     </>
   );
 }
