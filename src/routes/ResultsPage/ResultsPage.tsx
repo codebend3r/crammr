@@ -7,6 +7,7 @@ import {
 import { useSessionStore } from "../../store/sessionStore";
 import { Card } from "../../components/Card";
 import { Button } from "../../components/Button";
+import { Markdown } from "../../components/Markdown";
 import styles from "./ResultsPage.module.css";
 
 type Params = {
@@ -102,7 +103,9 @@ export function ResultsPage({ params }: { params: Params }) {
                   {a.is_correct ? "Correct" : "Missed"}
                 </span>
               </div>
-              <div className={styles.itemPrompt}>{q.prompt}</div>
+              <div className={styles.itemPrompt}>
+                <Markdown inline>{q.prompt}</Markdown>
+              </div>
               {pickedChoice ? (
                 <div className={styles.line}>
                   <strong>You picked:</strong> {pickedChoice.label}
@@ -119,7 +122,8 @@ export function ResultsPage({ params }: { params: Params }) {
                 </div>
               ) : null}
               <div className={styles.line}>
-                <strong>Answer:</strong> {q.recap_answer}
+                <strong>Answer:</strong>{" "}
+                <Markdown inline>{q.recap_answer}</Markdown>
               </div>
             </Card>
           );
