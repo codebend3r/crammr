@@ -13,8 +13,10 @@
   align-items: center;
   gap: var(--space-3);
   color: var(--color-text);
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 20px;
+  font-size: 22px;
+  letter-spacing: -0.02em;
   white-space: nowrap;
 }
 

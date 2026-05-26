@@ -12,6 +12,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@fontsource-variable/space-grotesk": "^5.2.10",
     "@supabase/supabase-js": "^2.57.4",
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.344.0",
