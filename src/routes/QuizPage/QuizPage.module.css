@@ -1,0 +1,19 @@
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.counter {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
