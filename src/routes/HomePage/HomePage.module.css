@@ -59,13 +59,13 @@
 }
 
 .badge[data-type="static"] {
-  background: #e0e7ff;
-  color: #3730a3;
+  background: var(--color-badge-static-bg);
+  color: var(--color-badge-static-fg);
 }
 
 .badge[data-type="dynamic"] {
-  background: #d1fae5;
-  color: #065f46;
+  background: var(--color-badge-dynamic-bg);
+  color: var(--color-badge-dynamic-fg);
 }
 
 .count {
