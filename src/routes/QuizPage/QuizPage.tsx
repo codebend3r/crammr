@@ -29,6 +29,7 @@ export function QuizPage({ params }: { params: Params }) {
   }, [sessionId, mode, questions.length, navigate, params.slug]);
 
   if (!sessionId || !mode || questions.length === 0) return null;
+  if (currentIndex >= questions.length) return null;
 
   const question = questions[currentIndex];
   const total = questions.length;
