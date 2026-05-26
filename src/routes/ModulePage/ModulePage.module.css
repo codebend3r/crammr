@@ -63,7 +63,7 @@
 
 .modeActive {
   border-color: var(--color-accent);
-  background: #ebf2fa;
+  background: var(--color-accent-soft);
 }
 
 .modeLabel {
@@ -92,7 +92,7 @@
 
 .sizeActive {
   border-color: var(--color-accent);
-  background: #ebf2fa;
+  background: var(--color-accent-soft);
   color: var(--color-accent);
 }
 

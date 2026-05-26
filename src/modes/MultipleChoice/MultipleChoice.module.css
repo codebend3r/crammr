@@ -34,14 +34,14 @@
 
 .correct {
   border-color: var(--color-correct);
-  background: #ecfdf5;
+  background: var(--color-correct-bg);
   color: var(--color-correct);
   font-weight: 600;
 }
 
 .incorrect {
   border-color: var(--color-incorrect);
-  background: #fef2f2;
+  background: var(--color-incorrect-bg);
   color: var(--color-incorrect);
   font-weight: 600;
 }

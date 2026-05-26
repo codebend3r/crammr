@@ -75,7 +75,7 @@
 }
 
 .error {
-  background: #fef2f2;
+  background: var(--color-incorrect-bg);
   color: var(--color-incorrect);
   padding: var(--space-3);
   border-radius: var(--radius-md);
@@ -83,7 +83,7 @@
 }
 
 .info {
-  background: #ecfdf5;
+  background: var(--color-correct-bg);
   color: var(--color-correct);
   padding: var(--space-3);
   border-radius: var(--radius-md);
