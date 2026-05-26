@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Question } from "../../lib/types";
 import { Button } from "../../components/Button";
+import { Markdown } from "../../components/Markdown";
 import styles from "./Flashcards.module.css";
 
 export type AnswerPayload = {
@@ -43,7 +44,9 @@ export function Flashcards({ question, onAnswer, onNext }: Props) {
             {flipped ? "Answer" : "Question"}
           </span>
           <span className={styles.faceText}>
-            {flipped ? question.flashcard_back : question.prompt}
+            <Markdown inline>
+              {flipped ? question.flashcard_back : question.prompt}
+            </Markdown>
           </span>
         </div>
         <span className={styles.hint}>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Question } from "../../lib/types";
 import { Button } from "../../components/Button";
+import { Markdown } from "../../components/Markdown";
 import styles from "./Recap.module.css";
 
 export type AnswerPayload = {
@@ -32,7 +33,9 @@ export function Recap({ question, onAnswer, onNext }: Props) {
 
   return (
     <div className={styles.wrap}>
-      <h2 className={styles.prompt}>{question.prompt}</h2>
+      <h2 className={styles.prompt}>
+        <Markdown inline>{question.prompt}</Markdown>
+      </h2>
 
       {!revealed ? (
         <Button onClick={() => setRevealed(true)} block>
@@ -41,7 +44,9 @@ export function Recap({ question, onAnswer, onNext }: Props) {
       ) : (
         <div className={styles.answer}>
           <div className={styles.answerLabel}>Canonical answer</div>
-          <div className={styles.answerText}>{question.recap_answer}</div>
+          <div className={styles.answerText}>
+            <Markdown>{question.recap_answer}</Markdown>
+          </div>
         </div>
       )}
 

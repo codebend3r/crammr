@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import type { Question } from "../../lib/types";
 import { shuffle } from "../../lib/sampling";
 import { Button } from "../../components/Button";
+import { Markdown } from "../../components/Markdown";
 import styles from "./MultipleChoice.module.css";
 
 export type AnswerPayload = {
@@ -36,7 +37,9 @@ export function MultipleChoice({ question, onAnswer, onNext }: Props) {
 
   return (
     <div className={styles.wrap}>
-      <h2 className={styles.prompt}>{question.prompt}</h2>
+      <h2 className={styles.prompt}>
+        <Markdown inline>{question.prompt}</Markdown>
+      </h2>
       <div className={styles.choices}>
         {choices.map((c) => {
           let cls = styles.choice;
@@ -59,7 +62,9 @@ export function MultipleChoice({ question, onAnswer, onNext }: Props) {
         })}
       </div>
       {locked && question.explanation ? (
-        <div className={styles.explanation}>{question.explanation}</div>
+        <div className={styles.explanation}>
+          <Markdown>{question.explanation}</Markdown>
+        </div>
       ) : null}
       {locked ? (
         <Button onClick={handleNext} block>
