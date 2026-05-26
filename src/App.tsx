@@ -6,6 +6,7 @@ import { Header } from "./components/Header";
 import { LoginPage } from "./routes/LoginPage/LoginPage";
 import { HomePage } from "./routes/HomePage/HomePage";
 import { ModulePage } from "./routes/ModulePage/ModulePage";
+import { QuizPage } from "./routes/QuizPage/QuizPage";
 
 function Placeholder({ name }: { name: string }) {
   return <div style={{ padding: 24 }}>{name} (todo)</div>;
@@ -50,7 +51,7 @@ export function App() {
           <Route path="/m/:slug/quiz">
             {(params) => (
               <RequireAuth>
-                <Placeholder name={`QuizPage(${params.slug})`} />
+                <QuizPage params={params} />
               </RequireAuth>
             )}
           </Route>
