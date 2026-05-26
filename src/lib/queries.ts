@@ -1,7 +1,9 @@
 import { supabase } from "@/lib/supabase";
 import type {
   Module,
+  ModuleRequest,
   Question,
+  RequestCategory,
   Session,
   SessionAnswer,
   Mode,
@@ -154,6 +156,47 @@ export type LastScore = {
   sessionSize: number;
   completedAt: string;
 };
+
+export async function fetchRequestCategories(): Promise<RequestCategory[]> {
+  const { data, error } = await supabase
+    .from("request_categories")
+    .select("*")
+    .order("order_index", { ascending: true });
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function fetchModuleRequests(): Promise<ModuleRequest[]> {
+  const { data, error } = await supabase
+    .from("module_requests")
+    .select("*")
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function createModuleRequest(args: {
+  categoryId: string;
+  title: string;
+  description: string;
+  goal: string;
+}): Promise<ModuleRequest> {
+  const { data: auth } = await supabase.auth.getUser();
+  if (!auth.user) throw new Error("Not signed in");
+  const { data, error } = await supabase
+    .from("module_requests")
+    .insert({
+      user_id: auth.user.id,
+      category_id: args.categoryId,
+      title: args.title,
+      description: args.description,
+      goal: args.goal,
+    })
+    .select("*")
+    .single();
+  if (error) throw error;
+  return data as ModuleRequest;
+}
 
 export async function fetchLastScoreByModule(): Promise<
   Record<string, LastScore>

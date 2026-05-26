@@ -1,12 +1,19 @@
 import { useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
-import { LayoutGrid, PlayCircle, Settings, UserRound } from "lucide-react";
+import {
+  LayoutGrid,
+  Lightbulb,
+  PlayCircle,
+  Settings,
+  UserRound,
+} from "lucide-react";
 import { useUIStore } from "@/store/uiStore";
 import styles from "@/components/Sidebar.module.css";
 
 const LINKS = [
   { href: "/in-progress", label: "In progress", icon: PlayCircle },
   { href: "/all-modules", label: "All modules", icon: LayoutGrid },
+  { href: "/module-requests", label: "Request a module", icon: Lightbulb },
   { href: "/app-settings", label: "App settings", icon: Settings },
   { href: "/preferences", label: "Preferences", icon: UserRound },
 ] as const;
