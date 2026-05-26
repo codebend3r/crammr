@@ -9,71 +9,107 @@ export type RecordedAnswer = {
   isCorrect: boolean;
 };
 
-type SessionState = {
-  sessionId: string | null;
-  moduleId: string | null;
-  mode: Mode | null;
+export type ModuleSession = {
+  slug: string;
+  sessionId: string;
+  moduleId: string;
+  mode: Mode;
   questions: Question[];
   currentIndex: number;
   answers: RecordedAnswer[];
-  startedAt: number | null;
+  startedAt: number;
+};
 
-  start: (args: {
-    sessionId: string;
-    moduleId: string;
-    mode: Mode;
-    questions: Question[];
-  }) => void;
+type SessionState = {
+  sessions: Record<string, ModuleSession>;
 
-  recordAnswer: (answer: RecordedAnswer) => void;
-  advance: () => void;
-  setIndex: (n: number) => void;
+  start: (
+    slug: string,
+    args: {
+      sessionId: string;
+      moduleId: string;
+      mode: Mode;
+      questions: Question[];
+    }
+  ) => void;
+
+  recordAnswer: (slug: string, answer: RecordedAnswer) => void;
+  advance: (slug: string) => void;
+  setIndex: (slug: string, n: number) => void;
+  discard: (slug: string) => void;
   reset: () => void;
 };
 
 export const useSessionStore = create<SessionState>()(
   persist(
     (set) => ({
-      sessionId: null,
-      moduleId: null,
-      mode: null,
-      questions: [],
-      currentIndex: 0,
-      answers: [],
-      startedAt: null,
+      sessions: {},
 
-      start: ({ sessionId, moduleId, mode, questions }) =>
-        set({
-          sessionId,
-          moduleId,
-          mode,
-          questions,
-          currentIndex: 0,
-          answers: [],
-          startedAt: Date.now(),
-        }),
-
-      recordAnswer: (answer) =>
-        set((s) => ({ answers: [...s.answers, answer] })),
-
-      advance: () =>
+      start: (slug, { sessionId, moduleId, mode, questions }) =>
         set((s) => ({
-          currentIndex: Math.min(s.currentIndex + 1, s.questions.length),
+          sessions: {
+            ...s.sessions,
+            [slug]: {
+              slug,
+              sessionId,
+              moduleId,
+              mode,
+              questions,
+              currentIndex: 0,
+              answers: [],
+              startedAt: Date.now(),
+            },
+          },
         })),
 
-      setIndex: (n) => set({ currentIndex: n }),
-
-      reset: () =>
-        set({
-          sessionId: null,
-          moduleId: null,
-          mode: null,
-          questions: [],
-          currentIndex: 0,
-          answers: [],
-          startedAt: null,
+      recordAnswer: (slug, answer) =>
+        set((s) => {
+          const sess = s.sessions[slug];
+          if (!sess) return s;
+          return {
+            sessions: {
+              ...s.sessions,
+              [slug]: { ...sess, answers: [...sess.answers, answer] },
+            },
+          };
         }),
+
+      advance: (slug) =>
+        set((s) => {
+          const sess = s.sessions[slug];
+          if (!sess) return s;
+          return {
+            sessions: {
+              ...s.sessions,
+              [slug]: {
+                ...sess,
+                currentIndex: Math.min(
+                  sess.currentIndex + 1,
+                  sess.questions.length
+                ),
+              },
+            },
+          };
+        }),
+
+      setIndex: (slug, n) =>
+        set((s) => {
+          const sess = s.sessions[slug];
+          if (!sess) return s;
+          return {
+            sessions: { ...s.sessions, [slug]: { ...sess, currentIndex: n } },
+          };
+        }),
+
+      discard: (slug) =>
+        set((s) => {
+          const next = { ...s.sessions };
+          delete next[slug];
+          return { sessions: next };
+        }),
+
+      reset: () => set({ sessions: {} }),
     }),
-    { name: "lockedin-session-v1" }
+    { name: "lockedin-session-v2" }
   )
 );
