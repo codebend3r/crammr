@@ -1,0 +1,22 @@
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.badge[data-role="admin"] {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.badge[data-role="trial"] {
+  background: var(--color-badge-dynamic-bg);
+  color: var(--color-badge-dynamic-fg);
+}

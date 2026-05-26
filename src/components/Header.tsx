@@ -2,8 +2,10 @@ import { Link } from "wouter";
 import { LogOut, Menu } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
 import { useUIStore } from "@/store/uiStore";
+import { getRole } from "@/lib/role";
 import { Button } from "@/components/Button";
 import { Logo } from "@/components/Logo";
+import { RoleBadge } from "@/components/RoleBadge";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import styles from "@/components/Header.module.css";
 
@@ -50,6 +52,7 @@ export function Header() {
                 return user.email;
               })()}
             </span>
+            <RoleBadge role={getRole(user)} />
             <Button
               variant="ghost"
               onClick={() => signOut()}
