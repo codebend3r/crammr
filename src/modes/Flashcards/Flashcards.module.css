@@ -1,0 +1,56 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-7) var(--space-5);
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+  font: inherit;
+  color: inherit;
+}
+
+.card:hover {
+  border-color: var(--color-accent);
+}
+
+.face {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.faceLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.faceText {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.gradeRow {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+}
