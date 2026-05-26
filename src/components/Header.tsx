@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Lock } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
 import { Button } from "@/components/Button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import styles from "@/components/Header.module.css";
 
 export function Header() {
@@ -14,14 +15,17 @@ export function Header() {
         <Lock size={18} />
         <span>Locked In</span>
       </Link>
-      {user ? (
-        <div className={styles.right}>
-          <span className={styles.email}>{user.email}</span>
-          <Button variant="ghost" onClick={() => signOut()}>
-            Sign out
-          </Button>
-        </div>
-      ) : null}
+      <div className={styles.right}>
+        <ThemeToggle />
+        {user ? (
+          <>
+            <span className={styles.email}>{user.email}</span>
+            <Button variant="ghost" onClick={() => signOut()}>
+              Sign out
+            </Button>
+          </>
+        ) : null}
+      </div>
     </header>
   );
 }
