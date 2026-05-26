@@ -110,6 +110,6 @@ export const useSessionStore = create<SessionState>()(
 
       reset: () => set({ sessions: {} }),
     }),
-    { name: "lockedin-session-v2" }
+    { name: "crammr-session-v2" }
   )
 );

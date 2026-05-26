@@ -1,4 +1,4 @@
-# Locked In — Conventions
+# crammr — Conventions
 
 ## TypeScript: never use `interface`
 
