@@ -53,3 +53,21 @@ export type SessionAnswer = {
   is_correct: boolean;
   answered_at: string;
 };
+
+export type RequestCategory = {
+  id: string;
+  slug: string;
+  name: string;
+  order_index: number;
+  created_at: string;
+};
+
+export type ModuleRequest = {
+  id: string;
+  user_id: string;
+  category_id: string;
+  title: string;
+  description: string;
+  goal: string;
+  created_at: string;
+};

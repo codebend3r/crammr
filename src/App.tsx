@@ -16,6 +16,7 @@ import { InProgressPage } from "@/routes/InProgressPage/InProgressPage";
 import { AllModulesPage } from "@/routes/AllModulesPage/AllModulesPage";
 import { AppSettingsPage } from "@/routes/AppSettingsPage/AppSettingsPage";
 import { PreferencesPage } from "@/routes/PreferencesPage/PreferencesPage";
+import { ModuleRequestsPage } from "@/routes/ModuleRequestsPage/ModuleRequestsPage";
 import styles from "@/App.module.css";
 
 export function App() {
@@ -61,6 +62,11 @@ export function App() {
           <Route path="/all-modules">
             <RequireAuth>
               <AllModulesPage />
+            </RequireAuth>
+          </Route>
+          <Route path="/module-requests">
+            <RequireAuth>
+              <ModuleRequestsPage />
             </RequireAuth>
           </Route>
           <Route path="/app-settings">
