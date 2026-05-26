@@ -62,7 +62,7 @@ export function LoginPage() {
   return (
     <div className={styles.page}>
       <Card className={styles.card}>
-        <h1 className={styles.title}>Locked In</h1>
+        <h1 className={styles.title}>crammr</h1>
         <p className={styles.subtitle}>
           Brush up before the test. Sign in to track your progress.
         </p>

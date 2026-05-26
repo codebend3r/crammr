@@ -29,7 +29,7 @@ export function AppSettingsPage() {
     <div className={styles.page}>
       <h1 className={styles.heading}>App settings</h1>
       <p className={styles.subtitle}>
-        Adjust how Locked In looks. Changes save automatically.
+        Adjust how crammr looks. Changes save automatically.
       </p>
 
       <Card className={styles.card}>

@@ -49,7 +49,7 @@ const FONT_TOKENS = [
   {
     name: "font-display",
     label: "Headings / brand",
-    sample: "Locked In — focus, recall, repeat.",
+    sample: "crammr — focus, recall, repeat.",
   },
 ] as const;
 

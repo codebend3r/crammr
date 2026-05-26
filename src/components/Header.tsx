@@ -28,7 +28,7 @@ export function Header() {
         </button>
         <Link href="/" className={styles.brand}>
           <Logo size={32} />
-          <span>Locked In</span>
+          <span>crammr</span>
         </Link>
       </div>
       <div className={styles.right}>

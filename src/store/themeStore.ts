@@ -3,7 +3,7 @@ import { create } from "zustand";
 type ThemeMode = "light" | "dark" | "system";
 type Effective = "light" | "dark";
 
-const STORAGE_KEY = "lockedin-theme";
+const STORAGE_KEY = "crammr-theme";
 
 function readStored(): ThemeMode {
   const v = window.localStorage.getItem(STORAGE_KEY);

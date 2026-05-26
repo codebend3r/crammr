@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Locked In</title>
+    <title>crammr</title>
     <script>
       (function () {
         try {
-          var t = localStorage.getItem("lockedin-theme");
+          var t = localStorage.getItem("crammr-theme");
           var sysDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
           var eff = t === "dark" || (t !== "light" && sysDark) ? "dark" : "light";
           document.documentElement.setAttribute("data-theme", eff);

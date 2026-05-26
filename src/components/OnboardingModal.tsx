@@ -49,7 +49,7 @@ export function OnboardingModal() {
         aria-labelledby="onboarding-title"
       >
         <h2 id="onboarding-title" className={styles.title}>
-          Welcome to Locked In
+          Welcome to crammr
         </h2>
         <p className={styles.subtitle}>
           What should we call you? You can change this any time in Preferences.

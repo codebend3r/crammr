@@ -19,6 +19,6 @@ export const useUIStore = create<UIState>()(
       toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
       setSidebarOpen: (open) => set({ sidebarOpen: open }),
     }),
-    { name: "lockedin-ui-v1" }
+    { name: "crammr-ui-v1" }
   )
 );
