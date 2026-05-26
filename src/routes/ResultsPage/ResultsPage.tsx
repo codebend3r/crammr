@@ -9,10 +9,10 @@ import { Card } from "../../components/Card";
 import { Button } from "../../components/Button";
 import styles from "./ResultsPage.module.css";
 
-interface Params {
+type Params = {
   slug: string;
   id: string;
-}
+};
 
 export function ResultsPage({ params }: { params: Params }) {
   const [data, setData] = useState<SessionWithAnswers | null>(null);

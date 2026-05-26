@@ -4,16 +4,16 @@ import { shuffle } from "../../lib/sampling";
 import { Button } from "../../components/Button";
 import styles from "./MultipleChoice.module.css";
 
-export interface AnswerPayload {
+export type AnswerPayload = {
   choiceId: string;
   isCorrect: boolean;
-}
+};
 
-interface Props {
+type Props = {
   question: Question;
   onAnswer: (payload: AnswerPayload) => Promise<void>;
   onNext: () => void;
-}
+};
 
 export function MultipleChoice({ question, onAnswer, onNext }: Props) {
   const choices = useMemo(() => shuffle(question.choices), [question.id]);

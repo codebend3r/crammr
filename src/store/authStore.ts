@@ -5,7 +5,7 @@ import { useSessionStore } from "./sessionStore";
 
 type AuthStatus = "loading" | "authenticated" | "unauthenticated";
 
-interface AuthState {
+type AuthState = {
   user: User | null;
   session: Session | null;
   status: AuthStatus;
@@ -14,7 +14,7 @@ interface AuthState {
   signInWithMagicLink: (email: string) => Promise<void>;
   signOut: () => Promise<void>;
   bootstrap: () => Promise<void>;
-}
+};
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,

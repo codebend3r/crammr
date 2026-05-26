@@ -3,16 +3,16 @@ import type { Question } from "../../lib/types";
 import { Button } from "../../components/Button";
 import styles from "./Recap.module.css";
 
-export interface AnswerPayload {
+export type AnswerPayload = {
   selfGrade: boolean;
   isCorrect: boolean;
-}
+};
 
-interface Props {
+type Props = {
   question: Question;
   onAnswer: (payload: AnswerPayload) => Promise<void>;
   onNext: () => void;
-}
+};
 
 export function Recap({ question, onAnswer, onNext }: Props) {
   const [revealed, setRevealed] = useState(false);
