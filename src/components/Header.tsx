@@ -12,7 +12,7 @@ export function Header() {
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.brand}>
-        <Logo size={22} />
+        <Logo size={32} />
         <span>Locked In</span>
       </Link>
       <div className={styles.right}>
