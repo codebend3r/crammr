@@ -125,21 +125,21 @@ export async function fetchSessionWithAnswers(
   if (aErr) throw aErr;
 
   const questionIds = (answers ?? []).map((a) => a.question_id);
-  let questions: Question[] = [];
-  if (questionIds.length > 0) {
+  const questions: Question[] = await (async () => {
+    if (questionIds.length === 0) return [];
     const { data: qs, error: qErr } = await supabase
       .from("questions")
       .select("*, choices:question_choices(*)")
       .in("id", questionIds);
     if (qErr) throw qErr;
-    questions = (qs ?? []).map((q) => ({
+    return (qs ?? []).map((q) => ({
       ...q,
       choices: (q.choices ?? []).sort(
         (a: { order_index: number }, b: { order_index: number }) =>
           a.order_index - b.order_index
       ),
     })) as Question[];
-  }
+  })();
 
   return {
     session: session as Session,
