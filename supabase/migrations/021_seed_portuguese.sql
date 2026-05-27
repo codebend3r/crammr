@@ -1,5 +1,5 @@
 -- 021_seed_portuguese.sql
--- Portuguese module: 250 quiz questions (batch 1 of 2)
+-- Portuguese module: 500 quiz questions
 
 -- Question 0 (greeting: oi) -----------------------------------------------------
 with q as (
@@ -6252,4 +6252,6252 @@ from q,
        ('Ele estava em casa', false, 3)
      ) as c(label, is_correct, order_index);
 
--- BATCH_2_PLACEHOLDER
+-- Question 250 (subj. presente: regular -ar falar 1s) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "falar" in the presente do subjuntivo for "eu".',
+         'Regular -ar verbs swap the -ar ending for -e endings in the subjunctive: fale, fales, fale, falemos, falem.',
+         'fale',
+         'The presente do subjuntivo for "eu falar" is "fale".',
+         250
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('fale', true, 0),
+       ('falo', false, 1),
+       ('falei', false, 2),
+       ('falasse', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 251 (subj. presente: regular -er comer 3s) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "comer" in the presente do subjuntivo for "ele".',
+         'Regular -er verbs swap -er for -a endings: coma, comas, coma, comamos, comam.',
+         'coma',
+         'The presente do subjuntivo of "comer" for "ele" is "coma".',
+         251
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('come', false, 0),
+       ('coma', true, 1),
+       ('comeu', false, 2),
+       ('comesse', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 252 (subj. presente: regular -ir partir 1p) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "partir" in the presente do subjuntivo for "nós".',
+         'Regular -ir verbs use -a endings like -er: parta, partas, parta, partamos, partam.',
+         'partamos',
+         'The presente do subjuntivo of "partir" for "nós" is "partamos".',
+         252
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('partimos', false, 0),
+       ('partíamos', false, 1),
+       ('partamos', true, 2),
+       ('partíssemos', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 253 (subj. presente irregular: ser) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "ser" in the presente do subjuntivo for "eu".',
+         '"Ser" is irregular in the subjunctive: seja, sejas, seja, sejamos, sejam.',
+         'seja',
+         'The presente do subjuntivo of "ser" for "eu" is "seja".',
+         253
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('sou', false, 0),
+       ('seja', true, 1),
+       ('fosse', false, 2),
+       ('era', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 254 (subj. presente irregular: estar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "estar" in the presente do subjuntivo for "ela".',
+         '"Estar" in the subjunctive: esteja, estejas, esteja, estejamos, estejam.',
+         'esteja',
+         'The presente do subjuntivo of "estar" for "ela" is "esteja".',
+         254
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('está', false, 0),
+       ('estivesse', false, 1),
+       ('esteja', true, 2),
+       ('estava', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 255 (subj. presente irregular: ter) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "ter" in the presente do subjuntivo for "você".',
+         '"Ter" in the subjunctive: tenha, tenhas, tenha, tenhamos, tenham.',
+         'tenha',
+         'The presente do subjuntivo of "ter" for "você" is "tenha".',
+         255
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('tenha', true, 0),
+       ('tem', false, 1),
+       ('teve', false, 2),
+       ('tivesse', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 256 (subj. presente irregular: ir) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "ir" in the presente do subjuntivo for "eu".',
+         '"Ir" in the subjunctive: vá, vás, vá, vamos, vão.',
+         'vá',
+         'The presente do subjuntivo of "ir" for "eu" is "vá".',
+         256
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('vou', false, 0),
+       ('fosse', false, 1),
+       ('ia', false, 2),
+       ('vá', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 257 (subj. presente irregular: fazer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "fazer" in the presente do subjuntivo for "ele".',
+         '"Fazer" in the subjunctive: faça, faças, faça, façamos, façam.',
+         'faça',
+         'The presente do subjuntivo of "fazer" for "ele" is "faça".',
+         257
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('faz', false, 0),
+       ('faça', true, 1),
+       ('fizesse', false, 2),
+       ('fez', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 258 (subj. presente irregular: dar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "dar" in the presente do subjuntivo for "eu".',
+         '"Dar" in the subjunctive: dê, dês, dê, demos, deem.',
+         'dê',
+         'The presente do subjuntivo of "dar" for "eu" is "dê".',
+         258
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('dou', false, 0),
+       ('desse', false, 1),
+       ('dê', true, 2),
+       ('dei', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 259 (subj. presente irregular: saber) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "saber" in the presente do subjuntivo for "nós".',
+         '"Saber" in the subjunctive: saiba, saibas, saiba, saibamos, saibam.',
+         'saibamos',
+         'The presente do subjuntivo of "saber" for "nós" is "saibamos".',
+         259
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('sabemos', false, 0),
+       ('soubéssemos', false, 1),
+       ('sabíamos', false, 2),
+       ('saibamos', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 260 (subj. presente irregular: querer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "querer" in the presente do subjuntivo for "eu".',
+         '"Querer" in the subjunctive: queira, queiras, queira, queiramos, queiram.',
+         'queira',
+         'The presente do subjuntivo of "querer" for "eu" is "queira".',
+         260
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('queira', true, 0),
+       ('quero', false, 1),
+       ('quis', false, 2),
+       ('quisesse', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 261 (subj. presente irregular: poder) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "poder" in the presente do subjuntivo for "ele".',
+         '"Poder" in the subjunctive: possa, possas, possa, possamos, possam.',
+         'possa',
+         'The presente do subjuntivo of "poder" for "ele" is "possa".',
+         261
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('pode', false, 0),
+       ('possa', true, 1),
+       ('pudesse', false, 2),
+       ('pôde', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 262 (subj. presente irregular: dizer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "dizer" in the presente do subjuntivo for "eu".',
+         '"Dizer" in the subjunctive: diga, digas, diga, digamos, digam.',
+         'diga',
+         'The presente do subjuntivo of "dizer" for "eu" is "diga".',
+         262
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('digo', false, 0),
+       ('disse', false, 1),
+       ('diga', true, 2),
+       ('dissesse', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 263 (subj. presente irregular: ver) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "ver" in the presente do subjuntivo for "você".',
+         '"Ver" in the subjunctive: veja, vejas, veja, vejamos, vejam.',
+         'veja',
+         'The presente do subjuntivo of "ver" for "você" is "veja".',
+         263
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('vê', false, 0),
+       ('viu', false, 1),
+       ('via', false, 2),
+       ('veja', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 264 (subj. presente trigger: quero que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Quero que você ___ (estudar) mais."',
+         '"Quero que" triggers the presente do subjuntivo: "estude".',
+         'estude',
+         '"Quero que você estude mais" uses the subjunctive after "quero que".',
+         264
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('estude', true, 0),
+       ('estuda', false, 1),
+       ('estudasse', false, 2),
+       ('estudou', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 265 (subj. presente trigger: é importante que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "É importante que nós ___ (chegar) cedo."',
+         'Impersonal expressions like "é importante que" trigger the subjunctive: "cheguemos".',
+         'cheguemos',
+         '"É importante que nós cheguemos cedo" uses the subjunctive.',
+         265
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('chegamos', false, 0),
+       ('cheguemos', true, 1),
+       ('chegássemos', false, 2),
+       ('chegarmos', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 266 (subj. presente trigger: talvez) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Talvez ele ___ (vir) amanhã."',
+         '"Talvez" (perhaps) triggers the subjunctive: "venha".',
+         'venha',
+         '"Talvez ele venha amanhã" uses the subjunctive after "talvez".',
+         266
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('vem', false, 0),
+       ('virá', false, 1),
+       ('venha', true, 2),
+       ('viesse', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 267 (subj. presente trigger: embora) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Embora ela ___ (ser) jovem, é muito sábia."',
+         '"Embora" (although) triggers the subjunctive: "seja".',
+         'seja',
+         '"Embora ela seja jovem" uses the subjunctive after "embora".',
+         267
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('é', false, 0),
+       ('seja', true, 1),
+       ('fosse', false, 2),
+       ('era', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 268 (subj. presente trigger: para que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Falo devagar para que você ___ (entender)."',
+         '"Para que" (so that) triggers the subjunctive: "entenda".',
+         'entenda',
+         '"Para que você entenda" uses the subjunctive after "para que".',
+         268
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('entende', false, 0),
+       ('entendeu', false, 1),
+       ('entenda', true, 2),
+       ('entenderá', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 269 (subj. presente trigger: antes que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Saia antes que ___ (começar) a chover."',
+         '"Antes que" (before) triggers the subjunctive: "comece".',
+         'comece',
+         '"Antes que comece a chover" uses the subjunctive after "antes que".',
+         269
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('começa', false, 0),
+       ('começou', false, 1),
+       ('começará', false, 2),
+       ('comece', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 270 (subj. presente trigger: duvido que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Duvido que ele ___ (saber) a resposta."',
+         '"Duvido que" (I doubt that) triggers the subjunctive: "saiba".',
+         'saiba',
+         '"Duvido que ele saiba" uses the subjunctive after "duvido que".',
+         270
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('saiba', true, 0),
+       ('sabe', false, 1),
+       ('soube', false, 2),
+       ('saberá', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 271 (subj. presente: espero que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Espero que você ___ (ter) um bom dia."',
+         '"Espero que" (I hope that) triggers the subjunctive: "tenha".',
+         'tenha',
+         '"Espero que você tenha um bom dia" uses the subjunctive.',
+         271
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('tem', false, 0),
+       ('tenha', true, 1),
+       ('terá', false, 2),
+       ('teve', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 272 (subj. presente: peço que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Peço que vocês ___ (fazer) silêncio."',
+         '"Peço que" (I ask that) triggers the subjunctive: "façam".',
+         'façam',
+         '"Peço que vocês façam silêncio" uses the subjunctive.',
+         272
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('fazem', false, 0),
+       ('fizeram', false, 1),
+       ('façam', true, 2),
+       ('farão', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 273 (subj. presente: é possível que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "É possível que ___ (chover) hoje."',
+         '"É possível que" triggers the subjunctive: "chova".',
+         'chova',
+         '"É possível que chova hoje" uses the subjunctive.',
+         273
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('chove', false, 0),
+       ('choveu', false, 1),
+       ('choverá', false, 2),
+       ('chova', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 274 (subj. presente: não acho que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Não acho que ele ___ (estar) certo."',
+         'A negated opinion ("não acho que") triggers the subjunctive: "esteja".',
+         'esteja',
+         '"Não acho que ele esteja certo" uses the subjunctive after the negated opinion.',
+         274
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('esteja', true, 0),
+       ('está', false, 1),
+       ('estivesse', false, 2),
+       ('estará', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 275 (subj. presente: que ele venha) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "vir" in the presente do subjuntivo for "ele".',
+         '"Vir" in the subjunctive: venha, venhas, venha, venhamos, venham.',
+         'venha',
+         'The presente do subjuntivo of "vir" for "ele" is "venha".',
+         275
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('vem', false, 0),
+       ('venha', true, 1),
+       ('viesse', false, 2),
+       ('veio', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 276 (subj. presente: trazer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "trazer" in the presente do subjuntivo for "você".',
+         '"Trazer" in the subjunctive: traga, tragas, traga, tragamos, tragam.',
+         'traga',
+         'The presente do subjuntivo of "trazer" for "você" is "traga".',
+         276
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('traz', false, 0),
+       ('trouxe', false, 1),
+       ('traga', true, 2),
+       ('trouxesse', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 277 (subj. presente: -car → -que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "ficar" in the presente do subjuntivo for "eu".',
+         'Verbs in -car become -que in the subjunctive to preserve the hard /k/ sound: fique.',
+         'fique',
+         'The presente do subjuntivo of "ficar" for "eu" is "fique".',
+         277
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('fico', false, 0),
+       ('ficasse', false, 1),
+       ('fica', false, 2),
+       ('fique', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 278 (subj. presente: -gar → -gue) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "pagar" in the presente do subjuntivo for "ele".',
+         'Verbs in -gar become -gue in the subjunctive to preserve the hard /g/ sound: pague.',
+         'pague',
+         'The presente do subjuntivo of "pagar" for "ele" is "pague".',
+         278
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('pague', true, 0),
+       ('paga', false, 1),
+       ('pagou', false, 2),
+       ('pagasse', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 279 (subj. presente: -çar → -ce) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "começar" in the presente do subjuntivo for "nós".',
+         'Verbs in -çar drop the cedilla and become -ce in the subjunctive: comecemos.',
+         'comecemos',
+         'The presente do subjuntivo of "começar" for "nós" is "comecemos".',
+         279
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('começamos', false, 0),
+       ('comecemos', true, 1),
+       ('começássemos', false, 2),
+       ('começaríamos', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 280 (imperf. subj. regular -ar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "falar" in the imperfeito do subjuntivo for "eu".',
+         'Imperfeito do subjuntivo of -ar verbs: -asse, -asses, -asse, -ássemos, -assem. "Falar" → "falasse".',
+         'falasse',
+         'The imperfeito do subjuntivo of "falar" for "eu" is "falasse".',
+         280
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('falasse', true, 0),
+       ('falava', false, 1),
+       ('fale', false, 2),
+       ('falaria', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 281 (imperf. subj. regular -er) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "vender" in the imperfeito do subjuntivo for "ele".',
+         'Imperfeito do subjuntivo of -er verbs: -esse, -esses, -esse, -êssemos, -essem. "Vender" → "vendesse".',
+         'vendesse',
+         'The imperfeito do subjuntivo of "vender" for "ele" is "vendesse".',
+         281
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('vendia', false, 0),
+       ('vendesse', true, 1),
+       ('venda', false, 2),
+       ('venderia', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 282 (imperf. subj. regular -ir) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "dormir" in the imperfeito do subjuntivo for "você".',
+         'Imperfeito do subjuntivo of -ir verbs: -isse, -isses, -isse, -íssemos, -issem. "Dormir" → "dormisse".',
+         'dormisse',
+         'The imperfeito do subjuntivo of "dormir" for "você" is "dormisse".',
+         282
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('dorme', false, 0),
+       ('dormia', false, 1),
+       ('dormisse', true, 2),
+       ('durma', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 283 (imperf. subj. irregular: ser/ir) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "ser" in the imperfeito do subjuntivo for "eu".',
+         '"Ser" and "ir" share the same form in the imperfeito do subjuntivo: fosse, fosses, fosse, fôssemos, fossem.',
+         'fosse',
+         'The imperfeito do subjuntivo of "ser" for "eu" is "fosse".',
+         283
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('era', false, 0),
+       ('seja', false, 1),
+       ('fui', false, 2),
+       ('fosse', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 284 (imperf. subj. irregular: ter) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "ter" in the imperfeito do subjuntivo for "ela".',
+         '"Ter" in the imperfeito do subjuntivo is "tivesse", built from the pretérito perfeito stem "tiv-".',
+         'tivesse',
+         'The imperfeito do subjuntivo of "ter" for "ela" is "tivesse".',
+         284
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('tivesse', true, 0),
+       ('tinha', false, 1),
+       ('tenha', false, 2),
+       ('teria', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 285 (imperf. subj. irregular: fazer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "fazer" in the imperfeito do subjuntivo for "eu".',
+         '"Fazer" in the imperfeito do subjuntivo is "fizesse", from the perfeito stem "fiz-".',
+         'fizesse',
+         'The imperfeito do subjuntivo of "fazer" for "eu" is "fizesse".',
+         285
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('fazia', false, 0),
+       ('fizesse', true, 1),
+       ('faça', false, 2),
+       ('faria', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 286 (imperf. subj. irregular: dizer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "dizer" in the imperfeito do subjuntivo for "ele".',
+         '"Dizer" in the imperfeito do subjuntivo is "dissesse", from the perfeito stem "diss-".',
+         'dissesse',
+         'The imperfeito do subjuntivo of "dizer" for "ele" is "dissesse".',
+         286
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('dizia', false, 0),
+       ('diga', false, 1),
+       ('dissesse', true, 2),
+       ('diria', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 287 (imperf. subj. irregular: poder) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "poder" in the imperfeito do subjuntivo for "eu".',
+         '"Poder" in the imperfeito do subjuntivo is "pudesse", from the perfeito stem "pud-".',
+         'pudesse',
+         'The imperfeito do subjuntivo of "poder" for "eu" is "pudesse".',
+         287
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('podia', false, 0),
+       ('possa', false, 1),
+       ('poderia', false, 2),
+       ('pudesse', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 288 (imperf. subj. irregular: querer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "querer" in the imperfeito do subjuntivo for "você".',
+         '"Querer" in the imperfeito do subjuntivo is "quisesse", from the perfeito stem "quis-".',
+         'quisesse',
+         'The imperfeito do subjuntivo of "querer" for "você" is "quisesse".',
+         288
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('quisesse', true, 0),
+       ('queria', false, 1),
+       ('queira', false, 2),
+       ('quereria', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 289 (imperf. subj. irregular: saber) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "saber" in the imperfeito do subjuntivo for "nós".',
+         '"Saber" in the imperfeito do subjuntivo is "soubéssemos", from the perfeito stem "soub-".',
+         'soubéssemos',
+         'The imperfeito do subjuntivo of "saber" for "nós" is "soubéssemos".',
+         289
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('sabíamos', false, 0),
+       ('soubéssemos', true, 1),
+       ('saibamos', false, 2),
+       ('saberíamos', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 290 (imperf. subj. irregular: estar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "estar" in the imperfeito do subjuntivo for "eu".',
+         '"Estar" in the imperfeito do subjuntivo is "estivesse", from the perfeito stem "estiv-".',
+         'estivesse',
+         'The imperfeito do subjuntivo of "estar" for "eu" is "estivesse".',
+         290
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('estava', false, 0),
+       ('esteja', false, 1),
+       ('estivesse', true, 2),
+       ('estaria', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 291 (se + imperf. subj.: condicional irreal) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Se eu ___ (ter) dinheiro, viajaria pelo mundo."',
+         'Hypothetical "if" clauses use "se" + imperfeito do subjuntivo with the futuro do pretérito in the main clause: "Se eu tivesse...".',
+         'tivesse',
+         '"Se eu tivesse dinheiro, viajaria" pairs imperfeito do subjuntivo with futuro do pretérito.',
+         291
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('tenho', false, 0),
+       ('tinha', false, 1),
+       ('tenha', false, 2),
+       ('tivesse', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 292 (se + imperf. subj.: se eu fosse você) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "If I were you" in Portuguese?',
+         '"Se eu fosse você" uses the imperfeito do subjuntivo of "ser" for hypothetical situations.',
+         'Se eu fosse você',
+         '"If I were you" = "Se eu fosse você".',
+         292
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Se eu fosse você', true, 0),
+       ('Se eu sou você', false, 1),
+       ('Se eu era você', false, 2),
+       ('Se eu seja você', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 293 (trigger: queria que + imperf. subj.) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Queria que você ___ (vir) à festa."',
+         'A past or conditional trigger like "queria que" (I wished that) requires the imperfeito do subjuntivo: "viesse".',
+         'viesse',
+         '"Queria que você viesse" uses imperfeito do subjuntivo after a past trigger.',
+         293
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('venha', false, 0),
+       ('viesse', true, 1),
+       ('vem', false, 2),
+       ('viria', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 294 (talvez + imperf. subj.) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Choose the past-leaning option: "Talvez ele ___ (estar) doente ontem."',
+         'When "talvez" refers to a past event, use the imperfeito do subjuntivo: "estivesse".',
+         'estivesse',
+         '"Talvez ele estivesse doente ontem" places "talvez" in the past with imperfeito do subjuntivo.',
+         294
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('está', false, 0),
+       ('esteja', false, 1),
+       ('estivesse', true, 2),
+       ('estará', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 295 (subj. presente vs imperf. — contraste) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which sentence uses the imperfeito do subjuntivo correctly?',
+         'A past main verb ("pediu") triggers the imperfeito do subjuntivo in the dependent clause.',
+         'Ele pediu que eu falasse mais alto.',
+         'After a past main clause, use the imperfeito do subjuntivo: "Ele pediu que eu falasse mais alto."',
+         295
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Ele pediu que eu fale mais alto.', false, 0),
+       ('Ele pediu que eu falo mais alto.', false, 1),
+       ('Ele pediu que eu falava mais alto.', false, 2),
+       ('Ele pediu que eu falasse mais alto.', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 296 (imperf. subj. irregular: trazer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "trazer" in the imperfeito do subjuntivo for "ele".',
+         '"Trazer" in the imperfeito do subjuntivo is "trouxesse", from the perfeito stem "troux-".',
+         'trouxesse',
+         'The imperfeito do subjuntivo of "trazer" for "ele" is "trouxesse".',
+         296
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('trouxesse', true, 0),
+       ('trazia', false, 1),
+       ('traga', false, 2),
+       ('traria', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 297 (imperf. subj. irregular: ver) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "ver" in the imperfeito do subjuntivo for "eu".',
+         '"Ver" in the imperfeito do subjuntivo is "visse", from the perfeito stem "v-".',
+         'visse',
+         'The imperfeito do subjuntivo of "ver" for "eu" is "visse".',
+         297
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('via', false, 0),
+       ('visse', true, 1),
+       ('veja', false, 2),
+       ('veria', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 298 (como se + imperf. subj.) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Ela fala como se ___ (saber) tudo."',
+         '"Como se" (as if) always triggers the imperfeito do subjuntivo: "soubesse".',
+         'soubesse',
+         '"Como se ela soubesse tudo" uses the imperfeito do subjuntivo after "como se".',
+         298
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('sabe', false, 0),
+       ('saiba', false, 1),
+       ('soubesse', true, 2),
+       ('saberia', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 299 (imperf. subj. irregular: dar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "dar" in the imperfeito do subjuntivo for "eu".',
+         '"Dar" in the imperfeito do subjuntivo is "desse", from the perfeito stem "d-".',
+         'desse',
+         'The imperfeito do subjuntivo of "dar" for "eu" is "desse".',
+         299
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('dava', false, 0),
+       ('dê', false, 1),
+       ('daria', false, 2),
+       ('desse', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 300 (futuro subj. regular -ar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "falar" in the futuro do subjuntivo for "eu".',
+         'The futuro do subjuntivo of regular verbs uses the infinitive stem: falar, falares, falar, falarmos, falarem.',
+         'falar',
+         'The futuro do subjuntivo of "falar" for "eu" is "falar".',
+         300
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('falar', true, 0),
+       ('fale', false, 1),
+       ('falasse', false, 2),
+       ('falo', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 301 (futuro subj. regular -er) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "vender" in the futuro do subjuntivo for "você".',
+         'Futuro do subjuntivo of regular -er verbs is identical to the infinitive in the singular: vender.',
+         'vender',
+         'The futuro do subjuntivo of "vender" for "você" is "vender".',
+         301
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('venda', false, 0),
+       ('vender', true, 1),
+       ('vendesse', false, 2),
+       ('vendê-lo', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 302 (futuro subj. regular -ir) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "partir" in the futuro do subjuntivo for "eles".',
+         'Futuro do subjuntivo plural of -ir verbs ends in -irem: partirem.',
+         'partirem',
+         'The futuro do subjuntivo of "partir" for "eles" is "partirem".',
+         302
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('partam', false, 0),
+       ('partissem', false, 1),
+       ('partirem', true, 2),
+       ('partirão', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 303 (futuro subj. irregular: ser/ir → for) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "ser" (and "ir") in the futuro do subjuntivo for "eu".',
+         '"Ser" and "ir" share an irregular futuro do subjuntivo: for, fores, for, formos, forem.',
+         'for',
+         'The futuro do subjuntivo of "ser/ir" for "eu" is "for".',
+         303
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('serei', false, 0),
+       ('seja', false, 1),
+       ('fosse', false, 2),
+       ('for', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 304 (futuro subj. irregular: ter → tiver) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "ter" in the futuro do subjuntivo for "você".',
+         '"Ter" in the futuro do subjuntivo is "tiver", from the perfeito stem "tiv-".',
+         'tiver',
+         'The futuro do subjuntivo of "ter" for "você" is "tiver".',
+         304
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('tiver', true, 0),
+       ('tenha', false, 1),
+       ('tivesse', false, 2),
+       ('terá', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 305 (futuro subj. irregular: fazer → fizer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "fazer" in the futuro do subjuntivo for "ele".',
+         '"Fazer" in the futuro do subjuntivo is "fizer", from the perfeito stem "fiz-".',
+         'fizer',
+         'The futuro do subjuntivo of "fazer" for "ele" is "fizer".',
+         305
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('faça', false, 0),
+       ('fizer', true, 1),
+       ('fará', false, 2),
+       ('fizesse', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 306 (futuro subj. irregular: dizer → disser) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "dizer" in the futuro do subjuntivo for "ela".',
+         '"Dizer" in the futuro do subjuntivo is "disser", from the perfeito stem "diss-".',
+         'disser',
+         'The futuro do subjuntivo of "dizer" for "ela" is "disser".',
+         306
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('diga', false, 0),
+       ('dissesse', false, 1),
+       ('disser', true, 2),
+       ('dirá', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 307 (futuro subj. irregular: poder → puder) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "poder" in the futuro do subjuntivo for "eu".',
+         '"Poder" in the futuro do subjuntivo is "puder", from the perfeito stem "pud-".',
+         'puder',
+         'The futuro do subjuntivo of "poder" for "eu" is "puder".',
+         307
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('posso', false, 0),
+       ('possa', false, 1),
+       ('poderia', false, 2),
+       ('puder', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 308 (futuro subj. irregular: querer → quiser) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "querer" in the futuro do subjuntivo for "você".',
+         '"Querer" in the futuro do subjuntivo is "quiser", from the perfeito stem "quis-".',
+         'quiser',
+         'The futuro do subjuntivo of "querer" for "você" is "quiser".',
+         308
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('quiser', true, 0),
+       ('queira', false, 1),
+       ('quererá', false, 2),
+       ('quisesse', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 309 (futuro subj. irregular: saber → souber) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "saber" in the futuro do subjuntivo for "ele".',
+         '"Saber" in the futuro do subjuntivo is "souber", from the perfeito stem "soub-".',
+         'souber',
+         'The futuro do subjuntivo of "saber" for "ele" is "souber".',
+         309
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('sabe', false, 0),
+       ('souber', true, 1),
+       ('saiba', false, 2),
+       ('saberá', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 310 (futuro subj. trigger: quando) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Quando eu ___ (chegar), te ligo."',
+         '"Quando" referring to a future event triggers the futuro do subjuntivo: "chegar".',
+         'chegar',
+         '"Quando eu chegar, te ligo" uses the futuro do subjuntivo after "quando".',
+         310
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('chego', false, 0),
+       ('cheguei', false, 1),
+       ('chegar', true, 2),
+       ('chegue', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 311 (futuro subj. trigger: se) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Se você ___ (poder), me ajude."',
+         '"Se" referring to a future possibility triggers the futuro do subjuntivo: "puder".',
+         'puder',
+         '"Se você puder, me ajude" uses the futuro do subjuntivo after "se".',
+         311
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('pode', false, 0),
+       ('possa', false, 1),
+       ('pudesse', false, 2),
+       ('puder', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 312 (futuro subj. trigger: enquanto) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Enquanto ele ___ (estar) doente, não vai trabalhar."',
+         '"Enquanto" referring to the future triggers the futuro do subjuntivo: "estiver".',
+         'estiver',
+         '"Enquanto ele estiver doente" uses the futuro do subjuntivo after "enquanto".',
+         312
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('estiver', true, 0),
+       ('está', false, 1),
+       ('esteja', false, 2),
+       ('estará', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 313 (futuro subj. trigger: assim que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Assim que ela ___ (ver) você, vai sorrir."',
+         '"Assim que" (as soon as) referring to the future triggers the futuro do subjuntivo: "vir".',
+         'vir',
+         '"Assim que ela vir você" uses the futuro do subjuntivo after "assim que".',
+         313
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('vê', false, 0),
+       ('vir', true, 1),
+       ('veja', false, 2),
+       ('verá', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 314 (futuro subj.: vir → vier) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "vir" in the futuro do subjuntivo for "você".',
+         '"Vir" in the futuro do subjuntivo is "vier", from the perfeito stem "vi-".',
+         'vier',
+         'The futuro do subjuntivo of "vir" for "você" is "vier".',
+         314
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('vem', false, 0),
+       ('venha', false, 1),
+       ('vier', true, 2),
+       ('virá', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 315 (futuro subj.: trazer → trouxer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "trazer" in the futuro do subjuntivo for "ele".',
+         '"Trazer" in the futuro do subjuntivo is "trouxer", from the perfeito stem "troux-".',
+         'trouxer',
+         'The futuro do subjuntivo of "trazer" for "ele" is "trouxer".',
+         315
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('traga', false, 0),
+       ('trará', false, 1),
+       ('trouxesse', false, 2),
+       ('trouxer', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 316 (futuro subj.: pôr → puser) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "pôr" in the futuro do subjuntivo for "eu".',
+         '"Pôr" in the futuro do subjuntivo is "puser", from the perfeito stem "pus-".',
+         'puser',
+         'The futuro do subjuntivo of "pôr" for "eu" is "puser".',
+         316
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('puser', true, 0),
+       ('ponha', false, 1),
+       ('porei', false, 2),
+       ('pusesse', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 317 (futuro subj.: full sentence) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate "When you can, call me." to Portuguese.',
+         '"Quando você puder, me ligue" pairs the futuro do subjuntivo with an imperative.',
+         'Quando você puder, me ligue.',
+         '"When you can, call me" = "Quando você puder, me ligue."',
+         317
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Quando você pode, me ligue.', false, 0),
+       ('Quando você puder, me ligue.', true, 1),
+       ('Quando você possa, me ligue.', false, 2),
+       ('Quando você poderia, me ligue.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 318 (futuro subj. usage: alive in BR) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which statement about the futuro do subjuntivo is true for Brazilian Portuguese?',
+         'Unlike many Romance languages, the futuro do subjuntivo is fully alive in everyday BR-PT after "quando", "se", "enquanto", and "assim que".',
+         'It is in active everyday use in BR-PT.',
+         'The futuro do subjuntivo is in active everyday use in Brazilian Portuguese.',
+         318
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('It only appears in legal or biblical texts.', false, 0),
+       ('It is in active everyday use in BR-PT.', true, 1),
+       ('It is the same as the presente do subjuntivo.', false, 2),
+       ('It is only used after "embora".', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 319 (futuro subj.: nós ending) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "falar" in the futuro do subjuntivo for "nós".',
+         'The nós ending of the futuro do subjuntivo for "falar" is "falarmos".',
+         'falarmos',
+         'The futuro do subjuntivo of "falar" for "nós" is "falarmos".',
+         319
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('falemos', false, 0),
+       ('falássemos', false, 1),
+       ('falarmos', true, 2),
+       ('falaremos', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 320 (imperativo: você fale) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you give the affirmative command "Speak!" to "você" in BR-PT?',
+         'BR-PT typically uses the você-based imperative, which matches the presente do subjuntivo: "Fale!".',
+         'Fale!',
+         'The você affirmative imperative of "falar" is "Fale!".',
+         320
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Fale!', true, 0),
+       ('Fala!', false, 1),
+       ('Falou!', false, 2),
+       ('Falando!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 321 (imperativo: você coma) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate the command "Eat!" (to "você") in Portuguese.',
+         'The você imperative of "comer" matches the subjunctive: "Coma!".',
+         'Coma!',
+         'The você affirmative imperative of "comer" is "Coma!".',
+         321
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Come!', false, 0),
+       ('Coma!', true, 1),
+       ('Comeu!', false, 2),
+       ('Comendo!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 322 (imperativo: vá) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Go!" (to "você") in Portuguese?',
+         'The você imperative of "ir" is "Vá!", from the subjunctive form.',
+         'Vá!',
+         'The você affirmative imperative of "ir" is "Vá!".',
+         322
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Vai!', false, 0),
+       ('Foi!', false, 1),
+       ('Vá!', true, 2),
+       ('Ir!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 323 (imperativo: venha) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate the command "Come!" (to "você") in Portuguese.',
+         'The você imperative of "vir" is "Venha!".',
+         'Venha!',
+         'The você affirmative imperative of "vir" is "Venha!".',
+         323
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Vem!', false, 0),
+       ('Veio!', false, 1),
+       ('Viesse!', false, 2),
+       ('Venha!', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 324 (imperativo: faça) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Do it!" (to "você") in Portuguese?',
+         'The você imperative of "fazer" is "Faça!".',
+         'Faça!',
+         'The você affirmative imperative of "fazer" is "Faça!".',
+         324
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Faça!', true, 0),
+       ('Faz!', false, 1),
+       ('Fez!', false, 2),
+       ('Fazendo!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 325 (imperativo: seja) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Be careful!" (to "você") in Portuguese?',
+         'The você imperative of "ser" is "Seja!": "Seja cuidadoso!".',
+         'Seja cuidadoso!',
+         '"Be careful!" (to você) = "Seja cuidadoso!".',
+         325
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('É cuidadoso!', false, 0),
+       ('Seja cuidadoso!', true, 1),
+       ('Fosse cuidadoso!', false, 2),
+       ('Era cuidadoso!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 326 (imperativo: tenha) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Have patience!" (to "você") in Portuguese?',
+         'The você imperative of "ter" is "Tenha!": "Tenha paciência!".',
+         'Tenha paciência!',
+         '"Have patience!" (to você) = "Tenha paciência!".',
+         326
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Tem paciência!', false, 0),
+       ('Tinha paciência!', false, 1),
+       ('Tenha paciência!', true, 2),
+       ('Teve paciência!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 327 (imperativo negativo: não fale) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Don''t speak!" (to "você") in Portuguese?',
+         'Negative commands always use the subjunctive form: "Não fale!".',
+         'Não fale!',
+         '"Don''t speak!" (to você) = "Não fale!".',
+         327
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Não fala!', false, 0),
+       ('Não falou!', false, 1),
+       ('Não falar!', false, 2),
+       ('Não fale!', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 328 (imperativo negativo: não coma) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Don''t eat that!" (to "você") in Portuguese?',
+         'Negative commands use the subjunctive: "Não coma isso!".',
+         'Não coma isso!',
+         '"Don''t eat that!" (to você) = "Não coma isso!".',
+         328
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Não coma isso!', true, 0),
+       ('Não come isso!', false, 1),
+       ('Não comeu isso!', false, 2),
+       ('Não comer isso!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 329 (imperativo negativo: não vá) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Don''t go!" (to "você") in Portuguese?',
+         'Negative commands use the subjunctive: "Não vá!".',
+         'Não vá!',
+         '"Don''t go!" (to você) = "Não vá!".',
+         329
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Não vai!', false, 0),
+       ('Não vá!', true, 1),
+       ('Não foi!', false, 2),
+       ('Não ir!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 330 (imperativo: tu fala — BR variant) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'In BR speech where "tu" is used (south/northeast), what is the affirmative imperative of "falar"?',
+         'In informal BR speech the tu-imperative is often the indicative form with the -s dropped: "Fala!".',
+         'Fala!',
+         'The tu-style BR affirmative imperative of "falar" is "Fala!".',
+         330
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Fala!', true, 0),
+       ('Fale!', false, 1),
+       ('Falas!', false, 2),
+       ('Falou!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 331 (imperativo: vamos comer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Let''s eat!" in Portuguese?',
+         'The "let''s" form uses "vamos" + infinitive: "Vamos comer!". A subjunctive nós-form ("comamos") also exists but feels formal.',
+         'Vamos comer!',
+         '"Let''s eat!" = "Vamos comer!".',
+         331
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Comemos!', false, 0),
+       ('Coma!', false, 1),
+       ('Vamos comer!', true, 2),
+       ('Comer!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 332 (imperativo: falemos — formal nós) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the formal nós-imperative of "falar"?',
+         'The formal nós-imperative uses the subjunctive nós-form: "Falemos!".',
+         'Falemos!',
+         'The formal nós-imperative of "falar" is "Falemos!".',
+         332
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Falamos!', false, 0),
+       ('Falemos!', true, 1),
+       ('Falássemos!', false, 2),
+       ('Falaremos!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 333 (imperativo: dê) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Give me the book!" (to "você") in Portuguese?',
+         'The você imperative of "dar" is "Dê!": "Dê-me o livro!" (or more colloquially "Me dê o livro!").',
+         'Dê-me o livro!',
+         '"Give me the book!" (to você, formal) = "Dê-me o livro!".',
+         333
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Dê-me o livro!', true, 0),
+       ('Dou-me o livro!', false, 1),
+       ('Desse-me o livro!', false, 2),
+       ('Dar-me o livro!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 334 (imperativo: ouça) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Listen!" (to "você") in Portuguese?',
+         'The você imperative of "ouvir" is "Ouça!".',
+         'Ouça!',
+         'The você affirmative imperative of "ouvir" is "Ouça!".',
+         334
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Ouve!', false, 0),
+       ('Ouvi!', false, 1),
+       ('Ouviu!', false, 2),
+       ('Ouça!', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 335 (imperativo: leia) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Read this!" (to "você") in Portuguese?',
+         'The você imperative of "ler" is "Leia!": "Leia isto!".',
+         'Leia isto!',
+         '"Read this!" (to você) = "Leia isto!".',
+         335
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Leia isto!', true, 0),
+       ('Lê isto!', false, 1),
+       ('Leu isto!', false, 2),
+       ('Ler isto!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 336 (imperativo: escreva) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Write your name!" (to "você") in Portuguese?',
+         'The você imperative of "escrever" is "Escreva!": "Escreva seu nome!".',
+         'Escreva seu nome!',
+         '"Write your name!" (to você) = "Escreva seu nome!".',
+         336
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Escreve seu nome!', false, 0),
+       ('Escreva seu nome!', true, 1),
+       ('Escreveu seu nome!', false, 2),
+       ('Escrever seu nome!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 337 (imperativo: não esqueça) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Don''t forget!" (to "você") in Portuguese?',
+         'Negative commands use the subjunctive: "Não esqueça!".',
+         'Não esqueça!',
+         '"Don''t forget!" (to você) = "Não esqueça!".',
+         337
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Não esquece!', false, 0),
+       ('Não esqueceu!', false, 1),
+       ('Não esqueça!', true, 2),
+       ('Não esquecer!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 338 (imperativo: espere) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "Wait!" (to "você") in Portuguese?',
+         'The você imperative of "esperar" is "Espere!".',
+         'Espere!',
+         'The você affirmative imperative of "esperar" is "Espere!".',
+         338
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Espere!', true, 0),
+       ('Espera!', false, 1),
+       ('Esperou!', false, 2),
+       ('Esperar!', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 339 (imperativo: vamos lá) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "Vamos lá!" mean in BR-PT?',
+         '"Vamos lá!" is a colloquial all-purpose "Let''s go!" / "Come on!" used for encouragement.',
+         'Let''s go! / Come on!',
+         '"Vamos lá!" means "Let''s go!" or "Come on!" — an encouraging exhortation.',
+         339
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('See you there.', false, 0),
+       ('Let''s go! / Come on!', true, 1),
+       ('Over there.', false, 2),
+       ('Wait there.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 340 (pronome sujeito: você vs tu) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'In most of Brazil, what is the standard informal singular "you"?',
+         'BR-PT generally uses "você" as the everyday informal "you", while "tu" survives mainly in the south and northeast.',
+         'você',
+         'In most of Brazil, the standard informal singular "you" is "você".',
+         340
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('vós', false, 0),
+       ('você', true, 1),
+       ('tu', false, 2),
+       ('o senhor', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 341 (pronome sujeito: vocês plural) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the standard plural "you" in BR-PT?',
+         'BR-PT uses "vocês" as the everyday plural "you". The archaic "vós" is essentially dropped.',
+         'vocês',
+         'The standard plural "you" in BR-PT is "vocês".',
+         341
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('vocês', true, 0),
+       ('vós', false, 1),
+       ('tus', false, 2),
+       ('eles', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 342 (pronome obj. direto: o/a) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which is the direct object pronoun for "ele" (3rd-person masculine singular)?',
+         'The direct object pronoun for "ele" is "o" (e.g., "Eu o vi" = "I saw him"), though BR-PT often replaces it with "ele" in speech.',
+         'o',
+         'The direct object pronoun for "ele" is "o".',
+         342
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('lhe', false, 0),
+       ('se', false, 1),
+       ('o', true, 2),
+       ('me', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 343 (pronome obj. direto: a) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which is the direct object pronoun for "ela"?',
+         'The direct object pronoun for "ela" is "a" (e.g., "Eu a vi" = "I saw her").',
+         'a',
+         'The direct object pronoun for "ela" is "a".',
+         343
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('a', true, 0),
+       ('lhe', false, 1),
+       ('se', false, 2),
+       ('ela', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 344 (pronome obj. indireto: lhe) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which is the indirect object pronoun for "ele/ela"?',
+         'The indirect object pronoun for "ele" and "ela" is "lhe" (e.g., "Eu lhe disse" = "I told him/her").',
+         'lhe',
+         'The indirect object pronoun for "ele/ela" is "lhe".',
+         344
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('o', false, 0),
+       ('a', false, 1),
+       ('se', false, 2),
+       ('lhe', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 345 (pronome obj. indireto plural: lhes) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which is the indirect object pronoun for "eles/elas"?',
+         'The indirect object pronoun for plural 3rd-person is "lhes".',
+         'lhes',
+         'The indirect object pronoun for "eles/elas" is "lhes".',
+         345
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('os', false, 0),
+       ('lhes', true, 1),
+       ('se', false, 2),
+       ('eles', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 346 (pronome reflexivo: se) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which reflexive pronoun matches "ele/ela/você/eles/elas/vocês"?',
+         'The 3rd-person and você/vocês reflexive pronoun is "se" (e.g., "Ele se lavou" = "He washed himself").',
+         'se',
+         'The reflexive pronoun for 3rd-person and você is "se".',
+         346
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('me', false, 0),
+       ('te', false, 1),
+       ('se', true, 2),
+       ('nos', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 347 (pronome reflexivo: nos) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which reflexive pronoun matches "nós"?',
+         'The reflexive pronoun for "nós" is "nos" (e.g., "Nós nos vemos amanhã" = "We''ll see each other tomorrow").',
+         'nos',
+         'The reflexive pronoun for "nós" is "nos".',
+         347
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('nos', true, 0),
+       ('se', false, 1),
+       ('me', false, 2),
+       ('vos', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 348 (próclise BR: me dá) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'In informal BR speech, how do you typically say "Give me the book"?',
+         'BR-PT strongly prefers próclise (pronoun before the verb) in everyday speech: "Me dá o livro" rather than the prescriptive "Dá-me o livro".',
+         'Me dá o livro.',
+         'In informal BR-PT, "Give me the book" is typically "Me dá o livro" with próclise.',
+         348
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Dá-me o livro.', false, 0),
+       ('Me dá o livro.', true, 1),
+       ('Dar-me o livro.', false, 2),
+       ('Livro me dá.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 349 (ênclise: amo-te formal) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which form is the prescriptive ênclise version (used in writing) of "I love you"?',
+         'Ênclise places the pronoun after the verb with a hyphen: "Amo-te". BR everyday speech vastly prefers próclise: "Te amo".',
+         'Amo-te.',
+         'The ênclise version of "I love you" is "Amo-te"; BR speech says "Te amo".',
+         349
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Te amo.', false, 0),
+       ('Eu te amo.', false, 1),
+       ('Amo-te.', true, 2),
+       ('Amar-te.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 350 (BR speech: ele em vez de o) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How does informal BR-PT typically say "I saw him"?',
+         'BR-PT informal speech often uses the subject pronoun "ele" in object position: "Eu vi ele", instead of "Eu o vi".',
+         'Eu vi ele.',
+         'In informal BR-PT, "I saw him" is typically "Eu vi ele" with subject pronoun reused.',
+         350
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Eu vi ele.', true, 0),
+       ('Eu lhe vi.', false, 1),
+       ('Eu se vi.', false, 2),
+       ('Eu te vi.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 351 (preposição + pronome: comigo) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "with me" in Portuguese?',
+         '"Com" + "mim" contracts to "comigo".',
+         'comigo',
+         '"With me" is "comigo" — a contracted preposition + pronoun.',
+         351
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('com mim', false, 0),
+       ('comigo', true, 1),
+       ('com eu', false, 2),
+       ('me com', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 352 (preposição + pronome: contigo) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "contigo" mean?',
+         '"Contigo" is the contracted "com + ti" meaning "with you" (informal, more common in PT-PT or BR regions that use "tu").',
+         'with you',
+         '"Contigo" means "with you" — used where "tu" is used.',
+         352
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('with him', false, 0),
+       ('with us', false, 1),
+       ('with you', true, 2),
+       ('with them', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 353 (preposição + pronome: conosco) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "with us" in BR-PT?',
+         '"Com + nós" contracts to "conosco" in BR-PT (the PT-PT spelling is "connosco").',
+         'conosco',
+         '"With us" in BR-PT is "conosco".',
+         353
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('com nós', false, 0),
+       ('conosco', true, 1),
+       ('connosco', false, 2),
+       ('nos com', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 354 (preposição + pronome: consigo) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "consigo" mean?',
+         '"Consigo" is the contracted "com + si" — "with himself/herself/yourself" — a reflexive form.',
+         'with himself/herself/yourself',
+         '"Consigo" means "with himself/herself/yourself" — a reflexive form.',
+         354
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('with himself/herself/yourself', true, 0),
+       ('with me', false, 1),
+       ('with us', false, 2),
+       ('with them', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 355 (BR: possessive dele) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'In BR speech, how is "his car" most commonly said?',
+         'BR-PT prefers "o carro dele" (the car of him) over "o seu carro" to avoid ambiguity with "your car".',
+         'o carro dele',
+         'In BR-PT, "his car" is most commonly "o carro dele".',
+         355
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('o seu carro', false, 0),
+       ('o carro dele', true, 1),
+       ('seu carro', false, 2),
+       ('o carro de seu', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 356 (possessive: dela) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'In BR speech, how is "her house" most commonly said?',
+         '"A casa dela" (the house of her) is the standard BR way to disambiguate "her" from "your".',
+         'a casa dela',
+         'In BR-PT, "her house" is most commonly "a casa dela".',
+         356
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('a casa dela', true, 0),
+       ('a sua casa', false, 1),
+       ('a casa de ela', false, 2),
+       ('sua casa', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 357 (possessive: deles) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "deles" mean?',
+         '"Deles" = "de + eles" — "their" (masculine or mixed group).',
+         'their (masc./mixed)',
+         '"Deles" means "their" for a masculine or mixed group.',
+         357
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('our', false, 0),
+       ('his', false, 1),
+       ('their (masc./mixed)', true, 2),
+       ('your (plural)', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 358 (possessive: delas) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "delas" mean?',
+         '"Delas" = "de + elas" — "their" referring to an all-feminine group.',
+         'their (fem.)',
+         '"Delas" means "their" referring to an all-feminine group.',
+         358
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('your', false, 0),
+       ('our', false, 1),
+       ('her', false, 2),
+       ('their (fem.)', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 359 (pronome obj. dir. me) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "She called me yesterday."',
+         '"Me" is the 1st-person direct/indirect object pronoun: "Ela me ligou ontem".',
+         'Ela me ligou ontem.',
+         '"She called me yesterday" = "Ela me ligou ontem".',
+         359
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Ela me ligou ontem.', true, 0),
+       ('Ela ligou eu ontem.', false, 1),
+       ('Ela ligou-me ontem.', false, 2),
+       ('Ela lhe ligou ontem.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 360 (pronome obj. te) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate "I love you" in everyday BR-PT.',
+         'BR-PT uses "te" as the everyday 2nd-person object pronoun (often mixed with "você" subjects): "Te amo".',
+         'Te amo.',
+         '"I love you" in everyday BR-PT is "Te amo".',
+         360
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Eu amar você.', false, 0),
+       ('Te amo.', true, 1),
+       ('Me amo.', false, 2),
+       ('Amo-lhe.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 361 (pronome obj. dir. nos) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "He told us the truth."',
+         '"Nos" is both direct and indirect 1st-person plural pronoun: "Ele nos disse a verdade".',
+         'Ele nos disse a verdade.',
+         '"He told us the truth" = "Ele nos disse a verdade".',
+         361
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Ele disse nós a verdade.', false, 0),
+       ('Ele lhe disse a verdade.', false, 1),
+       ('Ele nos disse a verdade.', true, 2),
+       ('Ele se disse a verdade.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 362 (pronome reflexivo me) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I wake up at seven."',
+         'Reflexive verbs use a matching reflexive pronoun: "Eu me acordo às sete" — though BR speech often drops the reflexive: "Eu acordo às sete".',
+         'Eu me acordo às sete.',
+         '"I wake up at seven" = "Eu me acordo às sete" (or simply "Eu acordo às sete").',
+         362
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Eu me acordo às sete.', true, 0),
+       ('Eu se acordo às sete.', false, 1),
+       ('Eu te acordo às sete.', false, 2),
+       ('Eu nos acordo às sete.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 363 (reflexivo se: ele se levantou) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Ele ___ levantou cedo."',
+         'The 3rd-person reflexive pronoun is "se": "Ele se levantou cedo".',
+         'se',
+         '"Ele se levantou cedo" uses the reflexive pronoun "se".',
+         363
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('me', false, 0),
+       ('te', false, 1),
+       ('nos', false, 2),
+       ('se', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 364 (te vs lhe placement) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'In BR-PT, how do you typically say "I''ll tell you tomorrow"?',
+         'BR speech mixes "você" subjects with "te" object pronouns: "Eu te falo amanhã".',
+         'Eu te falo amanhã.',
+         'In BR-PT, "I''ll tell you tomorrow" is "Eu te falo amanhã".',
+         364
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Eu te falo amanhã.', true, 0),
+       ('Eu falo-lhe amanhã.', false, 1),
+       ('Eu falo te amanhã.', false, 2),
+       ('Eu lhes falo amanhã.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 365 (subj. pronoun drop) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Why is it sometimes acceptable to omit the subject pronoun in Portuguese?',
+         'Verb endings already mark person and number, so subject pronouns are often unnecessary — though BR-PT tends to keep them more than PT-PT.',
+         'Because the verb ending already indicates the subject.',
+         'Subject pronouns can be dropped because the verb ending already indicates the subject.',
+         365
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Because Portuguese has no subject pronouns.', false, 0),
+       ('Because the verb ending already indicates the subject.', true, 1),
+       ('Because subject pronouns are always required.', false, 2),
+       ('Because the object pronoun replaces them.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 366 (pronome obj. dir. plural: os) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which is the direct object pronoun for "eles"?',
+         'The direct object pronoun for "eles" is "os" (e.g., "Eu os conheço" = "I know them").',
+         'os',
+         'The direct object pronoun for "eles" is "os".',
+         366
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('lhes', false, 0),
+       ('se', false, 1),
+       ('os', true, 2),
+       ('eles', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 367 (pronome obj. dir. plural: as) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which is the direct object pronoun for "elas"?',
+         'The direct object pronoun for "elas" is "as" (e.g., "Eu as vi" = "I saw them").',
+         'as',
+         'The direct object pronoun for "elas" is "as".',
+         367
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('as', true, 0),
+       ('lhes', false, 1),
+       ('elas', false, 2),
+       ('se', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 368 (mesóclise) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is "mesóclise"?',
+         'Mesóclise places the pronoun inside the verb in the futuro do presente or futuro do pretérito (e.g., "dar-te-ei"). It is rare in BR speech and used mostly in formal writing.',
+         'A pronoun placed inside the verb (in future tenses).',
+         'Mesóclise inserts the pronoun inside the verb in future tenses, like "dar-te-ei".',
+         368
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('A pronoun before the verb.', false, 0),
+       ('A pronoun after the verb.', false, 1),
+       ('A pronoun placed inside the verb (in future tenses).', true, 2),
+       ('A pronoun omitted entirely.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 369 (próclise after negative) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which sentence is correct?',
+         'After a negative word, próclise (pronoun before the verb) is required: "Não me diga isso".',
+         'Não me diga isso.',
+         'After a negative, the pronoun goes before the verb: "Não me diga isso".',
+         369
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Não diga-me isso.', false, 0),
+       ('Não diga me isso.', false, 1),
+       ('Diga não-me isso.', false, 2),
+       ('Não me diga isso.', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 370 (comparativo: mais ... do que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "more expensive than" in Portuguese?',
+         'The standard comparative of superiority is "mais ... (do) que": "mais caro do que".',
+         'mais caro do que',
+         '"More expensive than" = "mais caro do que".',
+         370
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('mais caro do que', true, 0),
+       ('caro mais que', false, 1),
+       ('tão caro como', false, 2),
+       ('caríssimo', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 371 (comparativo: menos ... do que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "She is less tired than me."',
+         'The comparative of inferiority is "menos ... (do) que": "Ela está menos cansada do que eu".',
+         'Ela está menos cansada do que eu.',
+         '"She is less tired than me" = "Ela está menos cansada do que eu".',
+         371
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Ela é mais cansada do que eu.', false, 0),
+       ('Ela está menos cansada do que eu.', true, 1),
+       ('Ela está tão cansada quanto eu.', false, 2),
+       ('Ela é cansadíssima.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 372 (comparativo igualdade: tão ... quanto) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "as tall as" in Portuguese?',
+         'Equality with adjectives uses "tão ... quanto" (or "como"): "tão alto quanto".',
+         'tão alto quanto',
+         '"As tall as" = "tão alto quanto".',
+         372
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('mais alto que', false, 0),
+       ('tanto alto quanto', false, 1),
+       ('tão alto quanto', true, 2),
+       ('altíssimo', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 373 (comparativo: tanto ... quanto) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you express equality with nouns, e.g. "as much money as"?',
+         'Equality with nouns uses "tanto/tanta/tantos/tantas ... quanto": "tanto dinheiro quanto".',
+         'tanto dinheiro quanto',
+         '"As much money as" = "tanto dinheiro quanto".',
+         373
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('tão dinheiro quanto', false, 0),
+       ('mais dinheiro quanto', false, 1),
+       ('tanto dinheiro como', false, 2),
+       ('tanto dinheiro quanto', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 374 (comp. irregular: melhor) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the irregular comparative of "bom" (good)?',
+         'The comparative of "bom" is "melhor" (better) — never "mais bom".',
+         'melhor',
+         'The comparative of "bom" is "melhor".',
+         374
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('melhor', true, 0),
+       ('mais bom', false, 1),
+       ('mais bem', false, 2),
+       ('bom-bom', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 375 (comp. irregular: pior) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the irregular comparative of "mau/ruim" (bad)?',
+         'The comparative of "mau" or "ruim" is "pior" (worse).',
+         'pior',
+         'The comparative of "mau/ruim" is "pior".',
+         375
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('mais mau', false, 0),
+       ('pior', true, 1),
+       ('mais ruim', false, 2),
+       ('péssimo', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 376 (comp. irregular: maior) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the irregular comparative of "grande" (big)?',
+         'The comparative of "grande" is "maior" (bigger) — typically used for size, not age.',
+         'maior',
+         'The comparative of "grande" is "maior".',
+         376
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('mais grande', false, 0),
+       ('grandão', false, 1),
+       ('maior', true, 2),
+       ('máximo', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 377 (comp. irregular: menor) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the irregular comparative of "pequeno" (small)?',
+         'The comparative of "pequeno" is "menor" (smaller).',
+         'menor',
+         'The comparative of "pequeno" is "menor".',
+         377
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('mais pequeno', false, 0),
+       ('pequenino', false, 1),
+       ('mínimo', false, 2),
+       ('menor', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 378 (superlativo absoluto: -íssimo lindíssimo) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "lindíssimo" mean?',
+         'The "-íssimo" suffix forms the superlativo absoluto: "lindíssimo" = "extremely beautiful".',
+         'extremely beautiful',
+         '"Lindíssimo" means "extremely beautiful" — a superlativo absoluto.',
+         378
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('extremely beautiful', true, 0),
+       ('beautiful enough', false, 1),
+       ('less beautiful', false, 2),
+       ('the most beautiful', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 379 (superlativo absoluto: caríssimo) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "caríssimo" mean?',
+         '"Caríssimo" is the superlativo absoluto of "caro" — "extremely expensive".',
+         'extremely expensive',
+         '"Caríssimo" means "extremely expensive".',
+         379
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('cheaper', false, 0),
+       ('extremely expensive', true, 1),
+       ('expensive enough', false, 2),
+       ('a bit expensive', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 380 (superlativo absoluto: facílimo) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the superlativo absoluto of "fácil"?',
+         '"Fácil" has an irregular superlativo absoluto: "facílimo" (extremely easy).',
+         'facílimo',
+         'The superlativo absoluto of "fácil" is "facílimo".',
+         380
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('facílimo', true, 0),
+       ('facilíssimo', false, 1),
+       ('mais fácil', false, 2),
+       ('o fácil', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 381 (superlativo relativo) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "the most beautiful in the class"?',
+         'The superlativo relativo uses "o/a mais ... de": "a mais bonita da turma".',
+         'a mais bonita da turma',
+         '"The most beautiful in the class" = "a mais bonita da turma".',
+         381
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('bonitíssima da turma', false, 0),
+       ('a mais bonita da turma', true, 1),
+       ('mais bonita que a turma', false, 2),
+       ('a bonita mais turma', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 382 (irregular superlativo: ótimo) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the irregular superlativo absoluto of "bom"?',
+         'The irregular superlativo absoluto of "bom" is "ótimo" (excellent).',
+         'ótimo',
+         'The irregular superlativo absoluto of "bom" is "ótimo".',
+         382
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('boníssimo', false, 0),
+       ('melhor', false, 1),
+       ('mais bom', false, 2),
+       ('ótimo', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 383 (irregular superlativo: péssimo) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the irregular superlativo absoluto of "mau/ruim"?',
+         'The irregular superlativo absoluto of "mau/ruim" is "péssimo" (awful).',
+         'péssimo',
+         'The irregular superlativo absoluto of "mau/ruim" is "péssimo".',
+         383
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('péssimo', true, 0),
+       ('pior', false, 1),
+       ('mais ruim', false, 2),
+       ('maissimo', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 384 (irregular superlativo: máximo) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the irregular superlativo absoluto of "grande"?',
+         'The irregular superlativo absoluto of "grande" is "máximo" (greatest).',
+         'máximo',
+         'The irregular superlativo absoluto of "grande" is "máximo".',
+         384
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('grandíssimo', false, 0),
+       ('máximo', true, 1),
+       ('maior', false, 2),
+       ('mais grande', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 385 (irregular superlativo: mínimo) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the irregular superlativo absoluto of "pequeno"?',
+         'The irregular superlativo absoluto of "pequeno" is "mínimo" (smallest).',
+         'mínimo',
+         'The irregular superlativo absoluto of "pequeno" is "mínimo".',
+         385
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('pequenino', false, 0),
+       ('menor', false, 1),
+       ('mínimo', true, 2),
+       ('pequeníssimo', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 386 (comp. age: mais velho) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "older than" (about a person''s age)?',
+         'For age, use "mais velho do que": "Ele é mais velho do que eu". "Maior" is for size, not age.',
+         'mais velho do que',
+         '"Older than" = "mais velho do que".',
+         386
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('maior do que', false, 0),
+       ('mais novo do que', false, 1),
+       ('velhíssimo', false, 2),
+       ('mais velho do que', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 387 (superlativo: a mais alta) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "She is the tallest of the group."',
+         '"A mais alta do grupo" uses the superlativo relativo with article + mais + adjective + de.',
+         'Ela é a mais alta do grupo.',
+         '"She is the tallest of the group" = "Ela é a mais alta do grupo".',
+         387
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Ela é a mais alta do grupo.', true, 0),
+       ('Ela é altíssima grupo.', false, 1),
+       ('Ela é mais alta grupo.', false, 2),
+       ('Ela é a alta mais do grupo.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 388 (comp.: mais bonita que) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "She is prettier than her sister."',
+         '"Ela é mais bonita do que a irmã" uses "mais ... do que" for comparison.',
+         'Ela é mais bonita do que a irmã.',
+         '"She is prettier than her sister" = "Ela é mais bonita do que a irmã".',
+         388
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Ela é bonitíssima irmã.', false, 0),
+       ('Ela é mais bonita do que a irmã.', true, 1),
+       ('Ela é tão bonita irmã.', false, 2),
+       ('Ela é bonita mais que irmã.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 389 (comp. tanto quanto: nouns) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I have as many books as you."',
+         '"Tantos ... quanto" agrees in gender/number with the noun: "Tenho tantos livros quanto você".',
+         'Tenho tantos livros quanto você.',
+         '"I have as many books as you" = "Tenho tantos livros quanto você".',
+         389
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Tenho mais livros quanto você.', false, 0),
+       ('Tenho tão livros quanto você.', false, 1),
+       ('Tenho tantos livros quanto você.', true, 2),
+       ('Tenho tanto livros quanto você.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 390 (contração: no = em + o) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the contraction "no" combine?',
+         '"No" = "em + o" (e.g., "no parque" = "in the park").',
+         'em + o',
+         'The contraction "no" = "em + o" (e.g., "no parque").',
+         390
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('em + o', true, 0),
+       ('de + o', false, 1),
+       ('a + o', false, 2),
+       ('por + o', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 391 (contração: do = de + o) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the contraction "do" combine?',
+         '"Do" = "de + o" (e.g., "o livro do João" = "João''s book").',
+         'de + o',
+         'The contraction "do" = "de + o".',
+         391
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('em + o', false, 0),
+       ('de + o', true, 1),
+       ('a + o', false, 2),
+       ('por + o', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 392 (contração: pelo = por + o) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the contraction "pelo" combine?',
+         '"Pelo" = "por + o" (e.g., "pelo caminho" = "along the way").',
+         'por + o',
+         'The contraction "pelo" = "por + o".',
+         392
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('para + o', false, 0),
+       ('a + o', false, 1),
+       ('por + o', true, 2),
+       ('em + o', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 393 (contração: ao = a + o) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the contraction "ao" combine?',
+         '"Ao" = "a + o" (e.g., "ir ao mercado" = "to go to the market").',
+         'a + o',
+         'The contraction "ao" = "a + o".',
+         393
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('de + o', false, 0),
+       ('em + o', false, 1),
+       ('por + o', false, 2),
+       ('a + o', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 394 (contração: à = a + a) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the contraction "à" (with grave accent) combine?',
+         '"À" = "a + a" — known as crase. Example: "Vou à praia" = "I''m going to the beach".',
+         'a + a',
+         'The contraction "à" = "a + a" (crase).',
+         394
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('a + a', true, 0),
+       ('de + a', false, 1),
+       ('em + a', false, 2),
+       ('por + a', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 395 (contração: num = em + um) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "num" combine?',
+         '"Num" = "em + um" (e.g., "num dia frio" = "on a cold day").',
+         'em + um',
+         'The contraction "num" = "em + um".',
+         395
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('de + um', false, 0),
+       ('em + um', true, 1),
+       ('a + um', false, 2),
+       ('por + um', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 396 (contração: dum = de + um) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the contraction "dum" combine?',
+         '"Dum" = "de + um" (e.g., "dum jeito" = "of one way"). Less frequent in modern BR-PT, which often writes "de um".',
+         'de + um',
+         'The contraction "dum" = "de + um".',
+         396
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('em + um', false, 0),
+       ('a + um', false, 1),
+       ('de + um', true, 2),
+       ('por + um', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 397 (por vs para: purpose) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which preposition expresses purpose/destination — "para" or "por"?',
+         '"Para" expresses purpose, destination, or recipient. "Por" expresses cause, exchange, or route.',
+         'para',
+         '"Para" expresses purpose or destination; "por" expresses cause, exchange, or route.',
+         397
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('para', true, 0),
+       ('por', false, 1),
+       ('de', false, 2),
+       ('em', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 398 (por: passar por) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Passei ___ Paris durante a viagem."',
+         '"Por" expresses passage/route through a place: "Passei por Paris".',
+         'por',
+         '"Passei por Paris" uses "por" to express route/passage.',
+         398
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('para', false, 0),
+       ('por', true, 1),
+       ('de', false, 2),
+       ('em', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 399 (a vs em: location) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which preposition typically marks the destination of "ir" (to go)?',
+         '"Ir a" expresses a brief visit; "ir para" implies a longer stay or permanent move. BR-PT often uses "ir em" colloquially.',
+         'a',
+         '"Ir a + place" is the standard preposition for "to go to".',
+         399
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('por', false, 0),
+       ('de', false, 1),
+       ('com', false, 2),
+       ('a', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 400 (em: location inside) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which preposition expresses "inside" a location, as in "in the room"?',
+         '"Em" expresses being inside a place: "Estou no quarto" = "I''m in the room".',
+         'em',
+         '"Em" expresses being inside a place ("no quarto").',
+         400
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('em', true, 0),
+       ('a', false, 1),
+       ('por', false, 2),
+       ('para', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 401 (de: origem) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which preposition expresses origin, as in "I am from Brazil"?',
+         '"De" expresses origin: "Eu sou do Brasil" = "I am from Brazil".',
+         'de',
+         '"De" expresses origin ("Sou do Brasil").',
+         401
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('em', false, 0),
+       ('de', true, 1),
+       ('para', false, 2),
+       ('por', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 402 (com: company) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which preposition expresses accompaniment, as in "with my friend"?',
+         '"Com" expresses accompaniment: "com meu amigo".',
+         'com',
+         '"Com" expresses accompaniment ("com meu amigo").',
+         402
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('de', false, 0),
+       ('por', false, 1),
+       ('com', true, 2),
+       ('em', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 403 (em: tempo dentro de um período) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which preposition marks a period (year, month) — as in "in 2026"?',
+         '"Em" introduces a period of time: "em 2026", "em janeiro", "no inverno".',
+         'em',
+         '"Em" introduces a period of time ("em 2026").',
+         403
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('a', false, 0),
+       ('de', false, 1),
+       ('por', false, 2),
+       ('em', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 404 (sobre) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "sobre" mean as a preposition?',
+         '"Sobre" can mean "about" (a topic) or "on/over" (a surface). Context decides.',
+         'about / on / over',
+         '"Sobre" means "about" (a topic) or "on/over" (a surface).',
+         404
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('about / on / over', true, 0),
+       ('under', false, 1),
+       ('with', false, 2),
+       ('from', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 405 (entre) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "entre" mean?',
+         '"Entre" means "between" or "among".',
+         'between / among',
+         '"Entre" means "between" or "among".',
+         405
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('about', false, 0),
+       ('between / among', true, 1),
+       ('inside', false, 2),
+       ('under', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 406 (para: recipient) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "This gift is for you."',
+         '"Para" marks recipient: "Este presente é para você".',
+         'Este presente é para você.',
+         '"This gift is for you" = "Este presente é para você".',
+         406
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Este presente é por você.', false, 0),
+       ('Este presente é a você.', false, 1),
+       ('Este presente é para você.', true, 2),
+       ('Este presente é de você.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 407 (por: exchange) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I paid R$50 for the book."',
+         '"Por" marks the price/exchange: "Paguei R$50 pelo livro" (pelo = por + o).',
+         'Paguei R$50 pelo livro.',
+         '"I paid R$50 for the book" = "Paguei R$50 pelo livro".',
+         407
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Paguei R$50 pelo livro.', true, 0),
+       ('Paguei R$50 para o livro.', false, 1),
+       ('Paguei R$50 no livro.', false, 2),
+       ('Paguei R$50 do livro.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 408 (de: possession) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "Maria''s car."',
+         'Possession uses "de": "O carro da Maria" (da = de + a).',
+         'O carro da Maria.',
+         '"Maria''s car" = "O carro da Maria".',
+         408
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('O Maria carro.', false, 0),
+       ('O carro Maria.', false, 1),
+       ('O carro da Maria.', true, 2),
+       ('O carro à Maria.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 409 (na vs no) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which is correct: "She lives ___ Brasil."',
+         'BR-PT uses an article with most country names: "no Brasil" (em + o = no).',
+         'no',
+         '"Ela mora no Brasil" — BR takes an article with "Brasil".',
+         409
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('em', false, 0),
+       ('na', false, 1),
+       ('a', false, 2),
+       ('no', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 410 (vocab roupa: camisa) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "camisa" mean?',
+         '"Camisa" is a shirt — specifically a button-up shirt. A t-shirt is "camiseta".',
+         'shirt',
+         '"Camisa" means "shirt".',
+         410
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('shirt', true, 0),
+       ('pants', false, 1),
+       ('shoes', false, 2),
+       ('hat', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 411 (vocab roupa: calça) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "calça" mean?',
+         '"Calça" means pants/trousers and is singular in Portuguese.',
+         'pants',
+         '"Calça" means "pants" (singular in Portuguese).',
+         411
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('socks', false, 0),
+       ('pants', true, 1),
+       ('shirt', false, 2),
+       ('shoes', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 412 (vocab roupa: vestido) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "vestido" mean?',
+         '"Vestido" is a dress (noun) — also the past participle of "vestir" (to wear).',
+         'dress',
+         '"Vestido" means "dress".',
+         412
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('coat', false, 0),
+       ('shirt', false, 1),
+       ('dress', true, 2),
+       ('skirt', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 413 (vocab roupa: sapato) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "sapato" mean?',
+         '"Sapato" is a shoe; plural "sapatos" is shoes.',
+         'shoe',
+         '"Sapato" means "shoe".',
+         413
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('hat', false, 0),
+       ('sock', false, 1),
+       ('jacket', false, 2),
+       ('shoe', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 414 (vocab profissão: médico) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "médico" mean?',
+         '"Médico" is a doctor (medical professional). Feminine: "médica".',
+         'doctor',
+         '"Médico" means "doctor".',
+         414
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('doctor', true, 0),
+       ('teacher', false, 1),
+       ('lawyer', false, 2),
+       ('engineer', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 415 (vocab profissão: advogado) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "advogado" mean?',
+         '"Advogado" means lawyer. Feminine: "advogada".',
+         'lawyer',
+         '"Advogado" means "lawyer".',
+         415
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('teacher', false, 0),
+       ('lawyer', true, 1),
+       ('cook', false, 2),
+       ('driver', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 416 (vocab profissão: engenheiro) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "engenheiro" mean?',
+         '"Engenheiro" means engineer.',
+         'engineer',
+         '"Engenheiro" means "engineer".',
+         416
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('chef', false, 0),
+       ('driver', false, 1),
+       ('engineer', true, 2),
+       ('lawyer', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 417 (vocab transporte: ônibus) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "ônibus" mean in BR-PT?',
+         '"Ônibus" is the BR-PT word for bus. PT-PT uses "autocarro".',
+         'bus',
+         '"Ônibus" means "bus" in BR-PT.',
+         417
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('train', false, 0),
+       ('car', false, 1),
+       ('plane', false, 2),
+       ('bus', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 418 (vocab transporte: carro) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "carro" mean?',
+         '"Carro" is a car (auto). PT-PT also uses "carro", but "automóvel" is common in formal contexts.',
+         'car',
+         '"Carro" means "car".',
+         418
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('car', true, 0),
+       ('bus', false, 1),
+       ('train', false, 2),
+       ('bicycle', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 419 (vocab transporte: metrô) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "metrô" mean in BR-PT?',
+         '"Metrô" is the BR-PT spelling for subway/metro. PT-PT writes "metro".',
+         'subway / metro',
+         '"Metrô" means "subway/metro" in BR-PT.',
+         419
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('train', false, 0),
+       ('subway / metro', true, 1),
+       ('bus', false, 2),
+       ('plane', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 420 (vocab transporte: avião) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "avião" mean?',
+         '"Avião" is an airplane.',
+         'airplane',
+         '"Avião" means "airplane".',
+         420
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('airplane', true, 0),
+       ('boat', false, 1),
+       ('helicopter', false, 2),
+       ('train', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 421 (vocab casa: cozinha) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "cozinha" mean?',
+         '"Cozinha" is the kitchen (also a verb form of "cozinhar" = to cook).',
+         'kitchen',
+         '"Cozinha" means "kitchen".',
+         421
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('bedroom', false, 0),
+       ('kitchen', true, 1),
+       ('bathroom', false, 2),
+       ('living room', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 422 (vocab casa: quarto) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "quarto" mean (as a room)?',
+         '"Quarto" is a bedroom (also "fourth" as a number).',
+         'bedroom',
+         '"Quarto" means "bedroom".',
+         422
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('kitchen', false, 0),
+       ('garden', false, 1),
+       ('bedroom', true, 2),
+       ('bathroom', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 423 (vocab casa: banheiro) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "banheiro" mean in BR-PT?',
+         '"Banheiro" is the bathroom in BR-PT. PT-PT prefers "casa de banho".',
+         'bathroom',
+         '"Banheiro" means "bathroom" in BR-PT.',
+         423
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('garage', false, 0),
+       ('kitchen', false, 1),
+       ('garden', false, 2),
+       ('bathroom', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 424 (vocab casa: sala) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "sala" mean?',
+         '"Sala" generally means living room (sala de estar) or classroom (sala de aula) depending on context.',
+         'living room',
+         '"Sala" means "living room" (or "room" generally).',
+         424
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('living room', true, 0),
+       ('bedroom', false, 1),
+       ('kitchen', false, 2),
+       ('bathroom', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 425 (vocab dinheiro: dinheiro) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "dinheiro" mean?',
+         '"Dinheiro" is money.',
+         'money',
+         '"Dinheiro" means "money".',
+         425
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('change', false, 0),
+       ('money', true, 1),
+       ('card', false, 2),
+       ('bill', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 426 (vocab dinheiro: cartão) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "cartão" mean (in a shopping context)?',
+         '"Cartão" is a card — typically a credit/debit card in shopping contexts.',
+         'card',
+         '"Cartão" means "card" (e.g., credit/debit card).',
+         426
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('cash', false, 0),
+       ('coin', false, 1),
+       ('card', true, 2),
+       ('check', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 427 (vocab dinheiro: troco) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "troco" mean?',
+         '"Troco" is the change you get back after paying.',
+         'change',
+         '"Troco" means "change" (money returned after payment).',
+         427
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('change', true, 0),
+       ('tip', false, 1),
+       ('receipt', false, 2),
+       ('coin', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 428 (vocab dinheiro: caro vs barato) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "barato" mean?',
+         '"Barato" means cheap; its opposite is "caro" (expensive).',
+         'cheap',
+         '"Barato" means "cheap"; its opposite is "caro".',
+         428
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('expensive', false, 0),
+       ('cheap', true, 1),
+       ('free', false, 2),
+       ('paid', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 429 (vocab dinheiro: quanto custa) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you ask "How much does it cost?"',
+         'The standard question is "Quanto custa?".',
+         'Quanto custa?',
+         '"How much does it cost?" = "Quanto custa?".',
+         429
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Que preço?', false, 0),
+       ('Quanto é caro?', false, 1),
+       ('Onde custa?', false, 2),
+       ('Quanto custa?', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 430 (idiom: dar um jeito) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the idiom "dar um jeito" mean?',
+         '"Dar um jeito" = to find a way / sort it out — a very Brazilian expression for improvising a solution.',
+         'to find a way / sort it out',
+         '"Dar um jeito" means "to find a way" or "to sort it out".',
+         430
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to find a way / sort it out', true, 0),
+       ('to give up', false, 1),
+       ('to fall over', false, 2),
+       ('to wait patiently', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 431 (idiom: valer a pena) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "valer a pena" mean?',
+         '"Valer a pena" = to be worth it.',
+         'to be worth it',
+         '"Valer a pena" means "to be worth it".',
+         431
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to suffer pain', false, 0),
+       ('to be worth it', true, 1),
+       ('to fall apart', false, 2),
+       ('to make sense', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 432 (idiom: estar a fim de) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "estar a fim de" mean?',
+         '"Estar a fim de" = to feel like doing something, or to be interested in someone (romantically).',
+         'to feel like / to be into',
+         '"Estar a fim de" means "to feel like" or "to be into (someone)".',
+         432
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to be at the end', false, 0),
+       ('to be tired of', false, 1),
+       ('to feel like / to be into', true, 2),
+       ('to be in front of', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 433 (verb: pegar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "pegar" most commonly mean in BR-PT?',
+         '"Pegar" = to catch / grab / take (e.g., "pegar o ônibus" = catch the bus).',
+         'to catch / grab',
+         '"Pegar" means "to catch" or "to grab".',
+         433
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to leave behind', false, 0),
+       ('to look at', false, 1),
+       ('to throw away', false, 2),
+       ('to catch / grab', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 434 (verb: chegar — cheguei) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "chegar" in the pretérito perfeito for "eu".',
+         '"Chegar" is regular but spelling-shifts to "cheguei" in the 1st-person singular to preserve the hard /g/ sound.',
+         'cheguei',
+         'The pretérito perfeito of "chegar" for "eu" is "cheguei".',
+         434
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('cheguei', true, 0),
+       ('cheguí', false, 1),
+       ('chegei', false, 2),
+       ('cheguava', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 435 (verb: passar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "passar" most commonly mean in "passar tempo"?',
+         '"Passar tempo" = to spend time. "Passar" also means to pass (by), to iron, to do well on an exam.',
+         'to spend (time)',
+         '"Passar tempo" means "to spend time".',
+         435
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to lose (time)', false, 0),
+       ('to spend (time)', true, 1),
+       ('to wait (time)', false, 2),
+       ('to count (time)', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 436 (verb: tomar banho) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "tomar banho" mean?',
+         '"Tomar banho" literally "take a bath" — BR-PT uses "tomar" for both showers and baths.',
+         'to take a shower/bath',
+         '"Tomar banho" means "to take a shower" or "to take a bath".',
+         436
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to take a shower/bath', true, 0),
+       ('to swim', false, 1),
+       ('to dry off', false, 2),
+       ('to wash hands', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 437 (verb: levar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "levar" mean?',
+         '"Levar" = to take (something/someone somewhere). Contrast with "trazer" (to bring here).',
+         'to take / carry',
+         '"Levar" means "to take" or "to carry" (away from speaker).',
+         437
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to bring', false, 0),
+       ('to take / carry', true, 1),
+       ('to throw', false, 2),
+       ('to leave', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 438 (verb: trazer — trouxe) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Conjugate "trazer" in the pretérito perfeito for "eu".',
+         '"Trazer" is irregular: "trouxe", "trouxeste", "trouxe", "trouxemos", "trouxeram".',
+         'trouxe',
+         'The pretérito perfeito of "trazer" for "eu" is "trouxe".',
+         438
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('trazi', false, 0),
+       ('trouxi', false, 1),
+       ('trouxe', true, 2),
+       ('trazia', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 439 (verb: pôr vs colocar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the difference between "pôr" and "colocar"?',
+         '"Pôr" and "colocar" both mean to put/place; "colocar" is more common in everyday speech, while "pôr" appears in fixed expressions.',
+         'They are near-synonyms; "colocar" is more common.',
+         '"Pôr" and "colocar" both mean "to put"; "colocar" is the everyday choice.',
+         439
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('"Pôr" means "to take"; "colocar" means "to put".', false, 0),
+       ('They are near-synonyms; "colocar" is more common.', true, 1),
+       ('"Pôr" is only for liquids.', false, 2),
+       ('"Colocar" is only used in PT-PT.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 440 (verb: ficar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "ficar feliz" mean?',
+         '"Ficar" + adjective expresses becoming a state: "ficar feliz" = "to become/get happy".',
+         'to become/get happy',
+         '"Ficar feliz" means "to become happy" or "to get happy".',
+         440
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to be always happy', false, 0),
+       ('to stay happy forever', false, 1),
+       ('to seem happy', false, 2),
+       ('to become/get happy', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 441 (verb: acabar de) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "acabar de + infinitivo" mean?',
+         '"Acabar de" + infinitive = "to have just done something" (e.g., "Acabei de chegar" = "I just arrived").',
+         'to have just (done)',
+         '"Acabar de + infinitivo" means "to have just done something".',
+         441
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to have just (done)', true, 0),
+       ('to finish (doing)', false, 1),
+       ('to be about to (do)', false, 2),
+       ('to want to (do)', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 442 (verb: começar a) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Complete: "Eu ___ a estudar português."',
+         '"Começar a + infinitivo" = to start doing something. The verb takes the preposition "a" before the infinitive.',
+         'comecei',
+         '"Eu comecei a estudar português" uses "começar a + infinitivo".',
+         442
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('comecei', true, 0),
+       ('começei', false, 1),
+       ('começar', false, 2),
+       ('começo', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 443 (verb: parar de) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "parar de + infinitivo" mean?',
+         '"Parar de + infinitivo" = to stop doing something (e.g., "Parei de fumar" = "I stopped smoking").',
+         'to stop doing',
+         '"Parar de + infinitivo" means "to stop doing something".',
+         443
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to start doing', false, 0),
+       ('to stop doing', true, 1),
+       ('to continue doing', false, 2),
+       ('to try doing', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 444 (verb: continuar a) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "continuar a + infinitivo" mean?',
+         '"Continuar a + infinitivo" = to continue / keep on doing something. BR-PT also accepts "continuar + gerúndio" ("continuar estudando").',
+         'to continue / keep doing',
+         '"Continuar a + infinitivo" means "to continue/keep doing".',
+         444
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to continue / keep doing', true, 0),
+       ('to finish doing', false, 1),
+       ('to stop doing', false, 2),
+       ('to start doing', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 445 (verb: costumar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "costumar + infinitivo" mean?',
+         '"Costumar + infinitivo" = to usually do / to be in the habit of (e.g., "Costumo correr de manhã" = "I usually run in the morning").',
+         'to usually do / be in the habit of',
+         '"Costumar + infinitivo" means "to usually do" or "to be in the habit of".',
+         445
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to taste of', false, 0),
+       ('to like to', false, 1),
+       ('to usually do / be in the habit of', true, 2),
+       ('to refuse to', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 446 (idiom: ficar com fome) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "ficar com fome" mean?',
+         '"Ficar com fome" literally "stay with hunger" = "to get hungry".',
+         'to get hungry',
+         '"Ficar com fome" means "to get hungry".',
+         446
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to be full', false, 0),
+       ('to feed someone', false, 1),
+       ('to skip a meal', false, 2),
+       ('to get hungry', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 447 (idiom: estar com sede) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "I am thirsty" in Portuguese?',
+         'BR-PT uses "estar com" + noun for many bodily states: "Estou com sede" = "I am thirsty".',
+         'Estou com sede.',
+         '"I am thirsty" in BR-PT = "Estou com sede".',
+         447
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Estou com sede.', true, 0),
+       ('Sou sede.', false, 1),
+       ('Tenho sede sou.', false, 2),
+       ('Sou com sede.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 448 (verb: ficar com) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "ficar com" mean in "Vou ficar com este"?',
+         '"Ficar com" = to keep / hold on to (e.g., "Vou ficar com este" = "I''ll take/keep this one").',
+         'to keep / take',
+         '"Ficar com" means "to keep" or "to take" (something).',
+         448
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to throw away', false, 0),
+       ('to keep / take', true, 1),
+       ('to share with', false, 2),
+       ('to look like', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 449 (verb: dar para) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "dá para" mean in BR-PT (as in "Dá para ir"?)?',
+         '"Dá para" = "is it possible to" / "can we" — a very common BR way to ask about feasibility.',
+         'is it possible to',
+         '"Dá para" means "is it possible to" — a feasibility expression in BR-PT.',
+         449
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('it gives away', false, 0),
+       ('it must be', false, 1),
+       ('is it possible to', true, 2),
+       ('it costs', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 450 (translation: I hope you are well) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I hope you are well."',
+         '"Espero que" triggers the subjunctive: "Espero que você esteja bem".',
+         'Espero que você esteja bem.',
+         '"I hope you are well" = "Espero que você esteja bem".',
+         450
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Espero que você está bem.', false, 0),
+       ('Espero você é bem.', false, 1),
+       ('Espero que você esteja bem.', true, 2),
+       ('Espero que você seja bem.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 451 (translation: If I had money, I would travel) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "If I had money, I would travel the world."',
+         'Hypothetical: "Se eu tivesse dinheiro, viajaria pelo mundo" pairs imperfeito do subjuntivo with futuro do pretérito.',
+         'Se eu tivesse dinheiro, viajaria pelo mundo.',
+         '"If I had money, I would travel the world" = "Se eu tivesse dinheiro, viajaria pelo mundo".',
+         451
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Se eu tinha dinheiro, viajava pelo mundo.', false, 0),
+       ('Se eu tivesse dinheiro, viajaria pelo mundo.', true, 1),
+       ('Se eu tenho dinheiro, vou viajar pelo mundo.', false, 2),
+       ('Se eu tiver dinheiro, viajarei pelo mundo.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 452 (translation: When you arrive, call me) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "When you arrive, call me."',
+         '"Quando" + future use takes futuro do subjuntivo + imperativo: "Quando você chegar, me ligue".',
+         'Quando você chegar, me ligue.',
+         '"When you arrive, call me" = "Quando você chegar, me ligue".',
+         452
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Quando você chegar, me ligue.', true, 0),
+       ('Quando você chega, me liga.', false, 1),
+       ('Quando você chegou, me ligou.', false, 2),
+       ('Quando você chegará, me ligará.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 453 (translation: I have been studying for two hours) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I have been studying for two hours."',
+         'Portuguese expresses ongoing duration with "estar + gerúndio" + "faz/há X tempo": "Estou estudando faz duas horas".',
+         'Estou estudando faz duas horas.',
+         '"I have been studying for two hours" = "Estou estudando faz duas horas".',
+         453
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Tenho estudado duas horas.', false, 0),
+       ('Estudei por duas horas.', false, 1),
+       ('Estou estudando faz duas horas.', true, 2),
+       ('Vou estudar duas horas.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 454 (translation: She told me she was tired) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "She told me she was tired."',
+         'Reported speech uses imperfeito for ongoing past state: "Ela me disse que estava cansada".',
+         'Ela me disse que estava cansada.',
+         '"She told me she was tired" = "Ela me disse que estava cansada".',
+         454
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Ela me disse que está cansada.', false, 0),
+       ('Ela me dizia que esteve cansada.', false, 1),
+       ('Ela me disse que esteja cansada.', false, 2),
+       ('Ela me disse que estava cansada.', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 455 (translation: We had already eaten when they arrived) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "We had already eaten when they arrived."',
+         'Past-before-past uses "tinha" + particípio: "Nós já tínhamos comido quando eles chegaram".',
+         'Nós já tínhamos comido quando eles chegaram.',
+         '"We had already eaten when they arrived" = "Nós já tínhamos comido quando eles chegaram".',
+         455
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Nós já comemos quando eles chegaram.', false, 0),
+       ('Nós já tínhamos comido quando eles chegaram.', true, 1),
+       ('Nós já comíamos quando eles chegaram.', false, 2),
+       ('Nós já vamos comer quando eles chegarem.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 456 (translation: You should have studied more) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "You should have studied more."',
+         '"Should have" + past participle uses "deveria ter" + particípio: "Você deveria ter estudado mais".',
+         'Você deveria ter estudado mais.',
+         '"You should have studied more" = "Você deveria ter estudado mais".',
+         456
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Você deve estudar mais.', false, 0),
+       ('Você deveria ter estudado mais.', true, 1),
+       ('Você devia estudar mais.', false, 2),
+       ('Você terá que estudar mais.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 457 (translation: I would have gone if I had known) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I would have gone if I had known."',
+         'Past-irreal: "Teria ido se tivesse sabido" pairs futuro do pretérito composto with mais-que-perfeito do subjuntivo.',
+         'Teria ido se tivesse sabido.',
+         '"I would have gone if I had known" = "Teria ido se tivesse sabido".',
+         457
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Iria se soubesse.', false, 0),
+       ('Fui se sabia.', false, 1),
+       ('Teria ido se tivesse sabido.', true, 2),
+       ('Vou se eu souber.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 458 (translation: It is raining, but we are going out anyway) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "It is raining, but we are going out anyway."',
+         'Use estar + gerúndio for ongoing actions: "Está chovendo, mas vamos sair mesmo assim".',
+         'Está chovendo, mas vamos sair mesmo assim.',
+         '"It is raining, but we are going out anyway" = "Está chovendo, mas vamos sair mesmo assim".',
+         458
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Chove, mas saímos depois.', false, 0),
+       ('Está chovendo, mas vamos sair mesmo assim.', true, 1),
+       ('Choveu, mas saímos mesmo assim.', false, 2),
+       ('Vai chover, mas saímos sim.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 459 (translation: Don't forget the keys) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "Don''t forget the keys."',
+         'Negative imperative + object: "Não esqueça as chaves".',
+         'Não esqueça as chaves.',
+         '"Don''t forget the keys" = "Não esqueça as chaves".',
+         459
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Não esquece as chaves.', false, 0),
+       ('Não esquecer as chaves.', false, 1),
+       ('Não esqueceu as chaves.', false, 2),
+       ('Não esqueça as chaves.', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 460 (translation: Let's go to the beach) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "Let''s go to the beach."',
+         'Use "vamos + infinitivo" for "let''s": "Vamos à praia" (à = a + a).',
+         'Vamos à praia.',
+         '"Let''s go to the beach" = "Vamos à praia".',
+         460
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Vamos à praia.', true, 0),
+       ('Vai a praia.', false, 1),
+       ('Iremos praia.', false, 2),
+       ('Vamos para a praia ir.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 461 (translation: I wish you were here) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I wish you were here."',
+         '"I wish" expressing a counter-factual present uses imperfeito do subjuntivo: "Queria que você estivesse aqui".',
+         'Queria que você estivesse aqui.',
+         '"I wish you were here" = "Queria que você estivesse aqui".',
+         461
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Quero que você está aqui.', false, 0),
+       ('Queria que você estivesse aqui.', true, 1),
+       ('Espero que você esteja aqui.', false, 2),
+       ('Quero que você esteja aqui.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 462 (translation: It is cold today) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "It is cold today."',
+         'Weather uses "estar" in BR-PT: "Está frio hoje".',
+         'Está frio hoje.',
+         '"It is cold today" = "Está frio hoje".',
+         462
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('É frio hoje.', false, 0),
+       ('Tem frio hoje.', false, 1),
+       ('Está frio hoje.', true, 2),
+       ('Foi frio hoje.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 463 (translation: I don't know what to do) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I don''t know what to do."',
+         '"Não sei o que fazer" — the infinitive after the interrogative.',
+         'Não sei o que fazer.',
+         '"I don''t know what to do" = "Não sei o que fazer".',
+         463
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Não conheço o que fazer.', false, 0),
+       ('Não sei que fiz.', false, 1),
+       ('Não sei que faço.', false, 2),
+       ('Não sei o que fazer.', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 464 (translation: How long have you lived here) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "How long have you lived here?"',
+         '"Há quanto tempo você mora aqui?" — present tense + "há quanto tempo".',
+         'Há quanto tempo você mora aqui?',
+         '"How long have you lived here?" = "Há quanto tempo você mora aqui?".',
+         464
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Há quanto tempo você mora aqui?', true, 0),
+       ('Quanto tempo você morou aqui?', false, 1),
+       ('Por quanto tempo você morava aqui?', false, 2),
+       ('Quando você mora aqui?', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 465 (translation: I have to study) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I have to study."',
+         '"Tenho que estudar" — "ter que" expresses obligation.',
+         'Tenho que estudar.',
+         '"I have to study" = "Tenho que estudar".',
+         465
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Devo estudo.', false, 0),
+       ('Tenho que estudar.', true, 1),
+       ('Tenho estudo.', false, 2),
+       ('Preciso estudei.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 466 (translation: I would like a coffee) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I would like a coffee, please."',
+         'Polite request: "Eu gostaria de um café, por favor" — uses futuro do pretérito for politeness.',
+         'Eu gostaria de um café, por favor.',
+         '"I would like a coffee, please" = "Eu gostaria de um café, por favor".',
+         466
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Quero um café, por favor.', false, 0),
+       ('Vou gostar um café, por favor.', false, 1),
+       ('Eu gostaria de um café, por favor.', true, 2),
+       ('Gostei de um café, por favor.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 467 (translation: He has been working a lot) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "He has been working a lot lately."',
+         'Repeated/continued recent action uses pretérito perfeito composto: "Ele tem trabalhado muito ultimamente".',
+         'Ele tem trabalhado muito ultimamente.',
+         '"He has been working a lot lately" = "Ele tem trabalhado muito ultimamente".',
+         467
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Ele trabalhou muito ultimamente.', false, 0),
+       ('Ele tem trabalhado muito ultimamente.', true, 1),
+       ('Ele trabalha muito ultimamente.', false, 2),
+       ('Ele trabalhava muito ultimamente.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 468 (translation: I'm going to travel next month) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I''m going to travel next month."',
+         'Near-future uses "ir + infinitivo": "Vou viajar no próximo mês".',
+         'Vou viajar no próximo mês.',
+         '"I''m going to travel next month" = "Vou viajar no próximo mês".',
+         468
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Viajei no próximo mês.', false, 0),
+       ('Viajo o próximo mês.', false, 1),
+       ('Vou viajar no próximo mês.', true, 2),
+       ('Viajaria no próximo mês.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 469 (translation: He always arrives late) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "He always arrives late."',
+         'Habitual present uses the simple presente: "Ele sempre chega tarde".',
+         'Ele sempre chega tarde.',
+         '"He always arrives late" = "Ele sempre chega tarde".',
+         469
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Ele chegou sempre tarde.', false, 0),
+       ('Ele chegará sempre tarde.', false, 1),
+       ('Ele chegava sempre tarde.', false, 2),
+       ('Ele sempre chega tarde.', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 470 (translation PT→EN: sentence with subjuntivo) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate to English: "Tomara que ele chegue logo."',
+         '"Tomara que" + presente do subjuntivo = "Let''s hope (that)..." / "I hope (that)...".',
+         'I hope he arrives soon.',
+         '"Tomara que ele chegue logo" = "I hope he arrives soon".',
+         470
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('I hope he arrives soon.', true, 0),
+       ('He will arrive soon.', false, 1),
+       ('He arrived soon.', false, 2),
+       ('He would arrive soon.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 471 (translation: We could go together) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "We could go together."',
+         '"Poderíamos ir juntos" — futuro do pretérito of "poder" for polite suggestion.',
+         'Poderíamos ir juntos.',
+         '"We could go together" = "Poderíamos ir juntos".',
+         471
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Podemos ir juntos.', false, 0),
+       ('Poderíamos ir juntos.', true, 1),
+       ('Pudemos ir juntos.', false, 2),
+       ('Pudéssemos ir juntos.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 472 (translation: Even though it is hard, I will try) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "Even though it is hard, I will try."',
+         '"Embora" + subjunctive: "Embora seja difícil, vou tentar".',
+         'Embora seja difícil, vou tentar.',
+         '"Even though it is hard, I will try" = "Embora seja difícil, vou tentar".',
+         472
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Embora é difícil, vou tentar.', false, 0),
+       ('Embora foi difícil, vou tentar.', false, 1),
+       ('Embora seja difícil, vou tentar.', true, 2),
+       ('Embora era difícil, vou tentar.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 473 (translation: I have never been to Spain) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I have never been to Spain."',
+         '"Nunca fui à Espanha" — pretérito perfeito with "nunca".',
+         'Nunca fui à Espanha.',
+         '"I have never been to Spain" = "Nunca fui à Espanha".',
+         473
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Nunca tenho ido à Espanha.', false, 0),
+       ('Nunca era na Espanha.', false, 1),
+       ('Nunca vou à Espanha.', false, 2),
+       ('Nunca fui à Espanha.', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 474 (translation: While I was studying, he was sleeping) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "While I was studying, he was sleeping."',
+         'Two simultaneous ongoing past actions: both in imperfeito (or estar imperfeito + gerúndio): "Enquanto eu estudava, ele dormia".',
+         'Enquanto eu estudava, ele dormia.',
+         '"While I was studying, he was sleeping" = "Enquanto eu estudava, ele dormia".',
+         474
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Enquanto eu estudava, ele dormia.', true, 0),
+       ('Enquanto eu estudei, ele dormiu.', false, 1),
+       ('Enquanto eu estudo, ele dorme.', false, 2),
+       ('Enquanto eu estudasse, ele dormisse.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 475 (translation: It is important that you understand) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "It is important that you understand."',
+         '"É importante que" + subjunctive: "É importante que você entenda".',
+         'É importante que você entenda.',
+         '"It is important that you understand" = "É importante que você entenda".',
+         475
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('É importante que você entende.', false, 0),
+       ('É importante que você entenda.', true, 1),
+       ('É importante você entender.', false, 2),
+       ('É importante que você entendesse.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 476 (translation: How long ago did you arrive) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "How long ago did you arrive?"',
+         '"Há quanto tempo você chegou?" — past arrival + "há" for "ago".',
+         'Há quanto tempo você chegou?',
+         '"How long ago did you arrive?" = "Há quanto tempo você chegou?".',
+         476
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Quando você vai chegar?', false, 0),
+       ('Quanto tempo você chega?', false, 1),
+       ('Há quanto tempo você chegou?', true, 2),
+       ('Por quanto tempo você chegará?', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 477 (translation: I am sorry for being late) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "Sorry for being late."',
+         '"Desculpe pelo atraso" — apology with "pelo" (por + o) before the noun.',
+         'Desculpe pelo atraso.',
+         '"Sorry for being late" = "Desculpe pelo atraso".',
+         477
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Desculpe para o atraso.', false, 0),
+       ('Desculpe atraso.', false, 1),
+       ('Desculpe do atraso.', false, 2),
+       ('Desculpe pelo atraso.', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 478 (translation PT→EN: a future-subj clause) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate to English: "Se você quiser, podemos ir agora."',
+         '"Se" + futuro do subjuntivo ("quiser") + main clause in presente: "If you want, we can go now".',
+         'If you want, we can go now.',
+         '"Se você quiser, podemos ir agora" = "If you want, we can go now".',
+         478
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('If you want, we can go now.', true, 0),
+       ('If you wanted, we could go now.', false, 1),
+       ('You will want, we will go now.', false, 2),
+       ('You wanted us to go now.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 479 (translation: I miss you) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "I miss you."',
+         'BR-PT uses "Estou com saudade de você" or simply "Saudade de você", since there is no direct verb for "to miss" someone.',
+         'Estou com saudade de você.',
+         '"I miss you" in BR-PT = "Estou com saudade de você".',
+         479
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Eu te perco.', false, 0),
+       ('Estou com saudade de você.', true, 1),
+       ('Estou faltando você.', false, 2),
+       ('Sinto você.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 480 (ser vs estar: chato) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the difference between "ser chato" and "estar chato"?',
+         '"Ser chato" = "to be (an) annoying (person)" — a trait. "Estar chato" = "to be (currently) boring" — a temporary state.',
+         'ser chato = annoying person; estar chato = currently boring',
+         '"Ser chato" describes a permanent trait; "estar chato" describes a temporary state.',
+         480
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('They mean the same thing.', false, 0),
+       ('ser chato = annoying person; estar chato = currently boring', true, 1),
+       ('ser chato = boring; estar chato = annoying', false, 2),
+       ('Only "estar chato" is grammatical.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 481 (ser vs estar: bom) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the difference between "ser bom" and "estar bom"?',
+         '"Ser bom em algo" = to be good at something (skill). "Estar bom" = "to be good/fine right now" (a state or that food/the situation is tasty/good now).',
+         'ser bom = skilled / inherently good; estar bom = good right now',
+         '"Ser bom" describes a trait; "estar bom" describes a current state.',
+         481
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('ser bom = skilled / inherently good; estar bom = good right now', true, 0),
+       ('They are interchangeable.', false, 1),
+       ('ser bom = tasty; estar bom = skilled', false, 2),
+       ('Only "estar bom" exists.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 482 (por vs para mixed: route vs purpose) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Choose the correct preposition: "Este presente é ___ você."',
+         '"Para" marks the recipient/goal: "Este presente é para você".',
+         'para',
+         '"Este presente é para você" uses "para" (recipient).',
+         482
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('por', false, 0),
+       ('para', true, 1),
+       ('de', false, 2),
+       ('em', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 483 (saber vs conhecer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the difference between "saber" and "conhecer"?',
+         '"Saber" = to know a fact or how to do something. "Conhecer" = to be acquainted with (a person, place, or work).',
+         'saber = know a fact; conhecer = be acquainted with',
+         '"Saber" = know a fact; "conhecer" = be acquainted with a person/place.',
+         483
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('They are synonyms.', false, 0),
+       ('saber = know a person; conhecer = know a fact', false, 1),
+       ('saber = know a fact; conhecer = be acquainted with', true, 2),
+       ('saber = think; conhecer = forget', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 484 (levar vs trazer) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the difference between "levar" and "trazer"?',
+         '"Levar" = to take (away from the speaker). "Trazer" = to bring (toward the speaker).',
+         'levar = take away; trazer = bring here',
+         '"Levar" = take (away); "trazer" = bring (here).',
+         484
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('levar = take away; trazer = bring here', true, 0),
+       ('They mean the same thing.', false, 1),
+       ('levar = bring; trazer = take', false, 2),
+       ('Only "trazer" is used in BR-PT.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 485 (gerúndio BR vs PT) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How does BR-PT typically express "I am speaking"?',
+         'BR-PT uses estar + gerúndio: "Estou falando". PT-PT prefers estar a + infinitivo: "Estou a falar".',
+         'Estou falando.',
+         '"I am speaking" in BR-PT = "Estou falando" (BR uses gerúndio; PT uses estar a + infinitivo).',
+         485
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Estou a falar.', false, 0),
+       ('Falo agora.', false, 1),
+       ('Estou falando.', true, 2),
+       ('Sou falando.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 486 (há vs tem para existência) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How does informal BR-PT express "There are two cars here"?',
+         'Informal BR-PT often uses "tem" for existence: "Tem dois carros aqui". The formal/written form is "Há dois carros aqui".',
+         'Tem dois carros aqui.',
+         'Informal BR-PT uses "tem" for existence: "Tem dois carros aqui" (formal: "Há dois carros aqui").',
+         486
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Tem dois carros aqui.', true, 0),
+       ('Está dois carros aqui.', false, 1),
+       ('São dois carros aqui.', false, 2),
+       ('Tinham dois carros aqui.', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 487 (false friend: puxar) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the false friend "puxar" really mean?',
+         '"Puxar" means "to pull" (not "push"). Pushing is "empurrar".',
+         'to pull',
+         '"Puxar" means "to pull" (not "push" — that is "empurrar").',
+         487
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to push', false, 0),
+       ('to pull', true, 1),
+       ('to lift', false, 2),
+       ('to throw', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 488 (false friend: assistir) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the false friend "assistir" most often mean in BR-PT?',
+         '"Assistir" most often means "to watch" (a film, a game). It can mean "to assist" in formal contexts, but in everyday BR speech it''s "to watch".',
+         'to watch',
+         '"Assistir" in BR-PT usually means "to watch" (e.g., "assistir um filme").',
+         488
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to insist', false, 0),
+       ('to remember', false, 1),
+       ('to watch', true, 2),
+       ('to attend a school', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 489 (false friend: parentes) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the false friend "parentes" mean?',
+         '"Parentes" means "relatives" (extended family), not "parents". "Parents" = "pais".',
+         'relatives',
+         '"Parentes" means "relatives" (not "parents"); "parents" = "pais".',
+         489
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('parents', false, 0),
+       ('siblings', false, 1),
+       ('grandparents', false, 2),
+       ('relatives', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 490 (false friend: pretender) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the false friend "pretender" really mean?',
+         '"Pretender" means "to intend / plan to" — not "to pretend" (that is "fingir").',
+         'to intend / plan to',
+         '"Pretender" means "to intend"; "to pretend" = "fingir".',
+         490
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('to intend / plan to', true, 0),
+       ('to pretend', false, 1),
+       ('to imagine', false, 2),
+       ('to lie', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 491 (diminutivo: cafezinho) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the diminutive "cafezinho" mean?',
+         '"Cafezinho" = a small/affectionate coffee — a typical BR cup of strong coffee. The diminutive "-zinho" also conveys warmth.',
+         'a little coffee',
+         '"Cafezinho" is the diminutive of "café" — a small (or affectionately small) coffee.',
+         491
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('a giant coffee', false, 0),
+       ('a little coffee', true, 1),
+       ('a cold coffee', false, 2),
+       ('coffee with milk', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 492 (diminutivo: pãozinho) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is "pãozinho"?',
+         '"Pãozinho" is a small bread roll — diminutive of "pão" with the "-zinho" suffix.',
+         'small bread roll',
+         '"Pãozinho" is the diminutive of "pão" — a small bread roll.',
+         492
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('a sandwich', false, 0),
+       ('a cake', false, 1),
+       ('small bread roll', true, 2),
+       ('a cookie', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 493 (diminutivo: casinha) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is "casinha"?',
+         '"Casinha" is the diminutive of "casa" — a small/cute house.',
+         'a little house',
+         '"Casinha" is the diminutive of "casa" — a small or cute house.',
+         493
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('a mansion', false, 0),
+       ('an apartment', false, 1),
+       ('a tent', false, 2),
+       ('a little house', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 494 (augmentativo: carrão) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the augmentative "carrão" mean?',
+         '"Carrão" is the augmentative of "carro" — a big/impressive car.',
+         'a big car',
+         '"Carrão" is the augmentative of "carro" — a big/impressive car.',
+         494
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('a big car', true, 0),
+       ('a small car', false, 1),
+       ('a slow car', false, 2),
+       ('a broken car', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 495 (saudade — untranslatable) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "saudade" mean?',
+         '"Saudade" is the famously hard-to-translate emotion combining longing, nostalgia, and missing someone/something.',
+         'longing / nostalgic missing',
+         '"Saudade" describes a deep longing or nostalgic missing.',
+         495
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('happiness', false, 0),
+       ('longing / nostalgic missing', true, 1),
+       ('anger', false, 2),
+       ('boredom', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 496 (negation: ninguém) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does "ninguém" mean?',
+         '"Ninguém" = nobody / no one. Combined with another negative for emphasis: "Não vi ninguém" = "I didn''t see anyone".',
+         'nobody',
+         '"Ninguém" means "nobody" or "no one".',
+         496
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('someone', false, 0),
+       ('everyone', false, 1),
+       ('nobody', true, 2),
+       ('anyone', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 497 (negation: nada) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you say "I didn''t see anything" in Portuguese?',
+         'Portuguese uses double negation: "Não vi nada" = literally "I didn''t see nothing" = "I didn''t see anything".',
+         'Não vi nada.',
+         '"I didn''t see anything" = "Não vi nada" — double negation is standard.',
+         497
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Vi nada.', false, 0),
+       ('Não vi alguma coisa.', false, 1),
+       ('Vi não nada.', false, 2),
+       ('Não vi nada.', true, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 498 (interjection: né) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the BR-PT tag "né?" mean?',
+         '"Né?" is a contracted "não é?" — equivalent to English "right?" / "isn''t it?" — extremely common in casual BR speech.',
+         'right? / isn''t it?',
+         '"Né?" is a contracted "não é?" meaning "right?" or "isn''t it?".',
+         498
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('right? / isn''t it?', true, 0),
+       ('no?', false, 1),
+       ('really!', false, 2),
+       ('ok', false, 3)
+     ) as c(label, is_correct, order_index);
+
+-- Question 499 (review: você está vs você é) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Translate: "You are tired" (right now).',
+         'Temporary state takes "estar": "Você está cansado". "Você é cansado" would mean "You are a tiring person" — unusual.',
+         'Você está cansado.',
+         '"You are tired (right now)" = "Você está cansado" — temporary state takes "estar".',
+         499
+  from modules where slug = 'portuguese'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Você é cansado.', false, 0),
+       ('Você está cansado.', true, 1),
+       ('Você foi cansado.', false, 2),
+       ('Você seja cansado.', false, 3)
+     ) as c(label, is_correct, order_index);
