@@ -2500,5 +2500,3 @@ from q,
        ('`unsigned`', false, 2),
        ('Implementation-defined floating type', false, 3)
      ) as c(label, is_correct, order_index);
-</parameter>
-</invoke>
