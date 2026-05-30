@@ -18,6 +18,10 @@ export function Footer() {
         <Github size={14} />
         <span>GitHub</span>
       </a>
+      <span className={styles.dot} aria-hidden>
+        ·
+      </span>
+      <span>v{__APP_VERSION__}</span>
     </footer>
   );
 }
