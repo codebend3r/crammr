@@ -3,6 +3,13 @@
 
 create extension if not exists "pgcrypto";
 
+-- Drop existing tables so this migration overwrites them.
+drop table if exists session_answers  cascade;
+drop table if exists sessions         cascade;
+drop table if exists question_choices cascade;
+drop table if exists questions        cascade;
+drop table if exists modules          cascade;
+
 -- ───────────────────────────────────────────────────────────── modules
 create table modules (
   id              uuid primary key default gen_random_uuid(),
