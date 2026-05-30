@@ -1,6 +1,10 @@
 -- 005_module_requests.sql
 -- Module request system: categories + user-submitted module requests with RLS
 
+-- Drop existing tables so this migration overwrites them.
+drop table if exists module_requests    cascade;
+drop table if exists request_categories cascade;
+
 -- ─────────────────────────────────────────────── request_categories
 create table request_categories (
   id          uuid primary key default gen_random_uuid(),

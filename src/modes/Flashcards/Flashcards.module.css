@@ -10,7 +10,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-7) var(--space-5);
-  min-height: 240px;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,9 +39,9 @@
 }
 
 .faceText {
-  font-size: 22px;
+  font-size: 30px;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .hint {

@@ -111,20 +111,9 @@ export function QuizPage({ params }: { params: Params }) {
   return (
     <div className={styles.page}>
       <div className={styles.top}>
-        <div className={styles.topRow}>
-          <span className={styles.counter}>
-            Question {currentIndex + 1} of {total}
-          </span>
-          <button
-            type="button"
-            className={styles.exit}
-            onClick={handleExit}
-            title="Save progress and return home"
-          >
-            <LogOut size={14} />
-            <span>Save &amp; exit</span>
-          </button>
-        </div>
+        <span className={styles.counter}>
+          Question {currentIndex + 1} of {total}
+        </span>
         <ProgressBar
           current={currentIndex + (answers.length > currentIndex ? 1 : 0)}
           total={total}
@@ -150,6 +139,18 @@ export function QuizPage({ params }: { params: Params }) {
           onNext={handleNext}
         />
       )}
+
+      <div className={styles.bottom}>
+        <button
+          type="button"
+          className={styles.exit}
+          onClick={handleExit}
+          title="Save progress and return home"
+        >
+          <LogOut size={16} />
+          <span>Save &amp; exit</span>
+        </button>
+      </div>
     </div>
   );
 }
