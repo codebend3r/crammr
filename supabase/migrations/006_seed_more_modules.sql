@@ -7,7 +7,9 @@
 -- in later migrations before these modules can run a quiz session.
 
 insert into modules (slug, name, description, type, total_questions) values
-  ('python',      'Python',                   'Brush up on Python — data types, comprehensions, decorators, and gotchas.',     'dynamic', 100),
+  ('python-1',    'Python — Level 1',         'Python basics — built-in types, operators, control flow, and core collection usage.', 'dynamic', 34),
+  ('python-2',    'Python — Level 2',         'Intermediate Python — comprehensions, decorators, generators, context managers, and OOP basics.', 'dynamic', 54),
+  ('python-3',    'Python — Level 3',         'Advanced Python — descriptors, metaclasses, `__slots__`, MRO subtleties, and typing internals.', 'dynamic', 12),
   ('c',           'C',                        'Sharpen C fundamentals — pointers, memory, structs, and undefined behavior.',   'dynamic', 100),
   ('cpp',         'C++',                      'Master C++ — RAII, templates, the STL, and modern features.',                   'dynamic', 100),
   ('java',        'Java',                     'Refresh Java — classes, generics, collections, and the JVM.',                   'dynamic', 100),
