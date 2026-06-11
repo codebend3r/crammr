@@ -17,6 +17,7 @@
 }
 
 .choice,
+.selected,
 .correct,
 .incorrect,
 .dim {
@@ -31,8 +32,16 @@
   transition: border-color 0.12s ease, background 0.12s ease;
 }
 
-.choice:hover {
+.choice:hover,
+.selected:hover {
   border-color: var(--color-accent);
+}
+
+.selected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-weight: 600;
 }
 
 .correct {

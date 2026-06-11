@@ -1,5 +1,6 @@
 .page {
   max-width: 720px;
+  min-height: 100%;
   margin: 0 auto;
   padding: var(--space-5);
   display: flex;
@@ -21,7 +22,9 @@
 .bottom {
   display: flex;
   justify-content: center;
-  margin-top: var(--space-4);
+  margin-top: auto;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
 }
 
 .exit {

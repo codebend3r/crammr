@@ -19,19 +19,24 @@ type Props = {
 export function MultipleChoice({ question, onAnswer, onNext }: Props) {
   const choices = useMemo(() => shuffle(question.choices), [question.choices]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [confirmed, setConfirmed] = useState(false);
 
   const correctId = choices.find((c) => c.is_correct)?.id ?? null;
-  const locked = selectedId !== null;
 
-  const handlePick = async (choiceId: string) => {
-    if (locked) return;
-    const isCorrect = choiceId === correctId;
+  const handlePick = (choiceId: string) => {
+    if (confirmed) return;
     setSelectedId(choiceId);
-    await onAnswer({ choiceId, isCorrect });
+  };
+
+  const handleConfirm = async () => {
+    if (confirmed || selectedId === null) return;
+    setConfirmed(true);
+    await onAnswer({ choiceId: selectedId, isCorrect: selectedId === correctId });
   };
 
   const handleNext = () => {
     setSelectedId(null);
+    setConfirmed(false);
     onNext();
   };
 
@@ -42,8 +47,10 @@ export function MultipleChoice({ question, onAnswer, onNext }: Props) {
       </h2>
       <div className={styles.choices}>
         {choices.map((c) => {
-          const cls = !locked
-            ? styles.choice
+          const cls = !confirmed
+            ? c.id === selectedId
+              ? styles.selected
+              : styles.choice
             : c.id === correctId
             ? styles.correct
             : c.id === selectedId
@@ -55,23 +62,28 @@ export function MultipleChoice({ question, onAnswer, onNext }: Props) {
               type="button"
               className={cls}
               onClick={() => handlePick(c.id)}
-              disabled={locked}
+              disabled={confirmed}
+              aria-pressed={!confirmed && c.id === selectedId}
             >
               {c.label}
             </button>
           );
         })}
       </div>
-      {locked && question.explanation ? (
+      {confirmed && question.explanation ? (
         <div className={styles.explanation}>
           <Markdown>{question.explanation}</Markdown>
         </div>
       ) : null}
-      {locked ? (
+      {confirmed ? (
         <Button onClick={handleNext} block>
           Next
         </Button>
-      ) : null}
+      ) : (
+        <Button onClick={handleConfirm} block disabled={selectedId === null}>
+          Confirm answer
+        </Button>
+      )}
     </div>
   );
 }
