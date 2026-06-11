@@ -1,26 +1,26 @@
 -- 003_seed_javascript.sql
--- JavaScript modules: split into three difficulty levels (32 / 45 / 23 questions).
+-- JavaScript modules: split into three difficulty levels (33 / 64 / 23 questions).
 
 insert into modules (slug, name, description, type, total_questions) values
-  ('javascript-1', 'JavaScript — Level 1', 'JavaScript basics — types, operators, core syntax, and everyday array/object usage.', 'dynamic', 32),
-  ('javascript-2', 'JavaScript — Level 2', 'Intermediate JavaScript — closures, `this`, classes, promises, and common gotchas.', 'dynamic', 45),
+  ('javascript-1', 'JavaScript — Level 1', 'JavaScript basics — variables, primitive types, operators, strings, and everyday array/object access.', 'dynamic', 33),
+  ('javascript-2', 'JavaScript — Level 2', 'Intermediate JavaScript — `this`, scope, hoisting, promises, modules, regex, JSON, and common gotchas.', 'dynamic', 64),
   ('javascript-3', 'JavaScript — Level 3', 'Advanced JavaScript — microtasks, prototype internals, generators, ESM details, and subtle pitfalls.', 'dynamic', 23);
 
 -- ============================================================
 -- javascript-1
 -- ============================================================
 
--- Question 0 [orig 0] (primitives & coercion) -----------------------------------------
+-- Question 0 (variables) ------------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
     flashcard_back, recap_answer, order_index
   )
   select id, null,
-         'What does `typeof null` return in JavaScript?',
-         'This is a long-standing bug in JavaScript. `typeof null` returns `"object"` even though `null` is a primitive. The spec has never fixed this for backward-compatibility reasons.',
-         '"object" (historical bug)',
-         '`typeof null` returns `"object"`. This is a well-known bug in JavaScript that has been preserved for backward compatibility — null is not actually an object.',
+         'Which keyword declares a variable whose value you can reassign later?',
+         '`let` declares a block-scoped variable that can be reassigned. `const` is also block-scoped but cannot be reassigned.',
+         '`let`',
+         'Use `let` to declare a block-scoped variable that you can reassign later. `const` cannot be reassigned.',
          0
   from modules where slug = 'javascript-1'
   returning id
@@ -29,13 +29,508 @@ insert into question_choices (question_id, label, is_correct, order_index)
 select q.id, c.label, c.is_correct, c.order_index
 from q,
      (values
-       ('"object"',  true,  0),
-       ('"null"',    false, 1),
-       ('"undefined"', false, 2),
-       ('"boolean"', false, 3)
+       ('const', false, 0),
+       ('def', false, 1),
+       ('let', true, 2),
+       ('readonly', false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 1 [orig 1] (primitives & coercion) -----------------------------------------
+
+-- Question 1 (variables) ------------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which keyword declares a constant that cannot be reassigned?',
+         '`const` creates a binding that cannot be reassigned. The object it points to can still be mutated, but the variable cannot point to a new value.',
+         '`const`',
+         '`const` declares a constant binding that cannot be reassigned to a new value.',
+         1
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('const', true, 0),
+       ('let', false, 1),
+       ('var', false, 2),
+       ('static', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 2 (primitive types) ------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `typeof "hello"` evaluate to?',
+         'Text values have the `string` type, so `typeof "hello"` returns the string `"string"`.',
+         '"string"',
+         '`typeof "hello"` returns `"string"` because the value is a string.',
+         2
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('"text"', false, 0),
+       ('"string"', true, 1),
+       ('"char"', false, 2),
+       ('"hello"', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 3 (primitive types) ------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `typeof 42` evaluate to?',
+         'JavaScript has a single `number` type for both integers and decimals, so `typeof 42` returns `"number"`.',
+         '"number"',
+         '`typeof 42` returns `"number"`; JavaScript uses one numeric type for integers and decimals.',
+         3
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('"number"', true, 0),
+       ('"int"', false, 1),
+       ('"integer"', false, 2),
+       ('"42"', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 4 (primitive types) ------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `typeof true` evaluate to?',
+         '`true` and `false` are booleans, so `typeof true` returns the string `"boolean"`.',
+         '"boolean"',
+         '`typeof true` returns `"boolean"`.',
+         4
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('"bool"', false, 0),
+       ('"true"', false, 1),
+       ('"boolean"', true, 2),
+       ('"number"', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 5 (console) --------------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `console.log("hi")` do?',
+         '`console.log` writes its arguments to the console (browser dev tools or the terminal in Node). It is the most common way to inspect values while learning.',
+         'prints "hi" to the console',
+         '`console.log("hi")` prints the value `"hi"` to the console, commonly used for debugging.',
+         5
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Prints "hi" to the console', true, 0),
+       ('Creates a variable named hi', false, 1),
+       ('Returns "hi" from the function', false, 2),
+       ('Saves "hi" to a file', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 6 (comments) -------------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you write a single-line comment in JavaScript?',
+         'A single-line comment starts with `//`; everything after it on that line is ignored. Block comments use `/* ... */`.',
+         '`// comment`',
+         'Start a single-line comment with `//`; the rest of that line is ignored.',
+         6
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('# comment', false, 0),
+       ('<!-- comment -->', false, 1),
+       ('// comment', true, 2),
+       ('** comment', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 7 (arrays) ---------------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'In JavaScript, what is the index of the first element of an array?',
+         'Arrays are zero-indexed, so the first element is at index `0` and the last is at index `length - 1`.',
+         '0',
+         'Arrays are zero-indexed: the first element is at index `0`.',
+         7
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('0', true, 0),
+       ('1', false, 1),
+       ('-1', false, 2),
+       ('It depends on the array', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 8 (arrays) ---------------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Given `const arr = [10, 20, 30]`, how do you read the first element?',
+         'Use bracket notation with the index: `arr[0]` reads the first element, which is `10`.',
+         '`arr[0]` (which is 10)',
+         '`arr[0]` returns the first element, `10`, because arrays are indexed from `0`.',
+         8
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('arr[1]', false, 0),
+       ('arr.first', false, 1),
+       ('arr(0)', false, 2),
+       ('arr[0]', true, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 9 (arrays) ---------------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `arr.push(4)` do to an array?',
+         '`push` appends one or more elements to the end of the array and returns the new length. It mutates the original array.',
+         'adds 4 to the end',
+         '`arr.push(4)` adds `4` to the end of the array and returns the new length.',
+         9
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Adds 4 to the end of the array', true, 0),
+       ('Adds 4 to the start of the array', false, 1),
+       ('Removes 4 from the array', false, 2),
+       ('Replaces the first element with 4', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 10 (arrays) --------------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the `.length` property of an array give you?',
+         '`.length` is the number of elements currently in the array. For `[10, 20, 30]` it is `3`.',
+         'the number of elements',
+         '`arr.length` is the count of elements in the array.',
+         10
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('The index of the last element', false, 0),
+       ('The number of elements in the array', true, 1),
+       ('The largest value in the array', false, 2),
+       ('The first element', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 11 (objects) -------------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Given `const book = { title: "JS" }`, how do you read the `title` property?',
+         'Use dot notation `book.title` (or bracket notation `book["title"]`). Both return `"JS"`.',
+         '`book.title`',
+         '`book.title` reads the `title` property using dot notation.',
+         11
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('book->title', false, 0),
+       ('book.title', true, 1),
+       ('book::title', false, 2),
+       ('title.book', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 12 (functions) -----------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the `return` statement do inside a function?',
+         '`return` ends the function and sends a value back to the code that called it. A function with no `return` returns `undefined`.',
+         'sends a value back to the caller',
+         '`return` stops the function and passes a value back to whoever called it.',
+         12
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Prints a value to the console', false, 0),
+       ('Sends a value back to the caller and ends the function', true, 1),
+       ('Loops back to the start of the function', false, 2),
+       ('Declares a new variable', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 13 (operators) -----------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `5 > 3` evaluate to?',
+         '`>` is the greater-than comparison operator. Since 5 is greater than 3, it evaluates to the boolean `true`.',
+         'true',
+         '`5 > 3` evaluates to `true` because 5 is greater than 3.',
+         13
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('true', true, 0),
+       ('false', false, 1),
+       ('"5 > 3"', false, 2),
+       ('2', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 14 (strings) -------------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'With `const name = "Sam"`, what does the template literal `` `Hi ${name}` `` produce?',
+         'Template literals use backticks and `${ }` to embed expressions. `${name}` is replaced with its value, producing `"Hi Sam"`.',
+         '"Hi Sam"',
+         'It produces `"Hi Sam"`; `${name}` inside backticks inserts the variable value.',
+         14
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('"Hi Sam"', true, 0),
+       ('"Hi ${name}"', false, 1),
+       ('"Hi name"', false, 2),
+       ('"HiSam"', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 15 (strings) -------------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `"foo" + "bar"` produce?',
+         'The `+` operator concatenates two strings, joining them into `"foobar"`.',
+         '"foobar"',
+         '`"foo" + "bar"` concatenates the strings into `"foobar"`.',
+         15
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('"foo bar"', false, 0),
+       ('"foobar"', true, 1),
+       ('"barfoo"', false, 2),
+       ('an error', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 16 (operators) -----------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `10 % 3` evaluate to?',
+         '`%` is the remainder (modulo) operator. Dividing 10 by 3 leaves a remainder of `1`.',
+         '1',
+         '`10 % 3` is `1`, the remainder after dividing 10 by 3.',
+         16
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('3', false, 0),
+       ('0', false, 1),
+       ('1', true, 2),
+       ('3.33', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 17 (type conversion) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `Number("42")` return?',
+         '`Number()` converts its argument to a number, so the string `"42"` becomes the number `42`.',
+         '42 (a number)',
+         '`Number("42")` returns the number `42`, converting the string to a number.',
+         17
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('the number 42', true, 0),
+       ('the string "42"', false, 1),
+       ('NaN', false, 2),
+       ('"forty-two"', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 18 (type conversion) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `String(7)` return?',
+         '`String()` converts its argument to a string, so the number `7` becomes the string `"7"`.',
+         '"7" (a string)',
+         '`String(7)` returns the string `"7"`.',
+         18
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('the number 7', false, 0),
+       ('the string "7"', true, 1),
+       ('NaN', false, 2),
+       ('true', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 19 (truthy & falsy) ------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Which of these values is falsy in JavaScript?',
+         '`0` is falsy: in a boolean context it behaves like `false`. The other values are all truthy, including the empty array `[]` and the non-empty string `"0"`.',
+         '0',
+         '`0` is falsy, while `"0"`, `[]`, and `{}` are all truthy.',
+         19
+  from modules where slug = 'javascript-1'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('"0"', false, 0),
+       ('[]', false, 1),
+       ('0', true, 2),
+       ('"false"', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 20 (primitives & coercion) -----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -46,7 +541,7 @@ with q as (
          '`typeof undefined` returns the string `"undefined"`. Unlike `typeof null`, this one is correct and expected.',
          '"undefined"',
          '`typeof undefined` returns `"undefined"`. This is one of the few cases where `typeof` is fully reliable with no quirks.',
-         1
+         20
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -60,7 +555,8 @@ from q,
        ('"void"',      false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 2 [orig 5] (primitives & coercion) -----------------------------------------
+
+-- Question 21 (primitives & coercion) -----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -71,7 +567,7 @@ with q as (
          '`==` performs type coercion before comparing, which can yield surprising results. `===` compares both value and type with no coercion, making it safer and more predictable.',
          '=== checks type + value; == coerces',
          '`===` (strict equality) compares both type and value without coercion. `==` (loose equality) performs type coercion first, which can produce unexpected `true` results between different types.',
-         2
+         21
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -85,32 +581,8 @@ from q,
        ('`===` only works with primitive types',                              false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 3 [orig 8] (scope, hoisting, var/let/const) ---------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What is "hoisting" in JavaScript?',
-         'Hoisting is JavaScript''s behavior of moving declarations (not initializations) to the top of their scope during the compilation phase. `var` declarations are hoisted and initialized to `undefined`; `let`/`const` are hoisted but not initialized (TDZ).',
-         'declarations moved to top of scope',
-         'Hoisting is JavaScript moving declarations to the top of their containing scope before execution. `var` is hoisted and set to `undefined`; `let` and `const` are hoisted but remain uninitialized in the temporal dead zone.',
-         3
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('Variables are automatically assigned their final value at parse time',  false, 0),
-       ('Declarations are moved to the top of their scope before execution',    true,  1),
-       ('Functions are copied into every scope that uses them',                  false, 2),
-       ('The engine runs code from the bottom of the file upward',              false, 3)
-     ) as c(label, is_correct, order_index);
 
--- Question 4 [orig 10] (scope, hoisting, var/let/const) --------------------------------
+-- Question 22 (scope, hoisting, var/let/const) --------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -121,7 +593,7 @@ with q as (
          '`const` prevents reassignment of the binding, but the value it points to can still be mutated if it is an object or array. The binding is constant, not the contents.',
          'no reassign; yes mutate object',
          '`const` prevents reassignment of the variable binding, so you cannot point it to a new value. However, if the value is an object or array, its properties or elements can still be mutated.',
-         4
+         22
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -135,82 +607,8 @@ from q,
        ('Reassignment is allowed; mutation is forbidden',                     false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 5 [orig 11] (scope, hoisting, var/let/const) --------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What scope does `var` use?',
-         '`var` is function-scoped (or globally scoped if declared outside a function). It does not respect block boundaries like `if` or `for` loops. `let` and `const` are block-scoped.',
-         'function scope (not block scope)',
-         '`var` declarations are function-scoped: they are visible throughout the entire function in which they appear, ignoring block boundaries such as `if` statements and `for` loops.',
-         5
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('Block scope',    false, 0),
-       ('Module scope',   false, 1),
-       ('Lexical scope',  false, 2),
-       ('Function scope', true,  3)
-     ) as c(label, is_correct, order_index);
 
--- Question 6 [orig 13] (scope, hoisting, var/let/const) --------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What value does a `var` declaration have before its assignment line is reached?',
-         'Hoisted `var` declarations are initialized to `undefined`. The declaration is moved to the top of the function scope, but the assignment stays in place.',
-         'undefined',
-         'A hoisted `var` variable is initialized to `undefined` before its assignment line executes. Reading it before assignment yields `undefined`, not a `ReferenceError`.',
-         6
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('null',        false, 0),
-       ('undefined',   true,  1),
-       ('0',           false, 2),
-       ('It throws a ReferenceError', false, 3)
-     ) as c(label, is_correct, order_index);
-
--- Question 7 [orig 25] (`this` binding) ------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What does `this` refer to when a method is called on an object, e.g. `obj.greet()`?',
-         'Implicit binding: when a function is called as a method with a dot receiver, `this` inside the function refers to the object to the left of the dot — `obj` in this case.',
-         'the object before the dot',
-         'With implicit binding, `this` refers to the object that the method is called on — the object to the left of the dot. So in `obj.greet()`, `this` is `obj`.',
-         7
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('The global object',                    false, 0),
-       ('undefined',                            false, 1),
-       ('The function itself',                  false, 2),
-       ('`obj` — the object before the dot',    true,  3)
-     ) as c(label, is_correct, order_index);
-
--- Question 8 [orig 30] (arrays) --------------------------------------------------------
+-- Question 23 (arrays) --------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -221,7 +619,7 @@ with q as (
          '`map` returns a new array of the same length, where each element is the result of the callback function. It does not mutate the original array.',
          'new array of transformed values',
          '`map` creates and returns a new array containing the return value of the callback for each element. The original array is not modified.',
-         8
+         23
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -235,7 +633,8 @@ from q,
        ('A boolean indicating success',                 false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 9 [orig 31] (arrays) --------------------------------------------------------
+
+-- Question 24 (arrays) --------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -246,7 +645,7 @@ with q as (
          '`filter` always returns an array. If no elements pass the predicate, it returns an empty array `[]`, never `null` or `undefined`.',
          'empty array []',
          '`filter` returns a new array containing only elements for which the callback returns truthy. When none pass, it returns `[]` — an empty array, never `null`.',
-         9
+         24
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -260,7 +659,8 @@ from q,
        ('An empty array []', true,  3)
      ) as c(label, is_correct, order_index);
 
--- Question 10 [orig 33] (arrays) --------------------------------------------------------
+
+-- Question 25 (arrays) --------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -271,7 +671,7 @@ with q as (
          '`forEach` iterates and returns `undefined`; it is for side effects. `map` returns a new array of the callback''s return values. You cannot chain `forEach` but you can chain `map`.',
          'forEach returns undefined; map returns new array',
          '`forEach` executes a callback for each element and always returns `undefined` — it is used for side effects. `map` transforms each element and returns a new array of the results.',
-         10
+         25
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -285,7 +685,8 @@ from q,
        ('`map` mutates the array; `forEach` does not',                              false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 11 [orig 34] (arrays) --------------------------------------------------------
+
+-- Question 26 (arrays) --------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -296,7 +697,7 @@ with q as (
          '`find` returns the first element for which the callback returns truthy. If no element matches, it returns `undefined`.',
          'undefined',
          '`find` returns the first matching element, or `undefined` if none is found. Unlike `filter`, it stops at the first match and returns the value itself, not an array.',
-         11
+         26
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -310,7 +711,8 @@ from q,
        ('undefined', true,  3)
      ) as c(label, is_correct, order_index);
 
--- Question 12 [orig 38] (arrays) --------------------------------------------------------
+
+-- Question 27 (arrays) --------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -321,7 +723,7 @@ with q as (
          '`some` returns `true` if at least one element passes the callback test; otherwise `false`. It short-circuits as soon as a match is found.',
          'true if any element passes',
          '`some` iterates over elements and returns `true` if the callback returns truthy for at least one element. It stops early once a match is found. If no element matches, it returns `false`.',
-         12
+         27
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -335,7 +737,8 @@ from q,
        ('Returns the count of matching elements',            false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 13 [orig 41] (objects) -------------------------------------------------------
+
+-- Question 28 (objects) -------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -346,7 +749,7 @@ with q as (
          '`Object.keys` returns an array of the object''s own enumerable string-keyed property names. It does not include inherited properties or Symbol keys.',
          'array of own enumerable string keys',
          '`Object.keys(obj)` returns an array of strings containing the names of the object''s own enumerable properties. Symbol-keyed and inherited properties are excluded.',
-         13
+         28
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -360,7 +763,8 @@ from q,
        ('The count of own properties',                    false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 14 [orig 42] (objects) -------------------------------------------------------
+
+-- Question 29 (objects) -------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -371,7 +775,7 @@ with q as (
          'Object spread creates a new object containing shallow copies of all own enumerable properties of `a` and `b`. If both have a key with the same name, `b`''s value wins (later spread wins).',
          'shallow merge; last writer wins',
          'Spreading objects creates a new object with all own enumerable properties of each source. Properties from later sources overwrite earlier ones with the same key. It is a shallow copy — nested objects are not deep-cloned.',
-         14
+         29
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -385,7 +789,8 @@ from q,
        ('Creates a reference to both objects',                          false, 2)
      ) as c(label, is_correct, order_index);
 
--- Question 15 [orig 44] (objects) -------------------------------------------------------
+
+-- Question 30 (objects) -------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -396,7 +801,7 @@ with q as (
          '`Object.entries` returns an array of `[key, value]` pairs for the object''s own enumerable string-keyed properties. It is useful for iterating over an object''s properties with `for...of`.',
          'array of [key, value] pairs',
          '`Object.entries(obj)` returns an array of `[key, value]` pairs for each own enumerable string property. Combined with destructuring and `for...of`, it enables clean object iteration.',
-         15
+         30
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -410,132 +815,8 @@ from q,
        ('An iterator over key-value pairs',            false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 16 [orig 51] (promises & async/await) ----------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What does a Promise represent?',
-         'A Promise represents the eventual result of an asynchronous operation. It can be in one of three states: pending, fulfilled, or rejected. Once settled (fulfilled or rejected) it cannot change state.',
-         'eventual result of async op (pending/fulfilled/rejected)',
-         'A Promise is an object representing the eventual completion or failure of an asynchronous operation. It starts as pending and settles to either fulfilled (with a value) or rejected (with a reason), and never changes state after settling.',
-         16
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('A synchronous wrapper around callback functions',             false, 0),
-       ('The eventual result of an async op — pending, fulfilled, or rejected', true, 1),
-       ('A function that delays execution by a given number of ms',   false, 2),
-       ('An object that can only resolve, never reject',              false, 3)
-     ) as c(label, is_correct, order_index);
 
--- Question 17 [orig 56] (promises & async/await) ----------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What does `async` in front of a function declaration do?',
-         'An `async` function always returns a Promise. If the function returns a non-Promise value, it is automatically wrapped in `Promise.resolve(value)`. This lets the caller use `.then()` or `await` on it.',
-         'always returns a Promise',
-         'Marking a function `async` makes it always return a Promise. A returned non-Promise value is wrapped in `Promise.resolve()`. It also unlocks the `await` keyword inside the function body.',
-         17
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('Makes the function run in a separate thread',                    false, 0),
-       ('Enables the `yield` keyword inside the function',                false, 1),
-       ('Makes the function always return a Promise',                     true,  2),
-       ('Prevents the function from throwing errors',                     false, 3)
-     ) as c(label, is_correct, order_index);
-
--- Question 18 [orig 61] (error handling) ------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'Does a `finally` block run if the `try` block has a `return` statement?',
-         'Yes. `finally` always executes after `try` (and `catch` if applicable), even if there is a `return` or `throw` in `try`. If `finally` itself returns a value, it overrides the `try`''s return value.',
-         'yes — always runs',
-         '`finally` always executes, regardless of `return`, `throw`, or normal exit from `try`/`catch`. If `finally` has its own `return`, that value overrides any value returned by `try` or `catch`.',
-         18
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('No — `finally` is skipped if `try` returns normally',        false, 0),
-       ('Only if the `return` value is `undefined`',                  false, 1),
-       ('Yes — `finally` always executes',                            true,  2),
-       ('Only if `catch` also has a `return`',                        false, 3)
-     ) as c(label, is_correct, order_index);
-
--- Question 19 [orig 63] (error handling) ------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What is a `ReferenceError` in JavaScript?',
-         'A `ReferenceError` is thrown when code tries to access a variable that has not been declared or is not in scope — for example, reading a variable before declaring it with `let`/`const` (TDZ).',
-         'accessing an undeclared or TDZ variable',
-         'A `ReferenceError` occurs when you reference a variable that doesn''t exist in the current scope — such as using an undeclared identifier or accessing a `let`/`const` in its temporal dead zone.',
-         19
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('Accessing a property on `null` or `undefined`',            false, 0),
-       ('Accessing an undeclared or TDZ variable',                  true,  1),
-       ('Calling a non-function as a function',                     false, 2),
-       ('Attempting to parse invalid JSON',                         false, 3)
-     ) as c(label, is_correct, order_index);
-
--- Question 20 [orig 70] (modules ESM) ---------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What is the difference between a named export and a default export in ES modules?',
-         'A module can have many named exports (using `export { name }` or `export const name`) and at most one `export default`. Named exports are imported with the exact name in braces; default exports are imported without braces under any name.',
-         'named: braces, exact name; default: no braces, any name',
-         'Named exports are imported with their exact name in curly braces: `import { foo } from ...`. A default export is imported without braces under any name: `import anything from ...`. A module can have many named exports but only one default.',
-         20
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('Named: imported with braces and exact name; default: imported without braces',   true,  0),
-       ('They are the same — just different syntax',                                      false, 1),
-       ('Default exports can only export functions',                                       false, 2),
-       ('Named exports cannot be renamed on import',                                      false, 3)
-     ) as c(label, is_correct, order_index);
-
--- Question 21 [orig 74] (DOM essentials) ------------------------------------------------
+-- Question 31 (DOM essentials) ------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -546,7 +827,7 @@ with q as (
          '`querySelector` returns the first matching element, or `null` if none is found. It does not throw an error when there is no match.',
          'null',
          '`document.querySelector()` returns the first element in the document that matches the given CSS selector, or `null` if no match exists. It never throws for a non-matching selector.',
-         21
+         31
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -560,182 +841,8 @@ from q,
        ('It throws an error',     false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 22 [orig 77] (DOM essentials) ------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What does `addEventListener` third argument `{ once: true }` do?',
-         'The `{ once: true }` option causes the event listener to be automatically removed after it fires once. Equivalent to manually calling `removeEventListener` inside the handler.',
-         'listener auto-removed after first invocation',
-         'Passing `{ once: true }` as the third argument to `addEventListener` registers a listener that automatically removes itself after being invoked once, without needing to call `removeEventListener` manually.',
-         22
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('The listener fires once per second',                               false, 0),
-       ('The listener captures instead of bubbles',                         false, 1),
-       ('The listener is automatically removed after firing once',          true,  2),
-       ('The listener is fired during the capture phase only',              false, 3)
-     ) as c(label, is_correct, order_index);
 
--- Question 23 [orig 79] (JSON gotchas) --------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What does `JSON.parse("invalid")` do?',
-         '`JSON.parse` throws a `SyntaxError` when given invalid JSON. Always wrap it in `try/catch` when parsing untrusted input.',
-         'throws SyntaxError',
-         '`JSON.parse` throws a `SyntaxError` if the input string is not valid JSON. You should always use `try/catch` when parsing JSON from an external source.',
-         23
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('Returns `null`',             false, 0),
-       ('Returns `undefined`',        false, 1),
-       ('Returns the string as-is',   false, 2),
-       ('Throws a SyntaxError',       true,  3)
-     ) as c(label, is_correct, order_index);
-
--- Question 24 [orig 80] (JSON gotchas) --------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What does `JSON.stringify({ a: 1 }, null, 2)` produce?',
-         'The third argument to `JSON.stringify` is the indent level. Passing `2` produces a pretty-printed JSON string with 2-space indentation, making it human-readable.',
-         'pretty-printed JSON with 2-space indent',
-         'The third argument to `JSON.stringify` controls indentation. `2` means use 2 spaces per level, producing a multi-line, human-readable JSON string. `null` as the second arg means no replacer.',
-         24
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('A minified JSON string with no whitespace',              false, 0),
-       ('A JSON string truncated to 2 characters',               false, 1),
-       ('A pretty-printed JSON string with 2-space indentation',  true,  2),
-       ('It throws because `null` is not a valid replacer',       false, 3)
-     ) as c(label, is_correct, order_index);
-
--- Question 25 [orig 82] (Map / Set) -----------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What does a `Set` guarantee about its elements?',
-         'A `Set` stores unique values — duplicates are silently ignored. Uniqueness is determined by the SameValueZero algorithm (similar to `===`, except `NaN === NaN` is treated as equal).',
-         'unique values only; duplicates ignored',
-         'A `Set` only stores unique values. Adding a duplicate is a no-op. Uniqueness uses SameValueZero — like `===` but with `NaN` considered equal to itself.',
-         25
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('Each value appears only once (no duplicates)',       true,  0),
-       ('All elements are stored in sorted order',            false, 1),
-       ('Elements are stored as key-value pairs',            false, 2),
-       ('Throws if you add a duplicate value',               false, 3)
-     ) as c(label, is_correct, order_index);
-
--- Question 26 [orig 84] (Map / Set) -----------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'How do you get the number of entries in a `Map`?',
-         '`Map` has a `.size` property (not `.length`) that returns the number of key-value pairs. Plain objects have no direct equivalent — you use `Object.keys(obj).length`.',
-         'map.size',
-         '`Map` exposes a `.size` property that holds the number of entries. Unlike arrays, it does not use `.length`. `Set` also uses `.size`.',
-         26
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('map.length',           false, 0),
-       ('map.count',            false, 1),
-       ('Object.keys(map).length', false, 2),
-       ('map.size',             true,  3)
-     ) as c(label, is_correct, order_index);
-
--- Question 27 [orig 85] (regex basics) --------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What does the `g` flag do on a regular expression?',
-         'The `g` (global) flag makes the regex search for all matches rather than stopping at the first. It also causes `lastIndex` to be advanced after each match, which can cause confusing behavior if the regex object is reused.',
-         'matches all occurrences (global)',
-         'The `g` flag enables global matching: methods like `String.matchAll` and `RegExp.exec` in a loop find all matches. It also advances `lastIndex` after each match, so reusing a `g` regex across calls can produce unexpected results.',
-         27
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('Finds all matches instead of stopping at the first',            true,  0),
-       ('Makes the regex case-insensitive',                              false, 1),
-       ('Makes the regex match across multiple lines',                   false, 2),
-       ('Matches only at the start of the string',                       false, 3)
-     ) as c(label, is_correct, order_index);
-
--- Question 28 [orig 86] (regex basics) --------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What does `regex.test(str)` return?',
-         '`test` returns a boolean — `true` if the regex matches anywhere in the string, `false` otherwise. It is the simplest way to check for a pattern match.',
-         'boolean — true if match found',
-         '`regex.test(str)` returns `true` if the pattern matches anywhere in `str`, and `false` otherwise. Use it for simple yes/no pattern checks. Be careful with stateful `g` regexes as `lastIndex` is updated.',
-         28
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('The matched substring or null',          false, 0),
-       ('An array of all matches',               false, 1),
-       ('A boolean — true if the pattern matches', true, 3),
-       ('The index of the first match',           false, 2)
-     ) as c(label, is_correct, order_index);
-
--- Question 29 [orig 92] (common pitfalls) -----------------------------------------------
+-- Question 32 (common pitfalls) -----------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -746,7 +853,7 @@ with q as (
          '`typeof []` returns `"object"`. Arrays are objects in JavaScript, so `typeof` does not distinguish them. Use `Array.isArray([])` to reliably detect arrays.',
          '"object" — use Array.isArray()',
          '`typeof []` returns `"object"` because arrays are a subtype of object. To detect arrays specifically, use `Array.isArray(value)` which returns `true` only for actual arrays.',
-         29
+         32
   from modules where slug = 'javascript-1'
   returning id
 )
@@ -760,61 +867,12 @@ from q,
        ('"iterable"', false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 30 [orig 95] (misc) ----------------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What does the optional chaining operator `?.` do?',
-         'Optional chaining short-circuits and returns `undefined` if the value before `?.` is `null` or `undefined`, instead of throwing a `TypeError`. It avoids verbose null checks like `obj && obj.foo && obj.foo.bar`.',
-         'returns undefined instead of throwing on null/undefined',
-         '`obj?.prop` returns `undefined` if `obj` is `null` or `undefined`, instead of throwing a `TypeError`. It enables safe deep property access without chaining manual null checks.',
-         30
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('Throws only in strict mode when accessing null properties', false, 0),
-       ('Returns `null` when a property does not exist',             false, 1),
-       ('Short-circuits to `undefined` when the receiver is null/undefined', true, 2),
-       ('Provides default values like `??`',                         false, 3)
-     ) as c(label, is_correct, order_index);
-
--- Question 31 [orig 96] (misc) ----------------------------------------------------------
-with q as (
-  insert into questions (
-    module_id, category, prompt, explanation,
-    flashcard_back, recap_answer, order_index
-  )
-  select id, null,
-         'What does the nullish coalescing operator `??` return?',
-         '`a ?? b` returns `b` only when `a` is `null` or `undefined`. Unlike `||`, it does NOT fall back for other falsy values like `0`, `false`, or `""`. This makes it safer for default values.',
-         'right side only when left is null/undefined',
-         '`a ?? b` evaluates to `b` only if `a` is `null` or `undefined`. A value of `0`, `false`, or `""` on the left side does NOT trigger the fallback, unlike `||` which treats all falsy values as triggers.',
-         31
-  from modules where slug = 'javascript-1'
-  returning id
-)
-insert into question_choices (question_id, label, is_correct, order_index)
-select q.id, c.label, c.is_correct, c.order_index
-from q,
-     (values
-       ('Returns the right side for any falsy left side',              false, 0),
-       ('Returns the right side only when the left is null/undefined', true,  3),
-       ('Throws if the left side is undefined',                        false, 1),
-       ('Always returns a boolean',                                    false, 2)
-     ) as c(label, is_correct, order_index);
 
 -- ============================================================
 -- javascript-2
 -- ============================================================
 
--- Question 0 [orig 2] (primitives & coercion) -----------------------------------------
+-- Question 0 (primitives & coercion) -----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -839,7 +897,8 @@ from q,
        ('It throws a TypeError', false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 1 [orig 3] (primitives & coercion) -----------------------------------------
+
+-- Question 1 (primitives & coercion) -----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -864,7 +923,8 @@ from q,
        ('1',   false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 2 [orig 6] (primitives & coercion) -----------------------------------------
+
+-- Question 2 (primitives & coercion) -----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -889,7 +949,8 @@ from q,
        ('"object"', false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 3 [orig 7] (primitives & coercion) -----------------------------------------
+
+-- Question 3 (primitives & coercion) -----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -914,7 +975,8 @@ from q,
        ('It throws ReferenceError', false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 4 [orig 9] (scope, hoisting, var/let/const) ---------------------------------
+
+-- Question 4 (scope, hoisting, var/let/const) ---------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -939,7 +1001,8 @@ from q,
        ('A special zone where `null` and `undefined` behave the same way',                false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 5 [orig 12] (scope, hoisting, var/let/const) --------------------------------
+
+-- Question 5 (scope, hoisting, var/let/const) --------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -964,7 +1027,8 @@ from q,
        ('undefined, undefined, undefined', false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 6 [orig 14] (closures) ------------------------------------------------------
+
+-- Question 6 (closures) ------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -989,7 +1053,8 @@ from q,
        ('A function stored as a property of an object',                                false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 7 [orig 15] (closures) ------------------------------------------------------
+
+-- Question 7 (closures) ------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1014,7 +1079,8 @@ from q,
        ('undefined',                                                 false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 8 [orig 16] (closures) ------------------------------------------------------
+
+-- Question 8 (closures) ------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1039,7 +1105,8 @@ from q,
        ('A function that can only be called once',                                    false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 9 [orig 17] (closures) ------------------------------------------------------
+
+-- Question 9 (closures) ------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1064,7 +1131,8 @@ from q,
        ('By keeping variables in an outer function scope inaccessible to outside code',       true,  3)
      ) as c(label, is_correct, order_index);
 
--- Question 10 [orig 19] (closures) ------------------------------------------------------
+
+-- Question 10 (closures) ------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1089,7 +1157,8 @@ from q,
        ('Wrap the entire loop in `try`/`catch`',          false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 11 [orig 20] (`this` binding) ------------------------------------------------
+
+-- Question 11 (`this` binding) ------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1114,7 +1183,8 @@ from q,
        ('The function itself',                  false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 12 [orig 21] (`this` binding) ------------------------------------------------
+
+-- Question 12 (`this` binding) ------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1139,7 +1209,8 @@ from q,
        ('`undefined` always',                                               false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 13 [orig 22] (`this` binding) ------------------------------------------------
+
+-- Question 13 (`this` binding) ------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1164,7 +1235,8 @@ from q,
        ('undefined',                              false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 14 [orig 23] (`this` binding) ------------------------------------------------
+
+-- Question 14 (`this` binding) ------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1189,7 +1261,8 @@ from q,
        ('`apply` can only be used on arrays',                                                            false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 15 [orig 24] (`this` binding) ------------------------------------------------
+
+-- Question 15 (`this` binding) ------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1214,7 +1287,8 @@ from q,
        ('`this` is set to `null` inside timer callbacks by the browser',           false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 16 [orig 28] (arrow vs regular functions) ------------------------------------
+
+-- Question 16 (arrow vs regular functions) ------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1239,7 +1313,8 @@ from q,
        ('Arrow functions have access to the event object by default',          false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 17 [orig 32] (arrays) --------------------------------------------------------
+
+-- Question 17 (arrays) --------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1264,7 +1339,8 @@ from q,
        ('0',       false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 18 [orig 35] (arrays) --------------------------------------------------------
+
+-- Question 18 (arrays) --------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1289,7 +1365,8 @@ from q,
        ('[[1, 2], 3]',  false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 19 [orig 36] (arrays) --------------------------------------------------------
+
+-- Question 19 (arrays) --------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1314,7 +1391,8 @@ from q,
        ('splice', true,  3)
      ) as c(label, is_correct, order_index);
 
--- Question 20 [orig 39] (arrays) --------------------------------------------------------
+
+-- Question 20 (arrays) --------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1339,7 +1417,8 @@ from q,
        ('It flattens first, then maps',                    false, 2)
      ) as c(label, is_correct, order_index);
 
--- Question 21 [orig 40] (objects) -------------------------------------------------------
+
+-- Question 21 (objects) -------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1364,7 +1443,8 @@ from q,
        ('When the property does not exist in the prototype', false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 22 [orig 43] (objects) -------------------------------------------------------
+
+-- Question 22 (objects) -------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1389,7 +1469,8 @@ from q,
        ('Properties accessed through `Object.defineProperty`',                 false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 23 [orig 45] (objects) -------------------------------------------------------
+
+-- Question 23 (objects) -------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1414,7 +1495,8 @@ from q,
        ('Throws if `obj` has more than one remaining property',               false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 24 [orig 47] (prototypes & classes) -----------------------------------------
+
+-- Question 24 (prototypes & classes) -----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1439,7 +1521,8 @@ from q,
        ('Returns the prototype of the subclass',                            false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 25 [orig 52] (promises & async/await) ----------------------------------------
+
+-- Question 25 (promises & async/await) ----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1464,7 +1547,8 @@ from q,
        ('It throws a synchronous error',                                          false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 26 [orig 53] (promises & async/await) ----------------------------------------
+
+-- Question 26 (promises & async/await) ----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1489,7 +1573,8 @@ from q,
        ('It is identical to `Promise.all`',                                       false, 2)
      ) as c(label, is_correct, order_index);
 
--- Question 27 [orig 54] (promises & async/await) ----------------------------------------
+
+-- Question 27 (promises & async/await) ----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1514,7 +1599,8 @@ from q,
        ('Runs all promises in sequence',                                          false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 28 [orig 57] (promises & async/await) ----------------------------------------
+
+-- Question 28 (promises & async/await) ----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1539,7 +1625,8 @@ from q,
        ('Use `window.onerror`',                                          false, 2)
      ) as c(label, is_correct, order_index);
 
--- Question 29 [orig 58] (promises & async/await) ----------------------------------------
+
+-- Question 29 (promises & async/await) ----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1564,7 +1651,8 @@ from q,
        ('undefined',                               false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 30 [orig 59] (promises & async/await) ----------------------------------------
+
+-- Question 30 (promises & async/await) ----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1589,7 +1677,8 @@ from q,
        ('Wraps it in `Promise.resolve` and resolves immediately', true,  3)
      ) as c(label, is_correct, order_index);
 
--- Question 31 [orig 62] (error handling) ------------------------------------------------
+
+-- Question 31 (error handling) ------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1614,7 +1703,8 @@ from q,
        ('Only objects',                                                   false, 2)
      ) as c(label, is_correct, order_index);
 
--- Question 32 [orig 65] (event loop / microtasks vs macrotasks) -------------------------
+
+-- Question 32 (event loop / microtasks vs macrotasks) -------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1639,7 +1729,8 @@ from q,
        ('The interval at which `setInterval` fires',                                    false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 33 [orig 68] (event loop / microtasks vs macrotasks) -------------------------
+
+-- Question 33 (event loop / microtasks vs macrotasks) -------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1664,7 +1755,8 @@ from q,
        ('The memory heap where objects are stored',                  false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 34 [orig 75] (DOM essentials) ------------------------------------------------
+
+-- Question 34 (DOM essentials) ------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1689,7 +1781,8 @@ from q,
        ('`currentTarget` is always the document root',                                             false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 35 [orig 76] (DOM essentials) ------------------------------------------------
+
+-- Question 35 (DOM essentials) ------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1714,7 +1807,8 @@ from q,
        ('Delegating DOM updates to a virtual DOM',                                false, 2)
      ) as c(label, is_correct, order_index);
 
--- Question 36 [orig 78] (JSON gotchas) --------------------------------------------------
+
+-- Question 36 (JSON gotchas) --------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1739,7 +1833,8 @@ from q,
        ('Throws a TypeError',                            false, 2)
      ) as c(label, is_correct, order_index);
 
--- Question 37 [orig 81] (Map / Set) -----------------------------------------------------
+
+-- Question 37 (Map / Set) -----------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1764,7 +1859,8 @@ from q,
        ('Only objects',                                             false, 2)
      ) as c(label, is_correct, order_index);
 
--- Question 38 [orig 87] (regex basics) --------------------------------------------------
+
+-- Question 38 (regex basics) --------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1789,7 +1885,8 @@ from q,
        ('`new RegExp()` is always faster',                                             false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 39 [orig 88] (common pitfalls) -----------------------------------------------
+
+-- Question 39 (common pitfalls) -----------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1814,7 +1911,8 @@ from q,
        ('`for...of` only works on arrays; `for...in` works on all objects',                  false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 40 [orig 89] (common pitfalls) -----------------------------------------------
+
+-- Question 40 (common pitfalls) -----------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1839,7 +1937,8 @@ from q,
        ('Division by zero causes this result',                                      false, 2)
      ) as c(label, is_correct, order_index);
 
--- Question 41 [orig 90] (common pitfalls) -----------------------------------------------
+
+-- Question 41 (common pitfalls) -----------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1864,7 +1963,8 @@ from q,
        ('It throws a RangeError',                                        false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 42 [orig 94] (misc) ----------------------------------------------------------
+
+-- Question 42 (misc) ----------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1889,7 +1989,8 @@ from q,
        ('Converts the object into an immutable Map',                                    false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 43 [orig 97] (misc) ----------------------------------------------------------
+
+-- Question 43 (misc) ----------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1914,7 +2015,8 @@ from q,
        ('NaN',                       false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 44 [orig 98] (misc) ----------------------------------------------------------
+
+-- Question 44 (misc) ----------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1939,11 +2041,506 @@ from q,
        ('Disables the event loop',                                                  false, 3)
      ) as c(label, is_correct, order_index);
 
+
+-- Question 45 (primitives & coercion) -----------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `typeof null` return in JavaScript?',
+         'This is a long-standing bug in JavaScript. `typeof null` returns `"object"` even though `null` is a primitive. The spec has never fixed this for backward-compatibility reasons.',
+         '"object" (historical bug)',
+         '`typeof null` returns `"object"`. This is a well-known bug in JavaScript that has been preserved for backward compatibility — null is not actually an object.',
+         45
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('"object"',  true,  0),
+       ('"null"',    false, 1),
+       ('"undefined"', false, 2),
+       ('"boolean"', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 46 (scope, hoisting, var/let/const) ---------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is "hoisting" in JavaScript?',
+         'Hoisting is JavaScript''s behavior of moving declarations (not initializations) to the top of their scope during the compilation phase. `var` declarations are hoisted and initialized to `undefined`; `let`/`const` are hoisted but not initialized (TDZ).',
+         'declarations moved to top of scope',
+         'Hoisting is JavaScript moving declarations to the top of their containing scope before execution. `var` is hoisted and set to `undefined`; `let` and `const` are hoisted but remain uninitialized in the temporal dead zone.',
+         46
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Variables are automatically assigned their final value at parse time',  false, 0),
+       ('Declarations are moved to the top of their scope before execution',    true,  1),
+       ('Functions are copied into every scope that uses them',                  false, 2),
+       ('The engine runs code from the bottom of the file upward',              false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 47 (scope, hoisting, var/let/const) --------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What scope does `var` use?',
+         '`var` is function-scoped (or globally scoped if declared outside a function). It does not respect block boundaries like `if` or `for` loops. `let` and `const` are block-scoped.',
+         'function scope (not block scope)',
+         '`var` declarations are function-scoped: they are visible throughout the entire function in which they appear, ignoring block boundaries such as `if` statements and `for` loops.',
+         47
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Block scope',    false, 0),
+       ('Module scope',   false, 1),
+       ('Lexical scope',  false, 2),
+       ('Function scope', true,  3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 48 (scope, hoisting, var/let/const) --------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What value does a `var` declaration have before its assignment line is reached?',
+         'Hoisted `var` declarations are initialized to `undefined`. The declaration is moved to the top of the function scope, but the assignment stays in place.',
+         'undefined',
+         'A hoisted `var` variable is initialized to `undefined` before its assignment line executes. Reading it before assignment yields `undefined`, not a `ReferenceError`.',
+         48
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('null',        false, 0),
+       ('undefined',   true,  1),
+       ('0',           false, 2),
+       ('It throws a ReferenceError', false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 49 (`this` binding) ------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `this` refer to when a method is called on an object, e.g. `obj.greet()`?',
+         'Implicit binding: when a function is called as a method with a dot receiver, `this` inside the function refers to the object to the left of the dot — `obj` in this case.',
+         'the object before the dot',
+         'With implicit binding, `this` refers to the object that the method is called on — the object to the left of the dot. So in `obj.greet()`, `this` is `obj`.',
+         49
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('The global object',                    false, 0),
+       ('undefined',                            false, 1),
+       ('The function itself',                  false, 2),
+       ('`obj` — the object before the dot',    true,  3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 50 (promises & async/await) ----------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does a Promise represent?',
+         'A Promise represents the eventual result of an asynchronous operation. It can be in one of three states: pending, fulfilled, or rejected. Once settled (fulfilled or rejected) it cannot change state.',
+         'eventual result of async op (pending/fulfilled/rejected)',
+         'A Promise is an object representing the eventual completion or failure of an asynchronous operation. It starts as pending and settles to either fulfilled (with a value) or rejected (with a reason), and never changes state after settling.',
+         50
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('A synchronous wrapper around callback functions',             false, 0),
+       ('The eventual result of an async op — pending, fulfilled, or rejected', true, 1),
+       ('A function that delays execution by a given number of ms',   false, 2),
+       ('An object that can only resolve, never reject',              false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 51 (promises & async/await) ----------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `async` in front of a function declaration do?',
+         'An `async` function always returns a Promise. If the function returns a non-Promise value, it is automatically wrapped in `Promise.resolve(value)`. This lets the caller use `.then()` or `await` on it.',
+         'always returns a Promise',
+         'Marking a function `async` makes it always return a Promise. A returned non-Promise value is wrapped in `Promise.resolve()`. It also unlocks the `await` keyword inside the function body.',
+         51
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Makes the function run in a separate thread',                    false, 0),
+       ('Enables the `yield` keyword inside the function',                false, 1),
+       ('Makes the function always return a Promise',                     true,  2),
+       ('Prevents the function from throwing errors',                     false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 52 (error handling) ------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'Does a `finally` block run if the `try` block has a `return` statement?',
+         'Yes. `finally` always executes after `try` (and `catch` if applicable), even if there is a `return` or `throw` in `try`. If `finally` itself returns a value, it overrides the `try`''s return value.',
+         'yes — always runs',
+         '`finally` always executes, regardless of `return`, `throw`, or normal exit from `try`/`catch`. If `finally` has its own `return`, that value overrides any value returned by `try` or `catch`.',
+         52
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('No — `finally` is skipped if `try` returns normally',        false, 0),
+       ('Only if the `return` value is `undefined`',                  false, 1),
+       ('Yes — `finally` always executes',                            true,  2),
+       ('Only if `catch` also has a `return`',                        false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 53 (error handling) ------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is a `ReferenceError` in JavaScript?',
+         'A `ReferenceError` is thrown when code tries to access a variable that has not been declared or is not in scope — for example, reading a variable before declaring it with `let`/`const` (TDZ).',
+         'accessing an undeclared or TDZ variable',
+         'A `ReferenceError` occurs when you reference a variable that doesn''t exist in the current scope — such as using an undeclared identifier or accessing a `let`/`const` in its temporal dead zone.',
+         53
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Accessing a property on `null` or `undefined`',            false, 0),
+       ('Accessing an undeclared or TDZ variable',                  true,  1),
+       ('Calling a non-function as a function',                     false, 2),
+       ('Attempting to parse invalid JSON',                         false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 54 (modules ESM) ---------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What is the difference between a named export and a default export in ES modules?',
+         'A module can have many named exports (using `export { name }` or `export const name`) and at most one `export default`. Named exports are imported with the exact name in braces; default exports are imported without braces under any name.',
+         'named: braces, exact name; default: no braces, any name',
+         'Named exports are imported with their exact name in curly braces: `import { foo } from ...`. A default export is imported without braces under any name: `import anything from ...`. A module can have many named exports but only one default.',
+         54
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Named: imported with braces and exact name; default: imported without braces',   true,  0),
+       ('They are the same — just different syntax',                                      false, 1),
+       ('Default exports can only export functions',                                       false, 2),
+       ('Named exports cannot be renamed on import',                                      false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 55 (DOM essentials) ------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `addEventListener` third argument `{ once: true }` do?',
+         'The `{ once: true }` option causes the event listener to be automatically removed after it fires once. Equivalent to manually calling `removeEventListener` inside the handler.',
+         'listener auto-removed after first invocation',
+         'Passing `{ once: true }` as the third argument to `addEventListener` registers a listener that automatically removes itself after being invoked once, without needing to call `removeEventListener` manually.',
+         55
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('The listener fires once per second',                               false, 0),
+       ('The listener captures instead of bubbles',                         false, 1),
+       ('The listener is automatically removed after firing once',          true,  2),
+       ('The listener is fired during the capture phase only',              false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 56 (JSON gotchas) --------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `JSON.parse("invalid")` do?',
+         '`JSON.parse` throws a `SyntaxError` when given invalid JSON. Always wrap it in `try/catch` when parsing untrusted input.',
+         'throws SyntaxError',
+         '`JSON.parse` throws a `SyntaxError` if the input string is not valid JSON. You should always use `try/catch` when parsing JSON from an external source.',
+         56
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Returns `null`',             false, 0),
+       ('Returns `undefined`',        false, 1),
+       ('Returns the string as-is',   false, 2),
+       ('Throws a SyntaxError',       true,  3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 57 (JSON gotchas) --------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `JSON.stringify({ a: 1 }, null, 2)` produce?',
+         'The third argument to `JSON.stringify` is the indent level. Passing `2` produces a pretty-printed JSON string with 2-space indentation, making it human-readable.',
+         'pretty-printed JSON with 2-space indent',
+         'The third argument to `JSON.stringify` controls indentation. `2` means use 2 spaces per level, producing a multi-line, human-readable JSON string. `null` as the second arg means no replacer.',
+         57
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('A minified JSON string with no whitespace',              false, 0),
+       ('A JSON string truncated to 2 characters',               false, 1),
+       ('A pretty-printed JSON string with 2-space indentation',  true,  2),
+       ('It throws because `null` is not a valid replacer',       false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 58 (Map / Set) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does a `Set` guarantee about its elements?',
+         'A `Set` stores unique values — duplicates are silently ignored. Uniqueness is determined by the SameValueZero algorithm (similar to `===`, except `NaN === NaN` is treated as equal).',
+         'unique values only; duplicates ignored',
+         'A `Set` only stores unique values. Adding a duplicate is a no-op. Uniqueness uses SameValueZero — like `===` but with `NaN` considered equal to itself.',
+         58
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Each value appears only once (no duplicates)',       true,  0),
+       ('All elements are stored in sorted order',            false, 1),
+       ('Elements are stored as key-value pairs',            false, 2),
+       ('Throws if you add a duplicate value',               false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 59 (Map / Set) -----------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'How do you get the number of entries in a `Map`?',
+         '`Map` has a `.size` property (not `.length`) that returns the number of key-value pairs. Plain objects have no direct equivalent — you use `Object.keys(obj).length`.',
+         'map.size',
+         '`Map` exposes a `.size` property that holds the number of entries. Unlike arrays, it does not use `.length`. `Set` also uses `.size`.',
+         59
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('map.length',           false, 0),
+       ('map.count',            false, 1),
+       ('Object.keys(map).length', false, 2),
+       ('map.size',             true,  3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 60 (regex basics) --------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the `g` flag do on a regular expression?',
+         'The `g` (global) flag makes the regex search for all matches rather than stopping at the first. It also causes `lastIndex` to be advanced after each match, which can cause confusing behavior if the regex object is reused.',
+         'matches all occurrences (global)',
+         'The `g` flag enables global matching: methods like `String.matchAll` and `RegExp.exec` in a loop find all matches. It also advances `lastIndex` after each match, so reusing a `g` regex across calls can produce unexpected results.',
+         60
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Finds all matches instead of stopping at the first',            true,  0),
+       ('Makes the regex case-insensitive',                              false, 1),
+       ('Makes the regex match across multiple lines',                   false, 2),
+       ('Matches only at the start of the string',                       false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 61 (regex basics) --------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does `regex.test(str)` return?',
+         '`test` returns a boolean — `true` if the regex matches anywhere in the string, `false` otherwise. It is the simplest way to check for a pattern match.',
+         'boolean — true if match found',
+         '`regex.test(str)` returns `true` if the pattern matches anywhere in `str`, and `false` otherwise. Use it for simple yes/no pattern checks. Be careful with stateful `g` regexes as `lastIndex` is updated.',
+         61
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('The matched substring or null',          false, 0),
+       ('An array of all matches',               false, 1),
+       ('A boolean — true if the pattern matches', true, 3),
+       ('The index of the first match',           false, 2)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 62 (misc) ----------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the optional chaining operator `?.` do?',
+         'Optional chaining short-circuits and returns `undefined` if the value before `?.` is `null` or `undefined`, instead of throwing a `TypeError`. It avoids verbose null checks like `obj && obj.foo && obj.foo.bar`.',
+         'returns undefined instead of throwing on null/undefined',
+         '`obj?.prop` returns `undefined` if `obj` is `null` or `undefined`, instead of throwing a `TypeError`. It enables safe deep property access without chaining manual null checks.',
+         62
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Throws only in strict mode when accessing null properties', false, 0),
+       ('Returns `null` when a property does not exist',             false, 1),
+       ('Short-circuits to `undefined` when the receiver is null/undefined', true, 2),
+       ('Provides default values like `??`',                         false, 3)
+     ) as c(label, is_correct, order_index);
+
+
+-- Question 63 (misc) ----------------------------------------------------------
+with q as (
+  insert into questions (
+    module_id, category, prompt, explanation,
+    flashcard_back, recap_answer, order_index
+  )
+  select id, null,
+         'What does the nullish coalescing operator `??` return?',
+         '`a ?? b` returns `b` only when `a` is `null` or `undefined`. Unlike `||`, it does NOT fall back for other falsy values like `0`, `false`, or `""`. This makes it safer for default values.',
+         'right side only when left is null/undefined',
+         '`a ?? b` evaluates to `b` only if `a` is `null` or `undefined`. A value of `0`, `false`, or `""` on the left side does NOT trigger the fallback, unlike `||` which treats all falsy values as triggers.',
+         63
+  from modules where slug = 'javascript-2'
+  returning id
+)
+insert into question_choices (question_id, label, is_correct, order_index)
+select q.id, c.label, c.is_correct, c.order_index
+from q,
+     (values
+       ('Returns the right side for any falsy left side',              false, 0),
+       ('Returns the right side only when the left is null/undefined', true,  3),
+       ('Throws if the left side is undefined',                        false, 1),
+       ('Always returns a boolean',                                    false, 2)
+     ) as c(label, is_correct, order_index);
+
+
 -- ============================================================
 -- javascript-3
 -- ============================================================
 
--- Question 0 [orig 4] (primitives & coercion) -----------------------------------------
+-- Question 0 (primitives & coercion) -----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1968,7 +2565,8 @@ from q,
        ('undefined',                    false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 1 [orig 18] (closures) ------------------------------------------------------
+
+-- Question 1 (closures) ------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -1993,7 +2591,8 @@ from q,
        ('A frozen snapshot of the entire scope',          false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 2 [orig 26] (arrow vs regular functions) ------------------------------------
+
+-- Question 2 (arrow vs regular functions) ------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2018,7 +2617,8 @@ from q,
        ('Yes, if they have a `return` statement',                            false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 3 [orig 27] (arrow vs regular functions) ------------------------------------
+
+-- Question 3 (arrow vs regular functions) ------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2043,7 +2643,8 @@ from q,
        ('Only in non-strict mode',                                         false, 2)
      ) as c(label, is_correct, order_index);
 
--- Question 4 [orig 29] (arrow vs regular functions) ------------------------------------
+
+-- Question 4 (arrow vs regular functions) ------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2068,7 +2669,8 @@ from q,
        ('Only when defined inside a class',                 false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 5 [orig 37] (arrays) --------------------------------------------------------
+
+-- Question 5 (arrays) --------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2093,7 +2695,8 @@ from q,
        ('It throws a TypeError',                false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 6 [orig 46] (prototypes & classes) -----------------------------------------
+
+-- Question 6 (prototypes & classes) -----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2118,7 +2721,8 @@ from q,
        ('Freezes `proto` and returns it',                             false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 7 [orig 48] (prototypes & classes) -----------------------------------------
+
+-- Question 7 (prototypes & classes) -----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2143,7 +2747,8 @@ from q,
        ('The order in which constructors are called',                               false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 8 [orig 49] (prototypes & classes) -----------------------------------------
+
+-- Question 8 (prototypes & classes) -----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2168,7 +2773,8 @@ from q,
        ('An immutable record type',                                                       false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 9 [orig 50] (prototypes & classes) -----------------------------------------
+
+-- Question 9 (prototypes & classes) -----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2193,7 +2799,8 @@ from q,
        ('Both are deprecated and should never be used',                                        false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 10 [orig 55] (promises & async/await) ----------------------------------------
+
+-- Question 10 (promises & async/await) ----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2218,7 +2825,8 @@ from q,
        ('`return` resolves the promise synchronously; `return await` does not',     false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 11 [orig 60] (promises & async/await) ----------------------------------------
+
+-- Question 11 (promises & async/await) ----------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2243,7 +2851,8 @@ from q,
        ('`await` on `Promise.all`, available in CommonJS and ESM',            false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 12 [orig 64] (event loop / microtasks vs macrotasks) -------------------------
+
+-- Question 12 (event loop / microtasks vs macrotasks) -------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2268,7 +2877,8 @@ from q,
        ('It depends on the browser implementation',                 false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 13 [orig 66] (event loop / microtasks vs macrotasks) -------------------------
+
+-- Question 13 (event loop / microtasks vs macrotasks) -------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2293,7 +2903,8 @@ from q,
        ('A, C, D, B', false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 14 [orig 67] (event loop / microtasks vs macrotasks) -------------------------
+
+-- Question 14 (event loop / microtasks vs macrotasks) -------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2318,7 +2929,8 @@ from q,
        ('It depends on whether the awaited value was already resolved', false, 2)
      ) as c(label, is_correct, order_index);
 
--- Question 15 [orig 69] (event loop / microtasks vs macrotasks) -------------------------
+
+-- Question 15 (event loop / microtasks vs macrotasks) -------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2343,7 +2955,8 @@ from q,
        ('They run in the next macrotask tick',                                           false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 16 [orig 71] (modules ESM) ---------------------------------------------------
+
+-- Question 16 (modules ESM) ---------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2368,7 +2981,8 @@ from q,
        ('Only named imports are hoisted; default imports are not',     false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 17 [orig 72] (modules ESM) ---------------------------------------------------
+
+-- Question 17 (modules ESM) ---------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2393,7 +3007,8 @@ from q,
        ('A callback that is called with the module exports',                   false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 18 [orig 73] (modules ESM) ---------------------------------------------------
+
+-- Question 18 (modules ESM) ---------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2418,7 +3033,8 @@ from q,
        ('Yes, inside `if` but not inside loops',                                       false, 2)
      ) as c(label, is_correct, order_index);
 
--- Question 19 [orig 83] (Map / Set) -----------------------------------------------------
+
+-- Question 19 (Map / Set) -----------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2443,7 +3059,8 @@ from q,
        ('Both throw a TypeError during serialization',                     false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 20 [orig 91] (common pitfalls) -----------------------------------------------
+
+-- Question 20 (common pitfalls) -----------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2468,7 +3085,8 @@ from q,
        ('The iteration restarts from index 0',                            false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 21 [orig 93] (misc) ----------------------------------------------------------
+
+-- Question 21 (misc) ----------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,
@@ -2493,7 +3111,8 @@ from q,
        ('A reference to a private class field',                        false, 3)
      ) as c(label, is_correct, order_index);
 
--- Question 22 [orig 99] (misc) ----------------------------------------------------------
+
+-- Question 22 (misc) ----------------------------------------------------------
 with q as (
   insert into questions (
     module_id, category, prompt, explanation,

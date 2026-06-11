@@ -86,9 +86,9 @@ const MODULES = [
     id: "m-javascript-1",
     slug: "javascript-1",
     name: "JavaScript — Level 1",
-    description: "JavaScript basics — types, operators, core syntax, and everyday array/object usage.",
+    description: "JavaScript basics — variables, primitive types, operators, strings, and everyday array/object access.",
     type: "dynamic",
-    total_questions: 100,
+    total_questions: 33,
     created_at: "2024-01-02T00:00:00.000Z",
   },
   {
