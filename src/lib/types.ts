@@ -1,5 +1,12 @@
 export type ModuleType = "static" | "dynamic";
 
+export type ModuleKind =
+  | "coding"
+  | "human-language"
+  | "test-prep"
+  | "driving"
+  | "other";
+
 export type Mode = "multiple_choice" | "flashcards" | "recap";
 
 export type Module = {
@@ -8,6 +15,7 @@ export type Module = {
   name: string;
   description: string;
   type: ModuleType;
+  kind: ModuleKind;
   total_questions: number;
   created_at: string;
 };
