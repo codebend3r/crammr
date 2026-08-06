@@ -76,20 +76,15 @@ Supabase (Postgres + Auth + RLS) · Vitest.
    bun run dev
    ```
 
-## Scripts
+## Claude Code skills
 
-- `bun run dev` — start Vite dev server
-- `bun run build` — production build
-- `bun run preview` — preview the production build
-- `bun run typecheck` — `tsc --noEmit`
-- `bun run lint` — ESLint
-- `bun run test` — run Vitest once
-- `bun run test:watch` — Vitest in watch mode
-- `bun run check` — lint + typecheck + test
-- `bun run db:apply` — apply `supabase/migrations/*.sql` via `psql` (uses
-  `SUPABASE_DB_URL`)
-- `bun run db:push` — apply migrations via the Supabase CLI (`supabase db
-  push`); requires `supabase init` + `supabase link` first
+Repo-local skills live in `.claude/skills/` and are picked up automatically by
+Claude Code when working in this repo.
+
+| Skill | What it does | How it's triggered |
+|-------|--------------|--------------------|
+| `commit-format` | The house style for commit messages: mandatory `CRMR:` subject prefix, terse bulleted bodies, backticks around every file/function/identifier, and zero AI-agent attribution (no `Co-Authored-By: Claude` trailers, ever). | Whenever a commit message is written or rewritten in this repo — commit, amend, squash, fixup, rebase, or cherry-pick. |
+| `module-level-split` | The procedure for splitting a single 100-question quiz module into three difficulty-level modules (`<lang>-1/2/3`, displayed as `<Lang> — Level 1/2/3`): per-question classification, the SQL seed transform, companion-file updates (`moduleCategories.ts`, screenshot fixtures), and verification. | Requests like "split the X module into level 1/2/3" or "break up the Y module by difficulty", matching the pattern already used for JavaScript, TypeScript, and Python. |
 
 ## Regenerating screenshots
 
