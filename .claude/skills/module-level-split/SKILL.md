@@ -1,5 +1,5 @@
 ---
-name: crammr-module-level-split
+name: module-level-split
 description: Use when splitting a single crammr quiz module into three difficulty-level modules (`<lang>-1/2/3` with display names `<Lang> — Level 1/2/3`) in the `crammr` repo (path contains `crammr`). Triggers include "split the X module into level 1/2/3", "break up the Y module by difficulty", "make Z-1/2/3", or normalizing a 100-question seed against the level pattern already used for `javascript`, `typescript`, and `python`. Covers per-question classification, the SQL transform, companion-file updates, verification, and the commit format.
 ---
 
