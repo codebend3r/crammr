@@ -1,10 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "wouter";
-import {
-  fetchModules,
-  fetchLastScoreByModule,
-  type LastScore,
-} from "@/lib/queries";
+import { fetchModules, fetchLastScoreByModule, type LastScore } from "@/lib/queries";
 import type { Mode, Module } from "@/lib/types";
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
@@ -29,12 +25,9 @@ export function HomePage() {
 
   useEffect(() => {
     const state = { alive: true };
-    (async () => {
+    void (async () => {
       try {
-        const [ms, ls] = await Promise.all([
-          fetchModules(),
-          fetchLastScoreByModule(),
-        ]);
+        const [ms, ls] = await Promise.all([fetchModules(), fetchLastScoreByModule()]);
         if (!state.alive) return;
         setModules(ms);
         setLastScores(ls);
@@ -55,10 +48,7 @@ export function HomePage() {
     return Object.values(sessions)
       .filter((s) => s.answers.length < s.questions.length)
       .map((s) => ({ session: s, module: moduleBySlug.get(s.slug) ?? null }))
-      .filter(
-        (p): p is { session: typeof p.session; module: Module } =>
-          p.module !== null
-      )
+      .filter((p): p is { session: typeof p.session; module: Module } => p.module !== null)
       .sort((a, b) => b.session.startedAt - a.session.startedAt);
   }, [sessions, modules]);
 
@@ -75,17 +65,15 @@ export function HomePage() {
                 <div className={styles.resumeLabel}>In progress</div>
                 <h2 className={styles.resumeTitle}>{module.name}</h2>
                 <p className={styles.resumeMeta}>
-                  {session.answers.length} of {session.questions.length}{" "}
-                  answered · {MODE_LABEL[session.mode]}
+                  {session.answers.length} of {session.questions.length} answered ·{" "}
+                  {MODE_LABEL[session.mode]}
                 </p>
               </div>
               <div className={styles.resumeActions}>
                 <Button variant="ghost" onClick={() => discard(session.slug)}>
                   Discard
                 </Button>
-                <Button onClick={() => navigate(`/m/${module.slug}/quiz`)}>
-                  Resume
-                </Button>
+                <Button onClick={() => navigate(`/m/${module.slug}/quiz`)}>Resume</Button>
               </div>
             </Card>
           ))}
@@ -102,9 +90,7 @@ export function HomePage() {
                   <span className={styles.badge} data-type={m.type}>
                     {m.type}
                   </span>
-                  <span className={styles.count}>
-                    {m.total_questions} questions
-                  </span>
+                  <span className={styles.count}>{m.total_questions} questions</span>
                 </div>
                 <h2 className={styles.name}>{m.name}</h2>
                 <p className={styles.desc}>{m.description}</p>

@@ -29,16 +29,10 @@ export function App() {
   }, [bootstrap]);
 
   const needsOnboarding =
-    status === "authenticated" &&
-    !!user &&
-    user.user_metadata?.onboarded !== true;
+    status === "authenticated" && !!user && user.user_metadata?.onboarded !== true;
 
   if (status === "loading") {
-    return (
-      <div style={{ padding: 24, color: "var(--color-text-muted)" }}>
-        Loading…
-      </div>
-    );
+    return <div style={{ padding: 24, color: "var(--color-text-muted)" }}>Loading…</div>;
   }
 
   return (
@@ -48,67 +42,67 @@ export function App() {
         <Sidebar />
         <main className={styles.main}>
           <Switch>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <Route path="/_design">
-            <DesignSystem />
-          </Route>
-          <Route path="/in-progress">
-            <RequireAuth>
-              <InProgressPage />
-            </RequireAuth>
-          </Route>
-          <Route path="/all-modules">
-            <RequireAuth>
-              <AllModulesPage />
-            </RequireAuth>
-          </Route>
-          <Route path="/module-requests">
-            <RequireAuth>
-              <ModuleRequestsPage />
-            </RequireAuth>
-          </Route>
-          <Route path="/app-settings">
-            <RequireAuth>
-              <AppSettingsPage />
-            </RequireAuth>
-          </Route>
-          <Route path="/preferences">
-            <RequireAuth>
-              <PreferencesPage />
-            </RequireAuth>
-          </Route>
-          <Route path="/">
-            <RequireAuth>
-              <HomePage />
-            </RequireAuth>
-          </Route>
-          <Route path="/m/:slug">
-            {(params) => (
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <Route path="/_design">
+              <DesignSystem />
+            </Route>
+            <Route path="/in-progress">
               <RequireAuth>
-                <ModulePage params={params} />
+                <InProgressPage />
               </RequireAuth>
-            )}
-          </Route>
-          <Route path="/m/:slug/quiz">
-            {(params) => (
+            </Route>
+            <Route path="/all-modules">
               <RequireAuth>
-                <QuizPage params={params} />
+                <AllModulesPage />
               </RequireAuth>
-            )}
-          </Route>
-          <Route path="/m/:slug/results/:id">
-            {(params) => (
+            </Route>
+            <Route path="/module-requests">
               <RequireAuth>
-                <ResultsPage params={params} />
+                <ModuleRequestsPage />
               </RequireAuth>
-            )}
-          </Route>
-          <Route>
-            <div style={{ padding: 24 }}>Not found</div>
-          </Route>
-        </Switch>
+            </Route>
+            <Route path="/app-settings">
+              <RequireAuth>
+                <AppSettingsPage />
+              </RequireAuth>
+            </Route>
+            <Route path="/preferences">
+              <RequireAuth>
+                <PreferencesPage />
+              </RequireAuth>
+            </Route>
+            <Route path="/">
+              <RequireAuth>
+                <HomePage />
+              </RequireAuth>
+            </Route>
+            <Route path="/m/:slug">
+              {(params) => (
+                <RequireAuth>
+                  <ModulePage params={params} />
+                </RequireAuth>
+              )}
+            </Route>
+            <Route path="/m/:slug/quiz">
+              {(params) => (
+                <RequireAuth>
+                  <QuizPage params={params} />
+                </RequireAuth>
+              )}
+            </Route>
+            <Route path="/m/:slug/results/:id">
+              {(params) => (
+                <RequireAuth>
+                  <ResultsPage params={params} />
+                </RequireAuth>
+              )}
+            </Route>
+            <Route>
+              <div style={{ padding: 24 }}>Not found</div>
+            </Route>
+          </Switch>
         </main>
       </div>
       <Footer />

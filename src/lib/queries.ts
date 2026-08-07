@@ -19,18 +19,12 @@ export async function fetchModules(): Promise<Module[]> {
 }
 
 export async function fetchModuleBySlug(slug: string): Promise<Module | null> {
-  const { data, error } = await supabase
-    .from("modules")
-    .select("*")
-    .eq("slug", slug)
-    .maybeSingle();
+  const { data, error } = await supabase.from("modules").select("*").eq("slug", slug).maybeSingle();
   if (error) throw error;
   return data;
 }
 
-export async function fetchQuestionsForModule(
-  moduleId: string
-): Promise<Question[]> {
+export async function fetchQuestionsForModule(moduleId: string): Promise<Question[]> {
   const { data, error } = await supabase
     .from("questions")
     .select("*, choices:question_choices(*)")
@@ -40,8 +34,7 @@ export async function fetchQuestionsForModule(
   return (data ?? []).map((q) => ({
     ...q,
     choices: (q.choices ?? []).sort(
-      (a: { order_index: number }, b: { order_index: number }) =>
-        a.order_index - b.order_index
+      (a: { order_index: number }, b: { order_index: number }) => a.order_index - b.order_index,
     ),
   })) as Question[];
 }
@@ -89,10 +82,7 @@ export async function recordAnswer(args: {
   return data as SessionAnswer;
 }
 
-export async function completeSession(args: {
-  sessionId: string;
-  score: number;
-}): Promise<void> {
+export async function completeSession(args: { sessionId: string; score: number }): Promise<void> {
   const { error } = await supabase
     .from("sessions")
     .update({
@@ -109,9 +99,7 @@ export type SessionWithAnswers = {
   questions: Question[];
 };
 
-export async function fetchSessionWithAnswers(
-  sessionId: string
-): Promise<SessionWithAnswers> {
+export async function fetchSessionWithAnswers(sessionId: string): Promise<SessionWithAnswers> {
   const { data: session, error: sErr } = await supabase
     .from("sessions")
     .select("*")
@@ -137,8 +125,7 @@ export async function fetchSessionWithAnswers(
     return (qs ?? []).map((q) => ({
       ...q,
       choices: (q.choices ?? []).sort(
-        (a: { order_index: number }, b: { order_index: number }) =>
-          a.order_index - b.order_index
+        (a: { order_index: number }, b: { order_index: number }) => a.order_index - b.order_index,
       ),
     })) as Question[];
   })();
@@ -198,9 +185,7 @@ export async function createModuleRequest(args: {
   return data as ModuleRequest;
 }
 
-export async function fetchLastScoreByModule(): Promise<
-  Record<string, LastScore>
-> {
+export async function fetchLastScoreByModule(): Promise<Record<string, LastScore>> {
   const { data, error } = await supabase
     .from("sessions")
     .select("module_id, score, session_size, completed_at")

@@ -28,7 +28,9 @@
   min-height: 60px;
   font-size: 17px;
   line-height: 1.4;
-  transition: border-color 0.12s ease, background 0.12s ease;
+  transition:
+    border-color 0.12s ease,
+    background 0.12s ease;
 }
 
 .choice:hover {

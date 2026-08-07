@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
-import {
-  fetchSessionWithAnswers,
-  type SessionWithAnswers,
-} from "@/lib/queries";
+import { fetchSessionWithAnswers, type SessionWithAnswers } from "@/lib/queries";
 import { useSessionStore } from "@/store/sessionStore";
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
@@ -24,7 +21,7 @@ export function ResultsPage({ params }: { params: Params }) {
 
   useEffect(() => {
     const state = { alive: true };
-    (async () => {
+    void (async () => {
       try {
         const d = await fetchSessionWithAnswers(params.id);
         if (!state.alive) return;
@@ -71,9 +68,7 @@ export function ResultsPage({ params }: { params: Params }) {
         <div className={styles.modeRow}>
           <span>Mode: {session.mode.replace("_", " ")}</span>
           {session.completed_at ? (
-            <span>
-              Finished {new Date(session.completed_at).toLocaleString()}
-            </span>
+            <span>Finished {new Date(session.completed_at).toLocaleString()}</span>
           ) : null}
         </div>
         <div className={styles.actions}>
@@ -90,16 +85,12 @@ export function ResultsPage({ params }: { params: Params }) {
           const q = questionById.get(a.question_id);
           if (!q) return null;
           const correctChoice = q.choices.find((c) => c.is_correct);
-          const pickedChoice = a.choice_id
-            ? q.choices.find((c) => c.id === a.choice_id)
-            : null;
+          const pickedChoice = a.choice_id ? q.choices.find((c) => c.id === a.choice_id) : null;
           return (
             <Card key={a.id} className={styles.item}>
               <div className={styles.itemHead}>
                 <span className={styles.itemNum}>#{i + 1}</span>
-                <span
-                  className={a.is_correct ? styles.correct : styles.incorrect}
-                >
+                <span className={a.is_correct ? styles.correct : styles.incorrect}>
                   {a.is_correct ? "Correct" : "Missed"}
                 </span>
               </div>
@@ -112,8 +103,7 @@ export function ResultsPage({ params }: { params: Params }) {
                 </div>
               ) : a.self_grade !== null ? (
                 <div className={styles.line}>
-                  <strong>Self-graded:</strong>{" "}
-                  {a.self_grade ? "Got it" : "Missed it"}
+                  <strong>Self-graded:</strong> {a.self_grade ? "Got it" : "Missed it"}
                 </div>
               ) : null}
               {correctChoice ? (
@@ -122,8 +112,7 @@ export function ResultsPage({ params }: { params: Params }) {
                 </div>
               ) : null}
               <div className={styles.line}>
-                <strong>Answer:</strong>{" "}
-                <Markdown inline>{q.recap_answer}</Markdown>
+                <strong>Answer:</strong> <Markdown inline>{q.recap_answer}</Markdown>
               </div>
             </Card>
           );

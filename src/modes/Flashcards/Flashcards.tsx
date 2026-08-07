@@ -40,18 +40,12 @@ export function Flashcards({ question, onAnswer, onNext }: Props) {
         aria-pressed={flipped}
       >
         <div className={styles.face}>
-          <span className={styles.faceLabel}>
-            {flipped ? "Answer" : "Question"}
-          </span>
+          <span className={styles.faceLabel}>{flipped ? "Answer" : "Question"}</span>
           <span className={styles.faceText}>
-            <Markdown inline>
-              {flipped ? question.flashcard_back : question.prompt}
-            </Markdown>
+            <Markdown inline>{flipped ? question.flashcard_back : question.prompt}</Markdown>
           </span>
         </div>
-        <span className={styles.hint}>
-          {flipped ? "Click to flip back" : "Click to reveal"}
-        </span>
+        <span className={styles.hint}>{flipped ? "Click to flip back" : "Click to reveal"}</span>
       </button>
       {flipped && !graded ? (
         <div className={styles.gradeRow}>

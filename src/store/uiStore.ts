@@ -8,9 +8,7 @@ type UIState = {
 };
 
 const initialOpen =
-  typeof window !== "undefined"
-    ? window.matchMedia("(min-width: 768px)").matches
-    : true;
+  typeof window !== "undefined" ? window.matchMedia("(min-width: 768px)").matches : true;
 
 export const useUIStore = create<UIState>()(
   persist(
@@ -19,6 +17,6 @@ export const useUIStore = create<UIState>()(
       toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
       setSidebarOpen: (open) => set({ sidebarOpen: open }),
     }),
-    { name: "crammr-ui-v1" }
-  )
+    { name: "crammr-ui-v1" },
+  ),
 );

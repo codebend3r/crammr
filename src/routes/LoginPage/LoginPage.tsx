@@ -35,7 +35,7 @@ export function LoginPage() {
       else {
         await signUp(email, password);
         setInfo(
-          "Account created. Check your email if confirmation is required, otherwise you're signed in."
+          "Account created. Check your email if confirmation is required, otherwise you're signed in.",
         );
       }
     } catch (e) {
@@ -63,9 +63,7 @@ export function LoginPage() {
     <div className={styles.page}>
       <Card className={styles.card}>
         <h1 className={styles.title}>crammr</h1>
-        <p className={styles.subtitle}>
-          Brush up before the test. Sign in to track your progress.
-        </p>
+        <p className={styles.subtitle}>Brush up before the test. Sign in to track your progress.</p>
 
         <div className={styles.tabs}>
           <button

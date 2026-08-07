@@ -9,7 +9,10 @@
   font-size: 17px;
   font-weight: 600;
   min-height: 56px;
-  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease,
+    color 0.12s ease;
 }
 
 .button:disabled {

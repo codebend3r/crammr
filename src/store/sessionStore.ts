@@ -30,7 +30,7 @@ type SessionState = {
       moduleId: string;
       mode: Mode;
       questions: Question[];
-    }
+    },
   ) => void;
 
   recordAnswer: (slug: string, answer: RecordedAnswer) => void;
@@ -83,10 +83,7 @@ export const useSessionStore = create<SessionState>()(
               ...s.sessions,
               [slug]: {
                 ...sess,
-                currentIndex: Math.min(
-                  sess.currentIndex + 1,
-                  sess.questions.length
-                ),
+                currentIndex: Math.min(sess.currentIndex + 1, sess.questions.length),
               },
             },
           };
@@ -110,6 +107,6 @@ export const useSessionStore = create<SessionState>()(
 
       reset: () => set({ sessions: {} }),
     }),
-    { name: "crammr-session-v2" }
-  )
+    { name: "crammr-session-v2" },
+  ),
 );

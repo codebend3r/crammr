@@ -28,8 +28,7 @@ const FAR_FUTURE = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365;
 
 const fakeJwt = () => {
   // Three base64url segments. Not cryptographically valid, but well-formed.
-  const header = Buffer.from(JSON.stringify({ alg: "HS256", typ: "JWT" }))
-    .toString("base64url");
+  const header = Buffer.from(JSON.stringify({ alg: "HS256", typ: "JWT" })).toString("base64url");
   const body = Buffer.from(
     JSON.stringify({
       sub: USER_ID,
@@ -37,7 +36,7 @@ const fakeJwt = () => {
       role: "authenticated",
       aud: "authenticated",
       exp: FAR_FUTURE,
-    })
+    }),
   ).toString("base64url");
   const sig = Buffer.from("preview-sig").toString("base64url");
   return `${header}.${body}.${sig}`;
@@ -86,7 +85,8 @@ const MODULES = [
     id: "m-javascript-1",
     slug: "javascript-1",
     name: "JavaScript — Level 1",
-    description: "JavaScript basics — types, operators, core syntax, and everyday array/object usage.",
+    description:
+      "JavaScript basics — types, operators, core syntax, and everyday array/object usage.",
     type: "dynamic",
     total_questions: 100,
     created_at: "2024-01-02T00:00:00.000Z",
@@ -95,7 +95,8 @@ const MODULES = [
     id: "m-typescript-1",
     slug: "typescript-1",
     name: "TypeScript — Level 1",
-    description: "TypeScript basics — type annotations, primitives, tuples, simple unions, and `any` vs `unknown`.",
+    description:
+      "TypeScript basics — type annotations, primitives, tuples, simple unions, and `any` vs `unknown`.",
     type: "dynamic",
     total_questions: 21,
     created_at: "2024-01-03T00:00:00.000Z",
@@ -104,7 +105,8 @@ const MODULES = [
     id: "m-python-1",
     slug: "python-1",
     name: "Python — Level 1",
-    description: "Python basics — built-in types, operators, control flow, and core collection usage.",
+    description:
+      "Python basics — built-in types, operators, control flow, and core collection usage.",
     type: "dynamic",
     total_questions: 34,
     created_at: "2024-01-04T00:00:00.000Z",
@@ -113,7 +115,8 @@ const MODULES = [
     id: "m-rust-1",
     slug: "rust-1",
     name: "Rust — Level 1",
-    description: "Rust basics — types, mutability, ownership intuition, references, and basic structs/enums.",
+    description:
+      "Rust basics — types, mutability, ownership intuition, references, and basic structs/enums.",
     type: "dynamic",
     total_questions: 24,
     created_at: "2024-01-05T00:00:00.000Z",
@@ -122,7 +125,8 @@ const MODULES = [
     id: "m-go-1",
     slug: "go-1",
     name: "Go — Level 1",
-    description: "Go basics — types, slices, maps, strings, structs, functions, packages, and zero values.",
+    description:
+      "Go basics — types, slices, maps, strings, structs, functions, packages, and zero values.",
     type: "dynamic",
     total_questions: 40,
     created_at: "2024-01-06T00:00:00.000Z",
@@ -158,7 +162,8 @@ const MODULES = [
     id: "m-real-estate",
     slug: "real-estate",
     name: "Real Estate License",
-    description: "Prep for the real estate licensing exam — agency, contracts, finance, and ethics.",
+    description:
+      "Prep for the real estate licensing exam — agency, contracts, finance, and ethics.",
     type: "dynamic",
     total_questions: 100,
     created_at: "2024-01-10T00:00:00.000Z",
@@ -198,8 +203,10 @@ type JSQuestion = {
 const JS_QUESTION_SEEDS: JSQuestion[] = [
   {
     category: "Closures",
-    prompt: "What does this snippet log?\n\n```js\nfor (var i = 0; i < 3; i++) setTimeout(() => console.log(i), 0);\n```",
-    explanation: "`var` is function-scoped, so all three timeouts share the same `i`. By the time they fire, the loop is done and `i === 3`.",
+    prompt:
+      "What does this snippet log?\n\n```js\nfor (var i = 0; i < 3; i++) setTimeout(() => console.log(i), 0);\n```",
+    explanation:
+      "`var` is function-scoped, so all three timeouts share the same `i`. By the time they fire, the loop is done and `i === 3`.",
     flashcard_back: "`3 3 3` — the `var` binding is shared across all three callbacks.",
     recap_answer: "`3 3 3` — `var` is function-scoped.",
     choices: [
@@ -212,7 +219,8 @@ const JS_QUESTION_SEEDS: JSQuestion[] = [
   {
     category: "Equality",
     prompt: "Which of these comparisons returns `true`?",
-    explanation: "`==` performs type coercion. `'5' == 5` becomes `5 == 5`. The others use `===` which compares both type and value.",
+    explanation:
+      "`==` performs type coercion. `'5' == 5` becomes `5 == 5`. The others use `===` which compares both type and value.",
     flashcard_back: "`'5' == 5` — `==` coerces the string to a number before comparing.",
     recap_answer: "`'5' == 5` is `true` because `==` coerces.",
     choices: [
@@ -225,7 +233,8 @@ const JS_QUESTION_SEEDS: JSQuestion[] = [
   {
     category: "Hoisting",
     prompt: "What is logged?\n\n```js\nconsole.log(typeof foo);\nvar foo = 'hello';\n```",
-    explanation: "`var` declarations are hoisted (initialized to `undefined`), so `typeof foo` is `'undefined'` — not a ReferenceError.",
+    explanation:
+      "`var` declarations are hoisted (initialized to `undefined`), so `typeof foo` is `'undefined'` — not a ReferenceError.",
     flashcard_back: "`'undefined'` — the declaration is hoisted but the assignment is not.",
     recap_answer: "`'undefined'` because `var foo` is hoisted.",
     choices: [
@@ -238,7 +247,8 @@ const JS_QUESTION_SEEDS: JSQuestion[] = [
   {
     category: "this binding",
     prompt: "Which call pattern makes `this` refer to the global object (in non-strict mode)?",
-    explanation: "A bare function call like `fn()` binds `this` to the global object in non-strict mode (or `undefined` in strict mode).",
+    explanation:
+      "A bare function call like `fn()` binds `this` to the global object in non-strict mode (or `undefined` in strict mode).",
     flashcard_back: "Bare invocation `fn()` — `this` is the global object in non-strict mode.",
     recap_answer: "`fn()` invoked as a bare function — `this` is the global object.",
     choices: [
@@ -263,8 +273,10 @@ const JS_QUESTION_SEEDS: JSQuestion[] = [
   },
   {
     category: "Promises",
-    prompt: "What does this log?\n\n```js\nPromise.resolve(1)\n  .then(v => v + 1)\n  .then(v => { throw v; })\n  .catch(v => console.log(v));\n```",
-    explanation: "The first `.then` produces `2`. The second throws `2`. `.catch` receives the thrown value.",
+    prompt:
+      "What does this log?\n\n```js\nPromise.resolve(1)\n  .then(v => v + 1)\n  .then(v => { throw v; })\n  .catch(v => console.log(v));\n```",
+    explanation:
+      "The first `.then` produces `2`. The second throws `2`. `.catch` receives the thrown value.",
     flashcard_back: "`2` — the catch handler receives the value thrown by the previous `.then`.",
     recap_answer: "`2`.",
     choices: [
@@ -290,7 +302,8 @@ const JS_QUESTION_SEEDS: JSQuestion[] = [
   {
     category: "Numbers",
     prompt: "Which expression equals `true`?",
-    explanation: "`NaN` is the only JavaScript value not equal to itself. `Number.isNaN(NaN)` is the safe check.",
+    explanation:
+      "`NaN` is the only JavaScript value not equal to itself. `Number.isNaN(NaN)` is the safe check.",
     flashcard_back: "`Number.isNaN(NaN)` — only `NaN !== NaN`.",
     recap_answer: "`Number.isNaN(NaN)` — `NaN` is the only value not equal to itself.",
     choices: [
@@ -302,8 +315,10 @@ const JS_QUESTION_SEEDS: JSQuestion[] = [
   },
   {
     category: "Async",
-    prompt: "In what order do these run?\n\n```js\nconsole.log('A');\nsetTimeout(() => console.log('B'), 0);\nPromise.resolve().then(() => console.log('C'));\nconsole.log('D');\n```",
-    explanation: "Synchronous code runs first (`A`, `D`). Microtasks (Promises) run before macrotasks (setTimeout) — so `C` before `B`.",
+    prompt:
+      "In what order do these run?\n\n```js\nconsole.log('A');\nsetTimeout(() => console.log('B'), 0);\nPromise.resolve().then(() => console.log('C'));\nconsole.log('D');\n```",
+    explanation:
+      "Synchronous code runs first (`A`, `D`). Microtasks (Promises) run before macrotasks (setTimeout) — so `C` before `B`.",
     flashcard_back: "`A D C B` — microtasks beat macrotasks.",
     recap_answer: "`A D C B`.",
     choices: [
@@ -316,7 +331,8 @@ const JS_QUESTION_SEEDS: JSQuestion[] = [
   {
     category: "Destructuring",
     prompt: "What is `a` after `const { x: a = 5 } = { x: undefined }`?",
-    explanation: "Default values apply when the property is `undefined` — but not when it's `null`.",
+    explanation:
+      "Default values apply when the property is `undefined` — but not when it's `null`.",
     flashcard_back: "`5` — defaults apply for `undefined`.",
     recap_answer: "`5`.",
     choices: [
@@ -342,7 +358,8 @@ const JS_QUESTION_SEEDS: JSQuestion[] = [
   {
     category: "Scope",
     prompt: "Which keyword creates a block-scoped binding that cannot be reassigned?",
-    explanation: "`const` is block-scoped and prevents reassignment of the binding (though objects it references are still mutable).",
+    explanation:
+      "`const` is block-scoped and prevents reassignment of the binding (though objects it references are still mutable).",
     flashcard_back: "`const` — block-scoped, no reassignment.",
     recap_answer: "`const`.",
     choices: [
@@ -355,7 +372,8 @@ const JS_QUESTION_SEEDS: JSQuestion[] = [
   {
     category: "Iteration",
     prompt: "Which loop iterates over the values of an iterable like an Array or a Set?",
-    explanation: "`for...of` iterates values. `for...in` iterates enumerable keys, which is rarely what you want for arrays.",
+    explanation:
+      "`for...of` iterates values. `for...in` iterates enumerable keys, which is rarely what you want for arrays.",
     flashcard_back: "`for...of` — iterates values of an iterable.",
     recap_answer: "`for...of`.",
     choices: [
@@ -368,7 +386,8 @@ const JS_QUESTION_SEEDS: JSQuestion[] = [
   {
     category: "Optional chaining",
     prompt: "What does `obj?.foo?.bar` evaluate to when `obj.foo` is `null`?",
-    explanation: "Optional chaining short-circuits to `undefined` when the value before `?.` is nullish.",
+    explanation:
+      "Optional chaining short-circuits to `undefined` when the value before `?.` is nullish.",
     flashcard_back: "`undefined` — optional chaining short-circuits on nullish.",
     recap_answer: "`undefined`.",
     choices: [
@@ -420,7 +439,8 @@ const JS_QUESTION_SEEDS: JSQuestion[] = [
   {
     category: "Strings",
     prompt: "Which method returns a new string with leading and trailing whitespace removed?",
-    explanation: "`String.prototype.trim()` removes whitespace from both ends. `trimStart` / `trimEnd` only trim one side.",
+    explanation:
+      "`String.prototype.trim()` removes whitespace from both ends. `trimStart` / `trimEnd` only trim one side.",
     flashcard_back: "`trim()` — removes whitespace from both ends.",
     recap_answer: "`trim()`.",
     choices: [
@@ -445,8 +465,10 @@ const JS_QUESTION_SEEDS: JSQuestion[] = [
   },
   {
     category: "Objects",
-    prompt: "How do you check whether an object has its own property named `'foo'` (not inherited)?",
-    explanation: "`Object.hasOwn(obj, 'foo')` is the modern, safe form — it works even on `Object.create(null)` objects.",
+    prompt:
+      "How do you check whether an object has its own property named `'foo'` (not inherited)?",
+    explanation:
+      "`Object.hasOwn(obj, 'foo')` is the modern, safe form — it works even on `Object.create(null)` objects.",
     flashcard_back: "`Object.hasOwn(obj, 'foo')` — modern, prototype-safe.",
     recap_answer: "`Object.hasOwn(obj, 'foo')`.",
     choices: [
@@ -505,7 +527,7 @@ await context.addInitScript(
   {
     key: `sb-${PROJECT_REF}-auth-token`,
     session: FAKE_SESSION,
-  }
+  },
 );
 
 const page = await context.newPage();

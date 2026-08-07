@@ -28,8 +28,7 @@ export function PreferencesPage() {
   }, [metaLastInitial]);
 
   const dirty =
-    firstName.trim() !== metaFirstName ||
-    lastInitial.trim().toUpperCase() !== metaLastInitial;
+    firstName.trim() !== metaFirstName || lastInitial.trim().toUpperCase() !== metaLastInitial;
 
   const save = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,9 +70,7 @@ export function PreferencesPage() {
               aria-readonly="true"
               tabIndex={-1}
             />
-            <span className={styles.help}>
-              Tied to your account — sign out to switch.
-            </span>
+            <span className={styles.help}>Tied to your account — sign out to switch.</span>
           </label>
           <label className={styles.field}>
             <span className={styles.label}>First name</span>
@@ -93,9 +90,7 @@ export function PreferencesPage() {
               type="text"
               maxLength={1}
               value={lastInitial}
-              onChange={(e) =>
-                setLastInitial(e.target.value.toUpperCase().slice(0, 1))
-              }
+              onChange={(e) => setLastInitial(e.target.value.toUpperCase().slice(0, 1))}
               className={`${styles.input} ${styles.initialInput}`}
               autoComplete="off"
               placeholder="R"

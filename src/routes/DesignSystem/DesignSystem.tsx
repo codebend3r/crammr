@@ -69,9 +69,7 @@ type Resolved = Record<string, string>;
 
 function resolveAll(names: readonly string[]): Resolved {
   const cs = getComputedStyle(document.documentElement);
-  return Object.fromEntries(
-    names.map((n) => [n, cs.getPropertyValue(`--${n}`).trim()])
-  );
+  return Object.fromEntries(names.map((n) => [n, cs.getPropertyValue(`--${n}`).trim()]));
 }
 
 export function DesignSystem() {
@@ -99,8 +97,8 @@ export function DesignSystem() {
       <header className={styles.pageHeader}>
         <h1 className={styles.title}>Design system</h1>
         <p className={styles.subtitle}>
-          Live values for the <strong>{effective}</strong> theme — toggle the
-          theme to inspect the other palette.
+          Live values for the <strong>{effective}</strong> theme — toggle the theme to inspect the
+          other palette.
         </p>
       </header>
 
@@ -117,12 +115,7 @@ export function DesignSystem() {
         <h2 className={styles.sectionTitle}>Syntax highlighting</h2>
         <div className={styles.swatchGrid}>
           {HLJS_TOKENS.map((name) => (
-            <Swatch
-              key={name}
-              name={name}
-              value={resolved.hljs[name]}
-              monospace
-            />
+            <Swatch key={name} name={name} value={resolved.hljs[name]} monospace />
           ))}
         </div>
       </section>
@@ -136,15 +129,10 @@ export function DesignSystem() {
                 <code className={styles.tokenName}>--{f.name}</code>
                 <span className={styles.typeLabel}>{f.label}</span>
               </div>
-              <div
-                className={styles.typeSample}
-                style={{ fontFamily: `var(--${f.name})` }}
-              >
+              <div className={styles.typeSample} style={{ fontFamily: `var(--${f.name})` }}>
                 {f.sample}
               </div>
-              <code className={styles.tokenValue}>
-                {resolved.fonts[f.name]}
-              </code>
+              <code className={styles.tokenValue}>{resolved.fonts[f.name]}</code>
             </div>
           ))}
         </div>
@@ -156,10 +144,7 @@ export function DesignSystem() {
           {SPACE_TOKENS.map((name) => (
             <div key={name} className={styles.spaceRow}>
               <code className={styles.tokenName}>--{name}</code>
-              <div
-                className={styles.spaceBar}
-                style={{ width: `var(--${name})` }}
-              />
+              <div className={styles.spaceBar} style={{ width: `var(--${name})` }} />
               <code className={styles.tokenValue}>{resolved.spaces[name]}</code>
             </div>
           ))}
@@ -171,10 +156,7 @@ export function DesignSystem() {
         <div className={styles.radiusRow}>
           {RADIUS_TOKENS.map((name) => (
             <div key={name} className={styles.radiusItem}>
-              <div
-                className={styles.radiusBox}
-                style={{ borderRadius: `var(--${name})` }}
-              />
+              <div className={styles.radiusBox} style={{ borderRadius: `var(--${name})` }} />
               <code className={styles.tokenName}>--{name}</code>
               <code className={styles.tokenValue}>{resolved.radii[name]}</code>
             </div>
@@ -196,11 +178,7 @@ function Swatch({ name, value, monospace = false }: SwatchProps) {
     <div className={styles.swatch}>
       <div
         className={monospace ? styles.chipText : styles.chip}
-        style={
-          monospace
-            ? { color: `var(--${name})` }
-            : { background: `var(--${name})` }
-        }
+        style={monospace ? { color: `var(--${name})` } : { background: `var(--${name})` }}
       >
         {monospace ? "Aa" : null}
       </div>

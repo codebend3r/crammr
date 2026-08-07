@@ -1,9 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  createModuleRequest,
-  fetchModuleRequests,
-  fetchRequestCategories,
-} from "@/lib/queries";
+import { createModuleRequest, fetchModuleRequests, fetchRequestCategories } from "@/lib/queries";
 import type { ModuleRequest, RequestCategory } from "@/lib/types";
 import { useAuthStore } from "@/store/authStore";
 import { Card } from "@/components/Card";
@@ -35,12 +31,9 @@ export function ModuleRequestsPage() {
 
   useEffect(() => {
     const state = { alive: true };
-    (async () => {
+    void (async () => {
       try {
-        const [cats, reqs] = await Promise.all([
-          fetchRequestCategories(),
-          fetchModuleRequests(),
-        ]);
+        const [cats, reqs] = await Promise.all([fetchRequestCategories(), fetchModuleRequests()]);
         if (!state.alive) return;
         setCategories(cats);
         setRequests(reqs);
@@ -57,10 +50,7 @@ export function ModuleRequestsPage() {
     };
   }, []);
 
-  const categoryById = useMemo(
-    () => new Map(categories.map((c) => [c.id, c])),
-    [categories]
-  );
+  const categoryById = useMemo(() => new Map(categories.map((c) => [c.id, c])), [categories]);
 
   const visibleRequests = useMemo(() => {
     if (filter === "mine") {
@@ -102,8 +92,8 @@ export function ModuleRequestsPage() {
     <div className={styles.page}>
       <h1 className={styles.heading}>Request a learning module</h1>
       <p className={styles.subtitle}>
-        Don't see what you want to study? Suggest a new module — anyone signed
-        in can read every request.
+        Don't see what you want to study? Suggest a new module — anyone signed in can read every
+        request.
       </p>
 
       <Card className={styles.formCard}>
@@ -158,17 +148,10 @@ export function ModuleRequestsPage() {
               placeholder="What should someone be able to do after completing it?"
             />
           </label>
-          {formError ? (
-            <div className={styles.error}>{formError}</div>
-          ) : null}
-          {formSuccess ? (
-            <div className={styles.success}>Request submitted.</div>
-          ) : null}
+          {formError ? <div className={styles.error}>{formError}</div> : null}
+          {formSuccess ? <div className={styles.success}>Request submitted.</div> : null}
           <div className={styles.actions}>
-            <Button
-              type="submit"
-              disabled={submitting || !title.trim() || !categoryId}
-            >
+            <Button type="submit" disabled={submitting || !title.trim() || !categoryId}>
               {submitting ? "Submitting…" : "Submit request"}
             </Button>
           </div>
@@ -215,18 +198,12 @@ export function ModuleRequestsPage() {
             return (
               <Card key={r.id} className={styles.item}>
                 <div className={styles.itemHead}>
-                  {category ? (
-                    <span className={styles.categoryBadge}>{category.name}</span>
-                  ) : null}
+                  {category ? <span className={styles.categoryBadge}>{category.name}</span> : null}
                   {mine ? <span className={styles.youBadge}>You</span> : null}
-                  <span className={styles.itemDate}>
-                    {dateFmt.format(new Date(r.created_at))}
-                  </span>
+                  <span className={styles.itemDate}>{dateFmt.format(new Date(r.created_at))}</span>
                 </div>
                 <h3 className={styles.itemTitle}>{r.title}</h3>
-                {r.description ? (
-                  <p className={styles.itemBody}>{r.description}</p>
-                ) : null}
+                {r.description ? <p className={styles.itemBody}>{r.description}</p> : null}
                 {r.goal ? (
                   <p className={styles.itemGoal}>
                     <strong>Goal:</strong> {r.goal}

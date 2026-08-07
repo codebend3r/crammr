@@ -36,7 +36,7 @@ export function QuizPage({ params }: { params: Params }) {
     if (session.answers.length >= session.questions.length) {
       const sid = session.sessionId;
       const score = session.answers.filter((a) => a.isCorrect).length;
-      (async () => {
+      void (async () => {
         await completeSession({ sessionId: sid, score });
         navigate(`/m/${params.slug}/results/${sid}`, { replace: true });
       })();
@@ -62,10 +62,7 @@ export function QuizPage({ params }: { params: Params }) {
     navigate(`/m/${params.slug}/results/${sessionId}`, { replace: true });
   };
 
-  const handleMc = async (payload: {
-    choiceId: string;
-    isCorrect: boolean;
-  }) => {
+  const handleMc = async (payload: { choiceId: string; isCorrect: boolean }) => {
     record(params.slug, {
       questionId: question.id,
       choiceId: payload.choiceId,
@@ -81,10 +78,7 @@ export function QuizPage({ params }: { params: Params }) {
     });
   };
 
-  const handleSelfGrade = async (payload: {
-    selfGrade: boolean;
-    isCorrect: boolean;
-  }) => {
+  const handleSelfGrade = async (payload: { selfGrade: boolean; isCorrect: boolean }) => {
     record(params.slug, {
       questionId: question.id,
       choiceId: null,
@@ -121,23 +115,11 @@ export function QuizPage({ params }: { params: Params }) {
       </div>
 
       {mode === "multiple_choice" ? (
-        <MultipleChoice
-          question={question}
-          onAnswer={handleMc}
-          onNext={handleNext}
-        />
+        <MultipleChoice question={question} onAnswer={handleMc} onNext={handleNext} />
       ) : mode === "flashcards" ? (
-        <Flashcards
-          question={question}
-          onAnswer={handleSelfGrade}
-          onNext={handleNext}
-        />
+        <Flashcards question={question} onAnswer={handleSelfGrade} onNext={handleNext} />
       ) : (
-        <Recap
-          question={question}
-          onAnswer={handleSelfGrade}
-          onNext={handleNext}
-        />
+        <Recap question={question} onAnswer={handleSelfGrade} onNext={handleNext} />
       )}
 
       <div className={styles.bottom}>

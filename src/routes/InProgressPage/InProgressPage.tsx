@@ -30,13 +30,12 @@ export function InProgressPage() {
 
   useEffect(() => {
     const state = { alive: true };
-    (async () => {
+    void (async () => {
       try {
         const ms = await fetchModules();
         if (state.alive) setModules(ms);
       } catch (e) {
-        if (state.alive)
-          setError(e instanceof Error ? e.message : "Failed to load");
+        if (state.alive) setError(e instanceof Error ? e.message : "Failed to load");
       } finally {
         if (state.alive) setLoading(false);
       }
@@ -51,10 +50,7 @@ export function InProgressPage() {
     return Object.values(sessions)
       .filter((s) => s.answers.length < s.questions.length)
       .map((s) => ({ session: s, module: bySlug.get(s.slug) ?? null }))
-      .filter(
-        (p): p is { session: typeof p.session; module: Module } =>
-          p.module !== null
-      )
+      .filter((p): p is { session: typeof p.session; module: Module } => p.module !== null)
       .sort((a, b) => b.session.startedAt - a.session.startedAt);
   }, [sessions, modules]);
 
@@ -65,15 +61,14 @@ export function InProgressPage() {
     <div className={styles.page}>
       <h1 className={styles.heading}>In progress</h1>
       <p className={styles.subtitle}>
-        Pick up where you left off. Discarded sessions stay on the server but
-        disappear from this list.
+        Pick up where you left off. Discarded sessions stay on the server but disappear from this
+        list.
       </p>
 
       {items.length === 0 ? (
         <Card className={styles.empty}>
           <p className={styles.emptyText}>
-            Nothing in progress right now.{" "}
-            <Link href="/">Start a new session</Link>.
+            Nothing in progress right now. <Link href="/">Start a new session</Link>.
           </p>
         </Card>
       ) : (
@@ -86,16 +81,11 @@ export function InProgressPage() {
                   <span className={styles.badge} data-type={module.type}>
                     {module.type}
                   </span>
-                  <span className={styles.mode}>
-                    {MODE_LABEL[session.mode]}
-                  </span>
+                  <span className={styles.mode}>{MODE_LABEL[session.mode]}</span>
                 </div>
                 <h2 className={styles.itemTitle}>{module.name}</h2>
                 <div className={styles.progressRow}>
-                  <ProgressBar
-                    current={session.answers.length}
-                    total={session.questions.length}
-                  />
+                  <ProgressBar current={session.answers.length} total={session.questions.length} />
                   <span className={styles.progressLabel}>
                     {session.answers.length} of {session.questions.length}
                   </span>
@@ -109,9 +99,7 @@ export function InProgressPage() {
                   <Button variant="ghost" onClick={() => discard(session.slug)}>
                     Discard
                   </Button>
-                  <Button onClick={() => navigate(`/m/${module.slug}/quiz`)}>
-                    Resume
-                  </Button>
+                  <Button onClick={() => navigate(`/m/${module.slug}/quiz`)}>Resume</Button>
                 </div>
               </Card>
             );
