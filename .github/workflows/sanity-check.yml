@@ -1,23 +1,21 @@
-name: 🧪 CI
+name: 🚀 Main
 
-# PRs only — direct pushes (including merges to main) do not trigger CI
+# Merges to main only — PRs are covered by 🧪 Pull request checks
 on:
-  pull_request:
-    # opened      — a PR is created
-    # synchronize — new commits are pushed to the PR branch
-    # reopened    — a closed PR is reopened
-    types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
 
 permissions:
   contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+  # never cancel a main run — every merged commit gets verified
+  cancel-in-progress: false
 
 jobs:
-  check:
-    name: 🚦 System check
+  sanity:
+    name: 🩺 Sanity check
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout
@@ -40,15 +38,6 @@ jobs:
 
       - name: 📦 Install dependencies
         run: bun install --frozen-lockfile
-
-      - name: 🎨 Format check
-        run: bun run format:check
-
-      - name: 🔍 Lint TS
-        run: bun run lint:ts
-
-      - name: 💅 Lint CSS
-        run: bun run lint:css
 
       - name: 🧠 Typecheck
         run: bun run typecheck
