@@ -13,9 +13,7 @@ function readStored(): ThemeMode {
 
 function computeEffective(mode: ThemeMode): Effective {
   if (mode === "system") {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   }
   return mode;
 }

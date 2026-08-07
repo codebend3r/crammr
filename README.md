@@ -66,25 +66,35 @@ Supabase (Postgres + Auth + RLS) · Vitest.
      want a subset of seeds; each `_seed_*.sql` is independent.
    - **`bun run db:push`** — uses the Supabase CLI. One-time setup:
      `brew install supabase/tap/supabase && supabase login && supabase link
-     --project-ref <ref>`. Migration filenames must be renamed to
+--project-ref <ref>`. Migration filenames must be renamed to
      `YYYYMMDDHHMMSS_name.sql` for the CLI to detect them.
 
    For a fresh project, apply `001_init.sql` and `005_module_requests.sql`
    plus any `_seed_*.sql` modules you want.
+
 5. Run the dev server:
    ```
    bun run dev
    ```
+
+## Specs and plans
+
+Design specs and implementation plans for in-flight work live in
+`docs/superpowers/specs/` and `docs/superpowers/plans/`. Once a feature ships,
+its spec and plan are archived to the crammr workspace in Notion and removed
+from the repo, so `docs/superpowers/` only ever holds work that hasn't landed
+yet. Archived so far: v1, Vitest setup, and the `modules.kind` property.
 
 ## Claude Code skills
 
 Repo-local skills live in `.claude/skills/` and are picked up automatically by
 Claude Code when working in this repo.
 
-| Skill | What it does | How it's triggered |
-|-------|--------------|--------------------|
-| `commit-format` | The house style for commit messages: mandatory `CRMR:` subject prefix, terse bulleted bodies, backticks around every file/function/identifier, and zero AI-agent attribution (no `Co-Authored-By: Claude` trailers, ever). | Whenever a commit message is written or rewritten in this repo — commit, amend, squash, fixup, rebase, or cherry-pick. |
-| `module-level-split` | The procedure for splitting a single 100-question quiz module into three difficulty-level modules (`<lang>-1/2/3`, displayed as `<Lang> — Level 1/2/3`): per-question classification, the SQL seed transform, companion-file updates (`moduleCategories.ts`, screenshot fixtures), and verification. | Requests like "split the X module into level 1/2/3" or "break up the Y module by difficulty", matching the pattern already used for JavaScript, TypeScript, and Python. |
+| Skill                | What it does                                                                                                                                                                                                                                                                                                                                                                         | How it's triggered                                                                                                                                                      |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `commit-format`      | The house style for commit messages: mandatory `CRMR:` subject prefix, terse bulleted bodies, backticks around every file/function/identifier, and zero AI-agent attribution (no `Co-Authored-By: Claude` trailers, ever).                                                                                                                                                           | Whenever a commit message is written or rewritten in this repo — commit, amend, squash, fixup, rebase, or cherry-pick.                                                  |
+| `pr-format`          | The house style for pull requests: mandatory `CRMR:` title prefix, flat bulleted body derived from the branch's commits, a fixed section set (`Changes`, `Breaking changes`, `Test notes`, `Follow-ups`) used only past ~8 bullets, never a `Verification` section, backticks around every code token, and zero AI-agent attribution (no "Generated with Claude Code" footer, ever). | Whenever a PR is opened, retitled, or its body rewritten in this repo — `gh pr create`, `gh pr edit`, or drafting PR text to paste.                                     |
+| `module-level-split` | The procedure for splitting a single 100-question quiz module into three difficulty-level modules (`<lang>-1/2/3`, displayed as `<Lang> — Level 1/2/3`): per-question classification, the SQL seed transform, companion-file updates (`moduleCategories.ts`, screenshot fixtures), and verification.                                                                                 | Requests like "split the X module into level 1/2/3" or "break up the Y module by difficulty", matching the pattern already used for JavaScript, TypeScript, and Python. |
 
 ## Regenerating screenshots
 

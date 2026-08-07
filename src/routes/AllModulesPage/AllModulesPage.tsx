@@ -20,7 +20,7 @@ export function AllModulesPage() {
 
   useEffect(() => {
     const state = { alive: true };
-    (async () => {
+    void (async () => {
       try {
         const [ms, cs, ls] = await Promise.all([
           fetchModules(),
@@ -76,19 +76,13 @@ export function AllModulesPage() {
                   {inCategory.map((m) => {
                     const last = lastScores[m.id];
                     return (
-                      <Link
-                        key={m.id}
-                        href={`/m/${m.slug}`}
-                        className={styles.cardLink}
-                      >
+                      <Link key={m.id} href={`/m/${m.slug}`} className={styles.cardLink}>
                         <Card className={styles.card}>
                           <div className={styles.badgeRow}>
                             <span className={styles.badge} data-type={m.type}>
                               {m.type}
                             </span>
-                            <span className={styles.count}>
-                              {m.total_questions} questions
-                            </span>
+                            <span className={styles.count}>{m.total_questions} questions</span>
                           </div>
                           <h3 className={styles.name}>{m.name}</h3>
                           <p className={styles.desc}>{m.description}</p>

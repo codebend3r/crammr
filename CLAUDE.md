@@ -1,42 +1,41 @@
 # crammr — Conventions
 
-## TypeScript: never use `interface`
+## Workflow
 
-Always use `type` aliases. Do not use `interface` declarations anywhere in this
-codebase.
+- Do not commit anything until I tell you to. Finishing a change is not permission to commit it.
+- Do not push anything until I tell you to. Once I have told you to commit on a branch that already tracks a remote, push it in the same step — don't ask again.
+- Do not merge anything until I tell you to.
+- Do not create a PR until I tell you to.
 
-- `type Foo = { ... };` instead of `interface Foo { ... }`
-- For extension, use intersection: `type Foo = Bar & { ... };` instead of
-  `interface Foo extends Bar { ... }`
+## Branching
 
-**One exception:** `src/vite-env.d.ts` uses `interface ImportMetaEnv` and
-`interface ImportMeta` because Vite's ambient typings rely on declaration
-merging — `type` aliases cannot merge with the library-defined `ImportMeta`
-interface. Do not touch those.
+- Do not create a branch until I tell you to.
+- Branch names are flat. Never put a branch in a folder — no `feature/`, `fix/`, `bug/`, or any other prefix folder, and no slashes anywhere in the name.
+- Branch names are kebab-case and 1 to 5 words, describing what the branch is for: `fixed-unit-tests`, `refactored-component`,
 
-## JavaScript: prefer `const`, avoid `let`, never `var`
+## Typescript
 
-Favour immutable coding. Always declare bindings with `const` unless mutation
-is genuinely required.
+- Use type guards wherever possible.
+- Never use `any` types; prefer type narrowing or type guards
+- Never under any circumstance cast types and never double cast: `as any as string`
+- If type can't be inferred and type narrowing is not an option, use `unknown` types
 
-- Never use `var`.
-- Use `let` only when an immutable alternative would be materially more
-  complex. Prefer rewriting the surrounding logic over reaching for `let`.
-- For conditional/derived values, use a ternary or extracted helper instead of
-  a mutated `let` accumulator.
-- For React effect cleanup flags, use `const state = { alive: true }` and
-  mutate `state.alive` rather than `let alive = true`.
-- For values built up across an `if`/`else`, prefer an IIFE returning the
-  value, or extract a helper, instead of declaring with `let` and reassigning.
+## CSS
 
-## Dependencies: pin exact versions
+- Use SCSS modules (`*.module.scss`) for component styles
+- Import `*.module.scss` through the `@/` alias, never a relative path. The `react-ts-css` editor extension flags aliased imports as unresolved — that is a tooling bug to fix in tooling, not a reason to relativize the import
+- Only use global stylesheets (`styles/globals.scss`) for design tokens and true typographic primitives
+- Use a container driven approach: the container defines the child's available width and height, padding and spacing between children, the children only care about their content. Moving a child to a different container may lay it out differently, because the container specifies the layout.
+- Prefer CSS display grid for layout, with the gap property for spacing between grid items; avoid margins for spacing at all cost. This includes prose: a rendered-markdown container is a grid too — element margins stay zeroed and gap sets the rhythm between blocks.
+- Use grid when the container defines the tracks; use flex for one-dimensional, content-sized runs — toolbars, inline rows, baseline alignment.
+- Place grid children with named `grid-template-areas` and `grid-area: <name>`. Never use positional line spans like `grid-area: 1 / -1`
+- Avoid plain divs, meaning divs with no class or id defined
+- Always use token values from `styles/globals.scss` when defining font sizes, colors, and other design tokens like padding, margin, gap, and border radius
 
-Always pin exact package versions in `package.json`. No `^`, no `~`, no
-ranges.
+## Code style
 
-- `"react": "18.3.1"` instead of `"react": "^18.3.1"`.
-- Applies to both `dependencies` and `devDependencies`.
-- When adding a package, use `bun add --exact <pkg>` (or edit
-  `package.json` directly) so the saved spec is the exact version.
-- When bumping, edit the version explicitly — don't rely on range
-  resolution.
+- Prefer `reduce` over `for` loops when possible. Never use `for/in` or `for/of` loops; reach for `Array.prototype` methods (`map`, `filter`, `reduce`, `flatMap`, etc.) when the value is an array.
+- Prefer double-bang (`!!value`) for boolean conversion.
+- Prefer optional chaining (`?.`). When optional chaining is used, ALWAYS pair it with nullish coalescing (`??`) to supply a fallback.
+- Prefer a single configurable object parameter over multiple positional parameters so argument order doesn't matter. Don't: `doSomething(foo, bar, hello)`. Do: `doSomething({ foo, bar, hello })`.
+- Don't write comments that restate what the code already says. Comment only a non-obvious _why_ — a workaround, a constraint, a gotcha.

@@ -74,9 +74,7 @@ export function OnboardingModal() {
               type="text"
               maxLength={1}
               value={lastInitial}
-              onChange={(e) =>
-                setLastInitial(e.target.value.toUpperCase().slice(0, 1))
-              }
+              onChange={(e) => setLastInitial(e.target.value.toUpperCase().slice(0, 1))}
               className={`${styles.input} ${styles.initialInput}`}
               autoComplete="off"
               placeholder="R"
@@ -84,12 +82,7 @@ export function OnboardingModal() {
           </label>
           {error ? <div className={styles.error}>{error}</div> : null}
           <div className={styles.actions}>
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={dismiss}
-              disabled={busy}
-            >
+            <Button type="button" variant="ghost" onClick={dismiss} disabled={busy}>
               Maybe later
             </Button>
             <Button type="submit" disabled={busy || !firstName.trim()}>

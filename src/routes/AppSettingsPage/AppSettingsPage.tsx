@@ -28,9 +28,7 @@ export function AppSettingsPage() {
   return (
     <div className={styles.page}>
       <h1 className={styles.heading}>App settings</h1>
-      <p className={styles.subtitle}>
-        Adjust how crammr looks. Changes save automatically.
-      </p>
+      <p className={styles.subtitle}>Adjust how crammr looks. Changes save automatically.</p>
 
       <Card className={styles.card}>
         <div className={styles.section}>

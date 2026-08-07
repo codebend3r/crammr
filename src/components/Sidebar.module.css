@@ -4,7 +4,10 @@
   background: var(--color-surface);
   border-right: 1px solid var(--color-border);
   overflow: hidden;
-  transition: width 0.2s ease, transform 0.2s ease, border-right-width 0.2s ease;
+  transition:
+    width 0.2s ease,
+    transform 0.2s ease,
+    border-right-width 0.2s ease;
 }
 
 .sidebar[data-open="false"] {
@@ -43,7 +46,9 @@
   color: var(--color-text);
   font-size: 14px;
   white-space: nowrap;
-  transition: background 0.12s ease, color 0.12s ease;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease;
 }
 
 .item:hover,
@@ -130,7 +135,9 @@
   color: var(--color-text-muted);
   border: none;
   border-radius: 0;
-  transition: background 0.12s ease, color 0.12s ease;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease;
 }
 
 .themeOption + .themeOption,
@@ -169,7 +176,9 @@
   border: none;
   font-size: 14px;
   text-align: left;
-  transition: background 0.12s ease, color 0.12s ease;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease;
 }
 
 .signOut:hover {
