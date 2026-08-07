@@ -20,10 +20,10 @@ Splits one quiz module (1 `modules` row + 100 questions in a seed migration) int
 
 Determine via `grep -l "slug = '<lang>'" supabase/migrations/*.sql`:
 
-| Variant | Where the `modules` row lives | Files you'll edit |
-|---|---|---|
-| A | In the seed file itself | `<NNN>_seed_<lang>.sql` only (e.g. `003_seed_javascript.sql`, `004_seed_typescript.sql`) |
-| B | In `006_seed_more_modules.sql` | `<NNN>_seed_<lang>.sql` **and** `006_seed_more_modules.sql` (e.g. `007_seed_python.sql`) |
+| Variant | Where the `modules` row lives  | Files you'll edit                                                                        |
+| ------- | ------------------------------ | ---------------------------------------------------------------------------------------- |
+| A       | In the seed file itself        | `<NNN>_seed_<lang>.sql` only (e.g. `003_seed_javascript.sql`, `004_seed_typescript.sql`) |
+| B       | In `006_seed_more_modules.sql` | `<NNN>_seed_<lang>.sql` **and** `006_seed_more_modules.sql` (e.g. `007_seed_python.sql`) |
 
 ## Naming scheme (non-negotiable)
 

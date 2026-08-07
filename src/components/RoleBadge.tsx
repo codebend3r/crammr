@@ -14,11 +14,7 @@ const LABEL: Record<Role, string> = {
 export function RoleBadge({ role }: Props) {
   if (role === "regular") return null;
   return (
-    <span
-      className={styles.badge}
-      data-role={role}
-      title={`${LABEL[role]} account`}
-    >
+    <span className={styles.badge} data-role={role} title={`${LABEL[role]} account`}>
       {LABEL[role]}
     </span>
   );

@@ -8,18 +8,8 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   block?: boolean;
 };
 
-export function Button({
-  variant = "primary",
-  block = false,
-  className,
-  ...rest
-}: Props) {
-  const classes = [
-    styles.button,
-    styles[variant],
-    block ? styles.block : "",
-    className ?? "",
-  ]
+export function Button({ variant = "primary", block = false, className, ...rest }: Props) {
+  const classes = [styles.button, styles[variant], block ? styles.block : "", className ?? ""]
     .filter(Boolean)
     .join(" ");
   return <button className={classes} {...rest} />;

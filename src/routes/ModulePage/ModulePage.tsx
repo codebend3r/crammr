@@ -1,10 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, Link } from "wouter";
-import {
-  fetchModuleBySlug,
-  fetchQuestionsForModule,
-  createSession,
-} from "@/lib/queries";
+import { fetchModuleBySlug, fetchQuestionsForModule, createSession } from "@/lib/queries";
 import type { Mode, Module } from "@/lib/types";
 import { sampleN, shuffle } from "@/lib/sampling";
 import { useSessionStore } from "@/store/sessionStore";
@@ -48,7 +44,7 @@ export function ModulePage({ params }: { params: Params }) {
 
   useEffect(() => {
     const state = { alive: true };
-    (async () => {
+    void (async () => {
       try {
         const m = await fetchModuleBySlug(params.slug);
         if (!state.alive) return;
@@ -77,10 +73,8 @@ export function ModulePage({ params }: { params: Params }) {
     setStarting(true);
     try {
       const all = await fetchQuestionsForModule(module.id);
-      const effectiveSize =
-        module.type === "static" || size === "all" ? all.length : size;
-      const picked =
-        module.type === "static" ? shuffle(all) : sampleN(all, effectiveSize);
+      const effectiveSize = module.type === "static" || size === "all" ? all.length : size;
+      const picked = module.type === "static" ? shuffle(all) : sampleN(all, effectiveSize);
       const session = await createSession({
         moduleId: module.id,
         mode,
@@ -132,8 +126,8 @@ export function ModulePage({ params }: { params: Params }) {
         <h2 className={styles.sectionTitle}>Session size</h2>
         {module.type === "static" ? (
           <p className={styles.staticNote}>
-            This is a static module — you'll see all {module.total_questions}{" "}
-            questions, order shuffled.
+            This is a static module — you'll see all {module.total_questions} questions, order
+            shuffled.
           </p>
         ) : (
           <div className={styles.sizeRow}>

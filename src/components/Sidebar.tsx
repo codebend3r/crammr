@@ -1,12 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
-import {
-  LayoutGrid,
-  Lightbulb,
-  PlayCircle,
-  Settings,
-  UserRound,
-} from "lucide-react";
+import { LayoutGrid, Lightbulb, PlayCircle, Settings, UserRound } from "lucide-react";
 import { useUIStore } from "@/store/uiStore";
 import styles from "@/components/Sidebar.module.css";
 
@@ -47,20 +41,12 @@ export function Sidebar() {
 
   return (
     <>
-      <aside
-        className={styles.sidebar}
-        data-open={open}
-        aria-hidden={!open}
-      >
+      <aside className={styles.sidebar} data-open={open} aria-hidden={!open}>
         <nav className={styles.nav}>
           {LINKS.map(({ href, label, icon: Icon }) => {
             const active = location === href;
             return (
-              <Link
-                key={href}
-                href={href}
-                className={active ? styles.itemActive : styles.item}
-              >
+              <Link key={href} href={href} className={active ? styles.itemActive : styles.item}>
                 <Icon size={16} />
                 <span>{label}</span>
               </Link>

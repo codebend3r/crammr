@@ -1,11 +1,6 @@
 export type ModuleType = "static" | "dynamic";
 
-export type ModuleKind =
-  | "coding"
-  | "human-language"
-  | "test-prep"
-  | "driving"
-  | "other";
+export type ModuleKind = "coding" | "human-language" | "test-prep" | "driving" | "other";
 
 export type Mode = "multiple_choice" | "flashcards" | "recap";
 

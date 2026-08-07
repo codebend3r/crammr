@@ -18,10 +18,7 @@ const rehypePlugins = [
 
 export function Markdown({ children, inline = false }: Props) {
   return (
-    <ReactMarkdown
-      rehypePlugins={rehypePlugins}
-      components={inline ? inlineComponents : undefined}
-    >
+    <ReactMarkdown rehypePlugins={rehypePlugins} components={inline ? inlineComponents : undefined}>
       {children}
     </ReactMarkdown>
   );

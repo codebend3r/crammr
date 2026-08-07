@@ -45,10 +45,10 @@ export function MultipleChoice({ question, onAnswer, onNext }: Props) {
           const cls = !locked
             ? styles.choice
             : c.id === correctId
-            ? styles.correct
-            : c.id === selectedId
-            ? styles.incorrect
-            : styles.dim;
+              ? styles.correct
+              : c.id === selectedId
+                ? styles.incorrect
+                : styles.dim;
           return (
             <button
               key={c.id}

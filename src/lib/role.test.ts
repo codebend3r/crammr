@@ -2,8 +2,7 @@ import type { User } from "@supabase/supabase-js";
 import { describe, expect, it } from "vitest";
 import { getRole } from "./role";
 
-const userWithRole = (role: string): User =>
-  ({ app_metadata: { role } }) as unknown as User;
+const userWithRole = (role: string): User => ({ app_metadata: { role } }) as unknown as User;
 
 describe("getRole", () => {
   it("returns 'regular' when the user is null", () => {

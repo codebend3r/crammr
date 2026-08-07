@@ -1,20 +1,28 @@
 {
   "name": "crammr",
-  "private": true,
   "version": "0.1.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --max-warnings=0",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "lint:ts": "oxlint --type-aware",
+    "lint:ts:fix": "oxlint --type-aware --fix",
+    "lint:css": "gale \"src/**/*.css\" \"src/**/*.scss\"",
+    "lint:css:fix": "gale --fix \"src/**/*.css\" \"src/**/*.scss\"",
+    "typecheck": "tsgo --noEmit",
     "test": "vitest run",
+    "clean": "rm -rf dist",
     "test:watch": "vitest",
-    "check": "run-s lint typecheck test",
+    "test:coverage": "vitest run --coverage",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "format:staged": "lint-staged",
     "db:apply": "bun scripts/apply-migrations.ts",
     "db:push": "supabase db push",
-    "prepare": "husky"
+    "prepare": "husky",
+    "system-check": "run-s clean format:check lint:ts lint:css typecheck test build"
   },
   "dependencies": {
     "@fontsource-variable/space-grotesk": "5.2.10",
@@ -29,20 +37,35 @@
     "zustand": "5.0.13"
   },
   "devDependencies": {
-    "@eslint/js": "9.39.4",
+    "@lyricalstring/gale": "0.1.5",
     "@types/react": "18.3.29",
     "@types/react-dom": "18.3.7",
+    "@typescript/native-preview": "7.0.0-dev.20260707.2",
     "@vitejs/plugin-react": "4.7.0",
-    "eslint": "9.39.4",
-    "eslint-plugin-react-hooks": "5.2.0",
-    "eslint-plugin-react-refresh": "0.4.26",
-    "globals": "15.15.0",
+    "@vitest/coverage-v8": "2.1.9",
     "husky": "9.1.7",
+    "lint-staged": "17.3.0",
     "npm-run-all": "4.1.5",
+    "oxfmt": "0.62.0",
+    "oxlint": "1.77.0",
+    "oxlint-tsgolint": "7.0.2001",
     "playwright": "1.60.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.60.0",
     "vite": "5.4.21",
     "vitest": "2.1.9"
-  }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "oxlint --fix",
+      "oxfmt"
+    ],
+    "*.{css,scss}": [
+      "gale --fix",
+      "oxfmt"
+    ],
+    "*.{json,jsonc,json5,md,mdx,yml,yaml,toml,html}": "oxfmt"
+  },
+  "trustedDependencies": [
+    "@lyricalstring/gale"
+  ]
 }

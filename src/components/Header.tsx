@@ -35,10 +35,7 @@ export function Header() {
         <ThemeToggle />
         {user ? (
           <>
-            <span
-              className={styles.email}
-              title={user.email ?? undefined}
-            >
+            <span className={styles.email} title={user.email ?? undefined}>
               {(() => {
                 const first =
                   typeof user.user_metadata?.first_name === "string"
