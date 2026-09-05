@@ -203,22 +203,26 @@
     z-index: 100;
     border-right: 1px solid var(--color-border);
   }
+
   .sidebar[data-open="true"] {
     transform: translateX(0);
   }
+
   .sidebar[data-open="false"] {
     width: 280px;
     border-right-width: 1px;
   }
+
   .nav {
     width: 280px;
     padding-top: var(--space-5);
   }
+
   .backdrop {
     display: block;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgb(0 0 0 / 40%);
     z-index: 99;
     cursor: pointer;
   }
