@@ -9,8 +9,8 @@
     "preview": "vite preview",
     "lint:ts": "oxlint --type-aware",
     "lint:ts:fix": "oxlint --type-aware --fix",
-    "lint:css": "gale \"src/**/*.css\" \"src/**/*.scss\"",
-    "lint:css:fix": "gale --fix \"src/**/*.css\" \"src/**/*.scss\"",
+    "lint:css": "stylelint \"src/**/*.css\" \"src/**/*.scss\"",
+    "lint:css:fix": "stylelint --fix \"src/**/*.css\" \"src/**/*.scss\"",
     "typecheck": "tsgo --noEmit",
     "test": "vitest run",
     "clean": "rm -rf dist",
@@ -37,7 +37,6 @@
     "zustand": "5.0.13"
   },
   "devDependencies": {
-    "@lyricalstring/gale": "0.1.5",
     "@types/react": "18.3.29",
     "@types/react-dom": "18.3.7",
     "@typescript/native-preview": "7.0.0-dev.20260707.2",
@@ -50,6 +49,9 @@
     "oxlint": "1.77.0",
     "oxlint-tsgolint": "7.0.2001",
     "playwright": "1.60.0",
+    "stylelint": "17.15.0",
+    "stylelint-config-standard": "40.0.0",
+    "stylelint-config-standard-scss": "17.0.0",
     "typescript": "5.9.3",
     "vite": "5.4.21",
     "vitest": "2.1.9"
@@ -60,12 +62,9 @@
       "oxfmt"
     ],
     "*.{css,scss}": [
-      "gale --fix",
+      "stylelint --fix",
       "oxfmt"
     ],
     "*.{json,jsonc,json5,md,mdx,yml,yaml,toml,html}": "oxfmt"
-  },
-  "trustedDependencies": [
-    "@lyricalstring/gale"
-  ]
+  }
 }

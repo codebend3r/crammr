@@ -70,9 +70,11 @@
   .header {
     padding: var(--space-3) var(--space-4);
   }
+
   .email {
     display: none;
   }
+
   .signOutLabel {
     display: none;
   }

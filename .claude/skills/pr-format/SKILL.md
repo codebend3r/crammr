@@ -23,7 +23,7 @@ This skill is the source of truth for PR text and **overrides** the default PR g
 
 ```
 CRMR: add `kind` property to learning modules
-CRMR: swap to the `oxlint`/`oxfmt`/`tsgo`/`gale` toolchain
+CRMR: swap to the `oxlint`/`oxfmt`/`tsgo`/`stylelint` toolchain
 CRMR: split `rust` module into `rust-1/2/3` by difficulty
 ```
 
@@ -183,7 +183,7 @@ Title: Swap toolchain, add PR-only CI, and raise function coverage past 50%
 This PR swaps the project over to a faster toolchain and improves our test
 coverage. It also changes when CI runs.
 
-- Swapped to the oxlint/oxfmt/tsgo/gale toolchain.
+- Swapped to the oxlint/oxfmt/tsgo/stylelint toolchain.
 - CI now triggers on pull_request instead of push.
 - Added unit tests for queries.ts and the four zustand stores.
 
@@ -200,14 +200,14 @@ Violations: missing `CRMR:` title prefix, `## Summary` and `## Test plan` (not i
 **Right:**
 
 ```
-Title: CRMR: swap to the `oxlint`/`oxfmt`/`tsgo`/`gale` toolchain and cover stores with tests
+Title: CRMR: swap to the `oxlint`/`oxfmt`/`tsgo`/`stylelint` toolchain and cover stores with tests
 ```
 
 ```markdown
 ## Changes
 
 - replace `eslint` with `oxlint --type-aware` (via `oxlint-tsgolint`); delete `eslint.config.js`
-- format with `oxfmt`; typecheck via `tsgo`; lint CSS with `@lyricalstring/gale`
+- format with `oxfmt`; typecheck via `tsgo`; lint CSS with `stylelint`
 - rename `check.yml` to `ci.yml`; trigger on `pull_request` only, add `concurrency`, Node from `.nvmrc`
 - `vite.config.ts` sets `reporters: ["dot"]`; add `@vitest/coverage-v8` and a `test:coverage` script
 - unit tests for `src/lib/queries.ts` and `sessionStore`/`authStore`/`themeStore`/`uiStore`
