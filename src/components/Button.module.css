@@ -28,6 +28,7 @@
   background: var(--color-accent);
   color: white;
 }
+
 .primary:hover:not(:disabled) {
   background: var(--color-accent-hover);
 }
@@ -37,6 +38,7 @@
   color: var(--color-text);
   border-color: var(--color-border);
 }
+
 .secondary:hover:not(:disabled) {
   border-color: var(--color-accent);
   color: var(--color-accent);
@@ -46,6 +48,7 @@
   background: transparent;
   color: var(--color-text);
 }
+
 .ghost:hover:not(:disabled) {
   background: var(--color-border);
 }
@@ -55,6 +58,7 @@
   color: var(--color-incorrect);
   border-color: var(--color-incorrect);
 }
+
 .danger:hover:not(:disabled) {
   background: var(--color-incorrect);
   color: white;
