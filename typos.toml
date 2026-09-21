@@ -1,0 +1,20 @@
+# The `human-language` seed modules are deliberately not English prose: foreign
+# vocabulary, and English quiz distractors that are misspelled on purpose
+# ("thier", "allready"). Spellchecking them is pure noise.
+[files]
+extend-exclude = [
+  "supabase/migrations/*_seed_english.sql",
+  "supabase/migrations/*_seed_spanish.sql",
+  "supabase/migrations/*_seed_french.sql",
+  "supabase/migrations/*_seed_japanese.sql",
+  "supabase/migrations/*_seed_italian.sql",
+  "supabase/migrations/*_seed_portuguese.sql",
+]
+
+[default.extend-identifiers]
+# split as `PN` + `Gs`, then read as a typo for `ON`
+PNGs = "PNGs"
+
+[default.extend-words]
+# C#'s `IEnumerable`, pluralized in prose
+enumerables = "enumerables"
