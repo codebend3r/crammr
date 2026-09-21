@@ -48,6 +48,9 @@ const mock = vi.hoisted(() => {
       update: () => builder,
       single: () => builder,
       maybeSingle: () => builder,
+      // Supabase's `PostgrestBuilder` is itself thenable, so awaiting a query
+      // only works if the mock is too
+      // eslint-disable-next-line unicorn/no-thenable
       then: (onFulfilled) => Promise.resolve(result).then(onFulfilled),
     };
     return builder;

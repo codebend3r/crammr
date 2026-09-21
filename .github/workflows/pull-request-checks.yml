@@ -45,6 +45,16 @@ jobs:
       - name: 💅 Lint CSS
         run: bun run lint:css
 
+      - name: ⚙️ Lint workflows
+        run: bun run lint:actions
+        env:
+          # the actionlint binary is pulled from GitHub Releases on first run —
+          # the token keeps that download off the anonymous rate limit
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔤 Spellcheck
+        run: bun run lint:spelling
+
       - name: 🧠 Typecheck
         run: bun run typecheck
 
