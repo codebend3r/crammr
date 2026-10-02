@@ -58,7 +58,9 @@ export function MultipleChoice({ question, onAnswer, onNext, codeLanguage }: Pro
               onClick={() => handlePick(c.id)}
               disabled={locked}
             >
-              <Markdown inline>{c.label}</Markdown>
+              <Markdown inline codeLanguage={codeLanguage}>
+                {c.label}
+              </Markdown>
             </button>
           );
         })}

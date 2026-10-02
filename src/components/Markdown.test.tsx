@@ -41,7 +41,8 @@ describe("Markdown code presentation", () => {
     const html = renderToStaticMarkup(
       <Markdown codeLanguage="javascript">{"What does `typeof null` return?"}</Markdown>,
     );
-    expect(html).toContain("<code>typeof null</code>");
+    expect(html).toContain('hljs-keyword">typeof</span>');
+    expect(html).toContain('hljs-literal">null</span>');
     expect(html).not.toContain("data-code-theme");
     const prose = renderToStaticMarkup(<Markdown>{question.prompt}</Markdown>);
     expect(prose).not.toContain("data-code-theme");

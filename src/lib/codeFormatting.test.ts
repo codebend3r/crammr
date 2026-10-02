@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { tokenizer } from "acorn";
-import { codeLanguageForModule, formatJavaScript } from "@/lib/codeFormatting";
+import { formatJavaScript } from "@/lib/codeFormatting";
 
 function tokens({ source }: { source: string }): Array<{ type: string; value: unknown }> {
   return Array.from(tokenizer(source, { ecmaVersion: "latest" }), (token) => ({
@@ -59,14 +59,5 @@ describe("formatJavaScript", () => {
     "const text = `first\nsecond`;\nconsole.log(text);",
   ])("preserves authored newlines, including ASI traps", (source) => {
     expect(formatJavaScript({ source })).toEqual({ source, block: true });
-  });
-});
-
-describe("codeLanguageForModule", () => {
-  it.each(["javascript-1", "javascript-2", "javascript-3"])("recognizes %s", (slug) => {
-    expect(codeLanguageForModule({ slug })).toBe("javascript");
-  });
-  it("does not assume non-coding modules are JavaScript", () => {
-    expect(codeLanguageForModule({ slug: "g1" })).toBeUndefined();
   });
 });

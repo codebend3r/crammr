@@ -1,9 +1,12 @@
 import ReactMarkdown, { type Components } from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
-import type { ElementContent } from "hast";
 import { CodeBlock } from "@/components/CodeBlock";
 import { remarkCodeSnippets } from "@/lib/remarkCodeSnippets";
+import { codeText, rehypeInlineHighlight } from "@/lib/codeHighlighting";
+import { HIGHLIGHT_OPTIONS } from "@/lib/codeLanguages";
+import { useCodeThemeStore } from "@/store/codeThemeStore";
 import styles from "@/components/Markdown.module.scss";
+import syntax from "@/components/SyntaxHighlight.module.scss";
 
 type Props = {
   children: string;
@@ -11,15 +14,12 @@ type Props = {
   codeLanguage?: string;
 };
 
-function readText({ node }: { node: ElementContent }): string {
-  if (node.type === "text") return node.value;
-  if (node.type === "element")
-    return node.children.map((child) => readText({ node: child })).join("");
-  return "";
-}
-
 export function Markdown({ children, inline = false, codeLanguage }: Props) {
+  const theme = useCodeThemeStore((state) => state.theme);
   const components: Components = {
+    code: ({ children, className }) => (
+      <code className={`${className ?? ""} ${syntax.tokens}`}>{children}</code>
+    ),
     ...(inline ? { p: ({ children }) => <>{children}</> } : {}),
     pre: ({ children, node }) => {
       if (inline) return <>{children}</>;
@@ -34,7 +34,7 @@ export function Markdown({ children, inline = false, codeLanguage }: Props) {
           )
         : undefined;
       const language = languageClass?.slice("language-".length) ?? codeLanguage ?? "text";
-      const source = code ? readText({ node: code }).replace(/\n$/, "") : "";
+      const source = code ? codeText({ node: code }).replace(/\n$/, "") : "";
       return (
         <CodeBlock source={source} language={language}>
           {children}
@@ -47,10 +47,8 @@ export function Markdown({ children, inline = false, codeLanguage }: Props) {
     <ReactMarkdown
       remarkPlugins={[[remarkCodeSnippets, { language: inline ? undefined : codeLanguage }]]}
       rehypePlugins={[
-        [
-          rehypeHighlight,
-          { detect: true, subset: ["javascript", "typescript"], ignoreMissing: true },
-        ],
+        [rehypeInlineHighlight, { language: codeLanguage }],
+        [rehypeHighlight, HIGHLIGHT_OPTIONS],
       ]}
       components={components}
     >
@@ -58,8 +56,12 @@ export function Markdown({ children, inline = false, codeLanguage }: Props) {
     </ReactMarkdown>
   );
   return inline ? (
-    <span className={styles.inline}>{content}</span>
+    <span className={`${styles.inline} ${syntax.theme}`} data-inline-theme={theme}>
+      {content}
+    </span>
   ) : (
-    <div className={styles.content}>{content}</div>
+    <div className={`${styles.content} ${syntax.theme}`} data-inline-theme={theme}>
+      {content}
+    </div>
   );
 }

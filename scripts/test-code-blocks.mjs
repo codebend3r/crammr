@@ -10,6 +10,7 @@ const fixtureSource = `
   import { MultipleChoice } from "/src/modes/MultipleChoice/MultipleChoice.tsx";
   import { Flashcards } from "/src/modes/Flashcards/Flashcards.tsx";
   import { Recap } from "/src/modes/Recap/Recap.tsx";
+  import { CODE_EXAMPLES } from "/src/lib/codeExamples.ts";
   import "/src/styles/globals.scss";
 
   const question = ${JSON.stringify({
@@ -30,8 +31,14 @@ const fixtureSource = `
   const views = { multiple_choice: MultipleChoice, flashcards: Flashcards, recap: Recap };
   const view = views[mode];
   const longSnippet = ${JSON.stringify('```javascript\nconst longText = "' + "long literal ".repeat(30) + '";\n```')};
-  const content = mode === "long"
-    ? createElement(Markdown, { codeLanguage: "javascript", children: longSnippet })
+  const samples = {
+    long: { codeLanguage: "javascript", children: longSnippet },
+    inline: { inline: true, codeLanguage: "javascript", children: ${JSON.stringify("Short expression: `typeof null`")} },
+    languages: { children: CODE_EXAMPLES.map((example) => "~~~" + example.language + "\\n" + example.source + "\\n~~~").join("\\n\\n") },
+  };
+  const sample = samples[mode];
+  const content = sample
+    ? createElement(Markdown, sample)
     : view
       ? createElement(view, { question, onAnswer: async () => {}, onNext: () => {}, codeLanguage: "javascript" })
       : createElement(Markdown, { codeLanguage: "javascript", children: question.prompt + "\\n\\n" + question.explanation });
@@ -174,9 +181,63 @@ try {
   await page.getByRole("button", { name: "Reveal answer", exact: true }).click();
   await page.getByRole("button", { name: "Got it", exact: true }).click();
   await page.getByRole("button", { name: "Next", exact: true }).waitFor();
-  assert.deepEqual(errors, []);
   console.log(
     "PASS: multiple choice, explanations, flashcard controls, and recap with no browser errors",
+  );
+
+  await page.goto(`${url}__code-tests?mode=languages`);
+  await page.locator("[data-code-theme]").last().waitFor();
+  const blocks = await page.locator("[data-code-theme]").evaluateAll((elements) =>
+    elements.map((element) => {
+      const code = element.querySelector("pre code");
+      const baseColor = code ? getComputedStyle(code).color : "";
+      return {
+        label: element.getAttribute("aria-label"),
+        hasColors: Array.from(element.querySelectorAll("pre code span[class]")).some(
+          (token) => getComputedStyle(token).color !== baseColor,
+        ),
+      };
+    }),
+  );
+  assert.equal(blocks.length, 23);
+  blocks.forEach((block) =>
+    assert.ok(block.hasColors, `${block.label} must have visible syntax colors`),
+  );
+  const tokenColor = (selector) =>
+    page
+      .locator(selector)
+      .first()
+      .evaluate((element) => getComputedStyle(element).color);
+  assert.equal(await tokenColor(".hljs-keyword"), "rgb(255, 106, 193)");
+  assert.equal(await tokenColor(".hljs-string"), "rgb(195, 248, 92)");
+  assert.equal(await tokenColor(".hljs-number"), "rgb(104, 217, 255)");
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
+
+  await page.getByRole("combobox", { name: "Code theme" }).first().selectOption("studio");
+  assert.equal(await page.locator('[data-code-theme="studio"]').count(), 23);
+  assert.equal(await tokenColor(".hljs-keyword"), "rgb(160, 28, 101)");
+  await page.getByRole("combobox", { name: "Code theme" }).first().selectOption("neon");
+  const markup = page.getByRole("region", { name: "HTML / XML code", exact: true });
+  await markup.getByRole("button", { name: "Copy code", exact: true }).click();
+  await markup.getByRole("button", { name: "Code copied" }).waitFor();
+  assert.equal(
+    await page.evaluate(() => navigator.clipboard.readText()),
+    '<!-- A greeting card -->\n<section class="notice">\n  <h1>Hello, Ada!</h1>\n</section>',
+  );
+  assert.equal(await markup.locator("pre section, pre h1").count(), 0);
+
+  await page.goto(`${url}__code-tests?mode=inline`);
+  await page.locator(".hljs-keyword").waitFor();
+  assert.equal(await tokenColor(".hljs-keyword"), "rgb(255, 106, 193)");
+  assert.equal(await page.locator("code").textContent(), "typeof null");
+  assert.equal(
+    await page.locator("code").evaluate((element) => getComputedStyle(element).backgroundColor),
+    "rgb(0, 0, 0)",
+  );
+  assert.equal(await page.locator("pre, select, button").count(), 0);
+  assert.deepEqual(errors, []);
+  console.log(
+    "PASS: visible Neon syntax colors for 23 languages, light-theme contrast, and inline highlighting",
   );
 } finally {
   if (browser) await browser.close();

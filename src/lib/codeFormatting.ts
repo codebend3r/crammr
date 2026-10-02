@@ -1,10 +1,5 @@
 import { parse } from "acorn";
 
-export function codeLanguageForModule({ slug }: { slug: string }): string | undefined {
-  const prefix = slug.split("-")[0];
-  return ["javascript", "typescript", "python", "sql"].includes(prefix) ? prefix : undefined;
-}
-
 type LineStart = { position: number; depth: number };
 
 type SyntaxNode = {

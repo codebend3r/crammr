@@ -1,12 +1,4 @@
 .window {
-  @each $theme in neon, nord, studio, paper {
-    &[data-code-theme="#{$theme}"] {
-      @each $token in bg, panel, text, muted, border, glow, keyword, string, number, function {
-        --code-#{$token}: var(--code-#{$theme}-#{$token});
-      }
-    }
-  }
-
   display: grid;
   grid-template-areas: "header" "viewport" "footer";
   min-width: 0;
@@ -166,49 +158,6 @@
     color: var(--code-text);
     font-size: inherit;
     white-space: pre;
-  }
-
-  [class~="hljs-comment"],
-  [class~="hljs-quote"] {
-    color: var(--code-muted);
-    font-style: italic;
-  }
-
-  [class~="hljs-keyword"],
-  [class~="hljs-literal"],
-  [class~="hljs-selector-tag"],
-  [class~="hljs-deletion"] {
-    color: var(--code-keyword);
-  }
-
-  [class~="hljs-string"],
-  [class~="hljs-regexp"],
-  [class~="hljs-template-tag"],
-  [class~="hljs-addition"] {
-    color: var(--code-string);
-  }
-
-  [class~="hljs-number"],
-  [class~="hljs-symbol"],
-  [class~="hljs-meta"],
-  [class~="hljs-built_in"],
-  [class~="hljs-type"],
-  [class~="hljs-attr"],
-  [class~="hljs-tag"] {
-    color: var(--code-number);
-  }
-
-  [class~="hljs-title"],
-  [class~="hljs-name"] {
-    color: var(--code-function);
-  }
-
-  [class~="hljs-emphasis"] {
-    font-style: italic;
-  }
-
-  [class~="hljs-strong"] {
-    font-weight: 700;
   }
 }
 

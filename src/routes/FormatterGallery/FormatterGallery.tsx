@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { Markdown } from "@/components/Markdown";
+import { CODE_LANGUAGES } from "@/lib/codeLanguages";
+import { CODE_EXAMPLES } from "@/lib/codeExamples";
 import styles from "@/routes/FormatterGallery/FormatterGallery.module.scss";
 
 const EXAMPLES = [
@@ -20,6 +23,8 @@ const EXAMPLES = [
 ];
 
 export function FormatterGallery() {
+  const [language, setLanguage] = useState("python");
+  const source = CODE_EXAMPLES.find((example) => example.language === language)?.source ?? "";
   return (
     <div className={styles.page}>
       <header className={styles.intro}>
@@ -31,6 +36,20 @@ export function FormatterGallery() {
         </p>
       </header>
       <div className={styles.examples}>
+        <article className={styles.example}>
+          <h2>Popular language highlighting</h2>
+          <label className={styles.languageField}>
+            <span>Preview language</span>
+            <select value={language} onChange={(event) => setLanguage(event.target.value)}>
+              {CODE_LANGUAGES.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <Markdown>{`\`\`\`${language}\n${source}\n\`\`\``}</Markdown>
+        </article>
         {EXAMPLES.map((example) => (
           <article key={example.level} className={styles.example}>
             <h2>{example.level}</h2>
@@ -39,7 +58,7 @@ export function FormatterGallery() {
         ))}
       </div>
       <aside className={styles.note}>
-        <Markdown inline>
+        <Markdown inline codeLanguage="javascript">
           {
             "Short expressions such as `typeof null` remain inline. Existing line breaks, strings, comments, and intentional syntax errors are preserved."
           }

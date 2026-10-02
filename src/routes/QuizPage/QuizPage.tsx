@@ -3,7 +3,7 @@ import { useLocation } from "wouter";
 import { LogOut } from "lucide-react";
 import { useSessionStore } from "@/store/sessionStore";
 import { completeSession, recordAnswer } from "@/lib/queries";
-import { codeLanguageForModule } from "@/lib/codeFormatting";
+import { codeLanguageForModule } from "@/lib/codeLanguages";
 import { ProgressBar } from "@/components/ProgressBar";
 import { MultipleChoice } from "@/modes/MultipleChoice/MultipleChoice";
 import { Flashcards } from "@/modes/Flashcards/Flashcards";

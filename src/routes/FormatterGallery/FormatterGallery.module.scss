@@ -59,6 +59,29 @@
   }
 }
 
+.languageField {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-size: var(--font-size-sm);
+
+  select {
+    min-height: var(--code-control-height);
+    padding: var(--space-2) var(--space-3);
+    border: var(--code-border-width) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font: inherit;
+
+    &:focus-visible {
+      outline: var(--code-border-width) solid var(--color-accent);
+      outline-offset: var(--space-1);
+    }
+  }
+}
+
 .note {
   grid-area: note;
   color: var(--color-text-muted);

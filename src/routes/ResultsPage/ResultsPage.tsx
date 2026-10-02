@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { fetchSessionWithAnswers, type SessionWithAnswers } from "@/lib/queries";
-import { codeLanguageForModule } from "@/lib/codeFormatting";
+import { codeLanguageForModule } from "@/lib/codeLanguages";
 import { useSessionStore } from "@/store/sessionStore";
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
@@ -101,7 +101,10 @@ export function ResultsPage({ params }: { params: Params }) {
               </div>
               {pickedChoice ? (
                 <div className={styles.line}>
-                  <strong>You picked:</strong> <Markdown inline>{pickedChoice.label}</Markdown>
+                  <strong>You picked:</strong>{" "}
+                  <Markdown inline codeLanguage={codeLanguage}>
+                    {pickedChoice.label}
+                  </Markdown>
                 </div>
               ) : a.self_grade !== null ? (
                 <div className={styles.line}>
@@ -110,7 +113,10 @@ export function ResultsPage({ params }: { params: Params }) {
               ) : null}
               {correctChoice ? (
                 <div className={styles.line}>
-                  <strong>Correct:</strong> <Markdown inline>{correctChoice.label}</Markdown>
+                  <strong>Correct:</strong>{" "}
+                  <Markdown inline codeLanguage={codeLanguage}>
+                    {correctChoice.label}
+                  </Markdown>
                 </div>
               ) : null}
               <div className={styles.line}>

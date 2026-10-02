@@ -1,27 +1,14 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { Check, Copy } from "lucide-react";
 import { CODE_THEMES, isCodeTheme, useCodeThemeStore } from "@/store/codeThemeStore";
+import { codeLanguageMetadata } from "@/lib/codeLanguages";
 import styles from "@/components/CodeBlock.module.scss";
+import syntax from "@/components/SyntaxHighlight.module.scss";
 
 type Props = {
   children: ReactNode;
   source: string;
   language: string;
-};
-
-const LANGUAGE_LABELS: Record<string, { label: string; extension: string }> = {
-  javascript: { label: "JavaScript", extension: "js" },
-  js: { label: "JavaScript", extension: "js" },
-  typescript: { label: "TypeScript", extension: "ts" },
-  ts: { label: "TypeScript", extension: "ts" },
-  python: { label: "Python", extension: "py" },
-  py: { label: "Python", extension: "py" },
-  json: { label: "JSON", extension: "json" },
-  css: { label: "CSS", extension: "css" },
-  html: { label: "HTML", extension: "html" },
-  sql: { label: "SQL", extension: "sql" },
-  bash: { label: "Shell", extension: "sh" },
-  text: { label: "Plain text", extension: "txt" },
 };
 
 export function CodeBlock({ children, source, language }: Props) {
@@ -31,7 +18,7 @@ export function CodeBlock({ children, source, language }: Props) {
   const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const copyRequest = useRef(0);
   const selectId = useId();
-  const metadata = LANGUAGE_LABELS[language] ?? { label: language, extension: "txt" };
+  const metadata = codeLanguageMetadata({ language });
   const lines = source.split("\n");
 
   useEffect(() => {
@@ -58,7 +45,7 @@ export function CodeBlock({ children, source, language }: Props) {
 
   return (
     <section
-      className={styles.window}
+      className={`${styles.window} ${syntax.theme}`}
       data-code-theme={theme}
       aria-label={`${metadata.label} code`}
     >
@@ -118,7 +105,11 @@ export function CodeBlock({ children, source, language }: Props) {
             <span key={index}>{index + 1}</span>
           ))}
         </div>
-        <pre className={styles.code} tabIndex={0} aria-label={`${metadata.label} source code`}>
+        <pre
+          className={`${styles.code} ${syntax.tokens}`}
+          tabIndex={0}
+          aria-label={`${metadata.label} source code`}
+        >
           {children}
         </pre>
       </div>

@@ -29,8 +29,8 @@
 .content :not(pre) > code {
   padding: var(--code-inline-padding-block) var(--code-inline-padding-inline);
   border-radius: var(--radius-sm);
-  background: var(--color-code-bg);
-  color: var(--color-text);
+  background: var(--code-bg);
+  color: var(--code-text);
   font-family: var(--font-mono);
   font-size: var(--font-size-inline-code);
   white-space: break-spaces;

@@ -1,5 +1,6 @@
 import type { PhrasingContent, Root, RootContent } from "mdast";
 import { formatJavaScript } from "@/lib/codeFormatting";
+import { getCodeLanguage } from "@/lib/codeLanguages";
 
 type Options = { language?: string };
 type ParagraphParts = { blocks: RootContent[]; inline: PhrasingContent[] };
@@ -11,17 +12,21 @@ function flushInline(parts: ParagraphParts): RootContent[] {
 }
 
 export function remarkCodeSnippets({ language }: Options) {
+  const definition = getCodeLanguage({ language: language ?? "" });
   return (tree: Root) => {
     tree.children = tree.children.flatMap((node): RootContent[] => {
       if (node.type === "code") {
-        const lang = node.lang ?? language ?? null;
+        const requested = node.lang ?? definition?.id ?? null;
+        const lang = requested
+          ? (getCodeLanguage({ language: requested })?.id ?? requested.trim().toLowerCase())
+          : null;
         const value =
           lang === "javascript" || lang === "js"
             ? formatJavaScript({ source: node.value }).source
             : node.value;
         return [{ ...node, lang, value }];
       }
-      if (node.type !== "paragraph" || language !== "javascript") return [node];
+      if (node.type !== "paragraph" || !definition || definition.id !== "javascript") return [node];
 
       const parts = node.children.reduce<ParagraphParts>(
         (result, child) => {
@@ -31,7 +36,7 @@ export function remarkCodeSnippets({ language }: Options) {
           return {
             blocks: [
               ...flushInline(result),
-              { type: "code", lang: language, value: formatted.source },
+              { type: "code", lang: definition.id, value: formatted.source },
             ],
             inline: [],
           };
