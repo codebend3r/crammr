@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { fetchSessionWithAnswers, type SessionWithAnswers } from "@/lib/queries";
+import { codeLanguageForModule } from "@/lib/codeFormatting";
 import { useSessionStore } from "@/store/sessionStore";
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
@@ -43,6 +44,7 @@ export function ResultsPage({ params }: { params: Params }) {
   if (!data) return <div className={styles.state}>Session not found.</div>;
 
   const { session, answers, questions } = data;
+  const codeLanguage = codeLanguageForModule({ slug: params.slug });
   const questionById = new Map(questions.map((q) => [q.id, q]));
   const total = answers.length;
   const score = session.score ?? answers.filter((a) => a.is_correct).length;
@@ -95,11 +97,11 @@ export function ResultsPage({ params }: { params: Params }) {
                 </span>
               </div>
               <div className={styles.itemPrompt}>
-                <Markdown inline>{q.prompt}</Markdown>
+                <Markdown codeLanguage={codeLanguage}>{q.prompt}</Markdown>
               </div>
               {pickedChoice ? (
                 <div className={styles.line}>
-                  <strong>You picked:</strong> {pickedChoice.label}
+                  <strong>You picked:</strong> <Markdown inline>{pickedChoice.label}</Markdown>
                 </div>
               ) : a.self_grade !== null ? (
                 <div className={styles.line}>
@@ -108,11 +110,12 @@ export function ResultsPage({ params }: { params: Params }) {
               ) : null}
               {correctChoice ? (
                 <div className={styles.line}>
-                  <strong>Correct:</strong> {correctChoice.label}
+                  <strong>Correct:</strong> <Markdown inline>{correctChoice.label}</Markdown>
                 </div>
               ) : null}
               <div className={styles.line}>
-                <strong>Answer:</strong> <Markdown inline>{q.recap_answer}</Markdown>
+                <strong>Answer:</strong>{" "}
+                <Markdown codeLanguage={codeLanguage}>{q.recap_answer}</Markdown>
               </div>
             </Card>
           );

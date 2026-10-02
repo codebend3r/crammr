@@ -45,6 +45,72 @@
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
   --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 28px;
+  --font-size-display: 36px;
+  --font-size-inline-code: 0.9em;
+  --line-height-code: 1.7;
+  --line-height-prose: 1.5;
+  --line-height-heading: 1.2;
+  --code-content-width: 1120px;
+  --flashcard-height: 300px;
+  --code-control-height: 36px;
+  --code-light-size: 10px;
+  --code-border-width: 1px;
+  --code-inline-padding-block: 0.1em;
+  --code-inline-padding-inline: 0.35em;
+  --code-glow-size: 16px;
+  --code-motion-duration: 120ms;
+  --color-window-red: #ff5f56;
+  --color-window-yellow: #ffbd2e;
+  --color-window-green: #27c93f;
+
+  --code-neon-bg: #000;
+  --code-neon-panel: #111;
+  --code-neon-text: #f4f7fa;
+  --code-neon-muted: #9dabb6;
+  --code-neon-border: #00f3ff;
+  --code-neon-glow: rgb(0 243 255 / 16%);
+  --code-neon-keyword: #ff6ac1;
+  --code-neon-string: #c3f85c;
+  --code-neon-number: #68d9ff;
+  --code-neon-function: #ffd580;
+
+  --code-nord-bg: #2e3440;
+  --code-nord-panel: #3b4252;
+  --code-nord-text: #eceff4;
+  --code-nord-muted: #b0bdce;
+  --code-nord-border: #88c0d0;
+  --code-nord-glow: rgb(136 192 208 / 12%);
+  --code-nord-keyword: #c6a1ce;
+  --code-nord-string: #a3be8c;
+  --code-nord-number: #ebcb8b;
+  --code-nord-function: #8fbcbb;
+
+  --code-studio-bg: #f8fafc;
+  --code-studio-panel: #eef2f6;
+  --code-studio-text: #172b4d;
+  --code-studio-muted: #526479;
+  --code-studio-border: #3769a1;
+  --code-studio-glow: rgb(55 105 161 / 8%);
+  --code-studio-keyword: #a01c65;
+  --code-studio-string: #246331;
+  --code-studio-number: #0056a6;
+  --code-studio-function: #6c3ca7;
+
+  --code-paper-bg: #fdf6e3;
+  --code-paper-panel: #eee8d5;
+  --code-paper-text: #073642;
+  --code-paper-muted: #52666c;
+  --code-paper-border: #567c80;
+  --code-paper-glow: rgb(86 124 128 / 8%);
+  --code-paper-keyword: #925a00;
+  --code-paper-string: #4e6914;
+  --code-paper-number: #a82c64;
+  --code-paper-function: #13678c;
 
   color-scheme: light;
 }

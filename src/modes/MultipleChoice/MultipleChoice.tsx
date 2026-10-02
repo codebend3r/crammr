@@ -14,9 +14,10 @@ type Props = {
   question: Question;
   onAnswer: (payload: AnswerPayload) => Promise<void>;
   onNext: () => void;
+  codeLanguage?: string;
 };
 
-export function MultipleChoice({ question, onAnswer, onNext }: Props) {
+export function MultipleChoice({ question, onAnswer, onNext, codeLanguage }: Props) {
   const choices = useMemo(() => shuffle(question.choices), [question.choices]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -37,9 +38,9 @@ export function MultipleChoice({ question, onAnswer, onNext }: Props) {
 
   return (
     <div className={styles.wrap}>
-      <h2 className={styles.prompt}>
-        <Markdown inline>{question.prompt}</Markdown>
-      </h2>
+      <section className={styles.prompt} aria-label="Question">
+        <Markdown codeLanguage={codeLanguage}>{question.prompt}</Markdown>
+      </section>
       <div className={styles.choices}>
         {choices.map((c) => {
           const cls = !locked
@@ -57,14 +58,14 @@ export function MultipleChoice({ question, onAnswer, onNext }: Props) {
               onClick={() => handlePick(c.id)}
               disabled={locked}
             >
-              {c.label}
+              <Markdown inline>{c.label}</Markdown>
             </button>
           );
         })}
       </div>
       {locked && question.explanation ? (
         <div className={styles.explanation}>
-          <Markdown>{question.explanation}</Markdown>
+          <Markdown codeLanguage={codeLanguage}>{question.explanation}</Markdown>
         </div>
       ) : null}
       {locked ? (

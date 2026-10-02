@@ -11,6 +11,7 @@ import { HomePage } from "@/routes/HomePage/HomePage";
 import { ModulePage } from "@/routes/ModulePage/ModulePage";
 import { QuizPage } from "@/routes/QuizPage/QuizPage";
 import { ResultsPage } from "@/routes/ResultsPage/ResultsPage";
+import { FormatterGallery } from "@/routes/FormatterGallery/FormatterGallery";
 import { DesignSystem } from "@/routes/DesignSystem/DesignSystem";
 import { InProgressPage } from "@/routes/InProgressPage/InProgressPage";
 import { AllModulesPage } from "@/routes/AllModulesPage/AllModulesPage";
@@ -47,6 +48,9 @@ export function App() {
             </Route>
             <Route path="/_design">
               <DesignSystem />
+            </Route>
+            <Route path="/_formatter">
+              <FormatterGallery />
             </Route>
             <Route path="/in-progress">
               <RequireAuth>

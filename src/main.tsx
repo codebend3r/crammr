@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { App } from "@/App";
 import { useThemeStore } from "@/store/themeStore";
 import "@fontsource-variable/space-grotesk";
-import "@/styles/global.css";
+import "@/styles/globals.scss";
 
 useThemeStore.getState().init();
 
