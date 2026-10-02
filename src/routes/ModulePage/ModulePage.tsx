@@ -40,7 +40,11 @@ export function ModulePage({ params }: { params: Params }) {
   const [size, setSize] = useState<number | "all">("all");
   const [starting, setStarting] = useState(false);
   const start = useSessionStore((s) => s.start);
+  const inProgress = useSessionStore((s) => s.sessions[params.slug]);
   const [, navigate] = useLocation();
+
+  const unfinished =
+    !!inProgress && inProgress.answers.length < inProgress.questions.length ? inProgress : null;
 
   useEffect(() => {
     const state = { alive: true };
@@ -149,8 +153,26 @@ export function ModulePage({ params }: { params: Params }) {
         )}
       </Card>
 
+      {unfinished ? (
+        <Card className={styles.resume}>
+          <p className={styles.resumeText}>
+            You're partway through a{" "}
+            {MODES.find((m) => m.value === unfinished.mode)?.label ?? "quiz"} session (
+            {unfinished.answers.length} of {unfinished.questions.length} answered). Starting over
+            replaces it.
+          </p>
+          <Button
+            variant="secondary"
+            className={styles.resumeAction}
+            onClick={() => navigate(`/m/${params.slug}/quiz`)}
+          >
+            Resume
+          </Button>
+        </Card>
+      ) : null}
+
       <Button onClick={handleStart} disabled={starting} block>
-        {starting ? "Starting…" : "Start"}
+        {starting ? "Starting…" : unfinished ? "Start over" : "Start"}
       </Button>
     </div>
   );

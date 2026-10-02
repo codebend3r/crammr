@@ -11,6 +11,7 @@ import {
   fetchRequestCategories,
   fetchSessionWithAnswers,
   recordAnswer,
+  syncAnswers,
 } from "./queries";
 
 const mock = vi.hoisted(() => {
@@ -23,6 +24,7 @@ const mock = vi.hoisted(() => {
     not: (column?: string, operator?: string, value?: unknown) => MockBuilder;
     in: (column?: string, values?: unknown[]) => MockBuilder;
     insert: (row?: unknown) => MockBuilder;
+    upsert: (rows: unknown, options: unknown) => MockBuilder;
     update: (row?: unknown) => MockBuilder;
     single: () => MockBuilder;
     maybeSingle: () => MockBuilder;
@@ -32,10 +34,11 @@ const mock = vi.hoisted(() => {
   type MockState = {
     queue: BuilderResult[];
     tables: string[];
+    upserts: Array<{ rows: unknown; options: unknown }>;
     user: { id: string } | null;
   };
 
-  const state: MockState = { queue: [], tables: [], user: { id: "user-1" } };
+  const state: MockState = { queue: [], tables: [], upserts: [], user: { id: "user-1" } };
 
   const createBuilder = (result: BuilderResult): MockBuilder => {
     const builder: MockBuilder = {
@@ -45,6 +48,10 @@ const mock = vi.hoisted(() => {
       not: () => builder,
       in: () => builder,
       insert: () => builder,
+      upsert: (rows, options) => {
+        state.upserts.push({ rows, options });
+        return builder;
+      },
       update: () => builder,
       single: () => builder,
       maybeSingle: () => builder,
@@ -74,6 +81,7 @@ vi.mock("@/lib/supabase", () => ({
 beforeEach(() => {
   mock.state.queue = [];
   mock.state.tables = [];
+  mock.state.upserts = [];
   mock.state.user = { id: "user-1" };
 });
 
@@ -168,10 +176,11 @@ describe("createSession", () => {
   });
 });
 
+const ignoreDuplicateAnswers = { onConflict: "session_id,question_id", ignoreDuplicates: true };
+
 describe("recordAnswer", () => {
-  it("inserts and returns the answer", async () => {
-    const row = { id: "a1", session_id: "s1" };
-    mock.state.queue = [{ data: row, error: null }];
+  it("upserts the answer and ignores a duplicate for the same question", async () => {
+    mock.state.queue = [{ data: null, error: null }];
     await expect(
       recordAnswer({
         sessionId: "s1",
@@ -180,11 +189,25 @@ describe("recordAnswer", () => {
         selfGrade: null,
         isCorrect: true,
       }),
-    ).resolves.toEqual(row);
+    ).resolves.toBeUndefined();
     expect(mock.state.tables).toEqual(["session_answers"]);
+    expect(mock.state.upserts).toEqual([
+      {
+        rows: [
+          {
+            session_id: "s1",
+            question_id: "q1",
+            choice_id: "c1",
+            self_grade: null,
+            is_correct: true,
+          },
+        ],
+        options: ignoreDuplicateAnswers,
+      },
+    ]);
   });
 
-  it("throws when the insert errors", async () => {
+  it("throws when the upsert errors", async () => {
     mock.state.queue = [{ data: null, error: new Error("denied") }];
     await expect(
       recordAnswer({
@@ -195,6 +218,50 @@ describe("recordAnswer", () => {
         isCorrect: false,
       }),
     ).rejects.toThrow("denied");
+  });
+});
+
+describe("syncAnswers", () => {
+  const answers = [
+    { questionId: "q1", choiceId: "c1", selfGrade: null, isCorrect: true },
+    { questionId: "q2", choiceId: null, selfGrade: false, isCorrect: false },
+  ];
+
+  it("upserts every local answer in one request", async () => {
+    mock.state.queue = [{ data: null, error: null }];
+    await expect(syncAnswers({ sessionId: "s1", answers })).resolves.toBeUndefined();
+    expect(mock.state.tables).toEqual(["session_answers"]);
+    expect(mock.state.upserts).toEqual([
+      {
+        rows: [
+          {
+            session_id: "s1",
+            question_id: "q1",
+            choice_id: "c1",
+            self_grade: null,
+            is_correct: true,
+          },
+          {
+            session_id: "s1",
+            question_id: "q2",
+            choice_id: null,
+            self_grade: false,
+            is_correct: false,
+          },
+        ],
+        options: ignoreDuplicateAnswers,
+      },
+    ]);
+  });
+
+  it("skips the request when there are no answers", async () => {
+    await expect(syncAnswers({ sessionId: "s1", answers: [] })).resolves.toBeUndefined();
+    expect(mock.state.tables).toEqual([]);
+  });
+
+  it("throws when the upsert errors", async () => {
+    mock.state.queue = [{ data: null, error: new Error("offline") }];
+    await expect(syncAnswers({ sessionId: "s1", answers })).rejects.toThrow("offline");
   });
 });
 

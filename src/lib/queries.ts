@@ -60,26 +60,51 @@ export async function createSession(args: {
   return data as Session;
 }
 
-export async function recordAnswer(args: {
-  sessionId: string;
+export type AnswerInput = {
   questionId: string;
   choiceId: string | null;
   selfGrade: boolean | null;
   isCorrect: boolean;
-}): Promise<SessionAnswer> {
-  const { data, error } = await supabase
+};
+
+// A retried save must not double-count, so a second write for the same
+// question in a session is dropped by the unique (session_id, question_id) index.
+async function upsertAnswers({
+  sessionId,
+  answers,
+}: {
+  sessionId: string;
+  answers: AnswerInput[];
+}): Promise<void> {
+  const rows = answers.map((a) => ({
+    session_id: sessionId,
+    question_id: a.questionId,
+    choice_id: a.choiceId,
+    self_grade: a.selfGrade,
+    is_correct: a.isCorrect,
+  }));
+  const { error } = await supabase
     .from("session_answers")
-    .insert({
-      session_id: args.sessionId,
-      question_id: args.questionId,
-      choice_id: args.choiceId,
-      self_grade: args.selfGrade,
-      is_correct: args.isCorrect,
-    })
-    .select("*")
-    .single();
+    .upsert(rows, { onConflict: "session_id,question_id", ignoreDuplicates: true });
   if (error) throw error;
-  return data as SessionAnswer;
+}
+
+export async function recordAnswer({
+  sessionId,
+  ...answer
+}: AnswerInput & { sessionId: string }): Promise<void> {
+  await upsertAnswers({ sessionId, answers: [answer] });
+}
+
+export async function syncAnswers({
+  sessionId,
+  answers,
+}: {
+  sessionId: string;
+  answers: AnswerInput[];
+}): Promise<void> {
+  if (answers.length === 0) return;
+  await upsertAnswers({ sessionId, answers });
 }
 
 export async function completeSession(args: { sessionId: string; score: number }): Promise<void> {

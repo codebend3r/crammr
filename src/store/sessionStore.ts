@@ -37,6 +37,7 @@ type SessionState = {
   advance: (slug: string) => void;
   setIndex: (slug: string, n: number) => void;
   discard: (slug: string) => void;
+  finish: (args: { slug: string; sessionId: string }) => void;
   reset: () => void;
 };
 
@@ -100,6 +101,16 @@ export const useSessionStore = create<SessionState>()(
 
       discard: (slug) =>
         set((s) => {
+          const next = { ...s.sessions };
+          delete next[slug];
+          return { sessions: next };
+        }),
+
+      // Matching on sessionId keeps a newer session the user already started
+      // for the same module.
+      finish: ({ slug, sessionId }) =>
+        set((s) => {
+          if ((s.sessions[slug]?.sessionId ?? null) !== sessionId) return s;
           const next = { ...s.sessions };
           delete next[slug];
           return { sessions: next };

@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { LogOut } from "lucide-react";
-import { useSessionStore } from "@/store/sessionStore";
-import { completeSession, recordAnswer } from "@/lib/queries";
+import { useSessionStore, type RecordedAnswer } from "@/store/sessionStore";
+import { completeSession, recordAnswer, syncAnswers } from "@/lib/queries";
 import { codeLanguageForModule } from "@/lib/codeLanguages";
+import { Button } from "@/components/Button";
+import { Card } from "@/components/Card";
 import { ProgressBar } from "@/components/ProgressBar";
 import { MultipleChoice } from "@/modes/MultipleChoice/MultipleChoice";
 import { Flashcards } from "@/modes/Flashcards/Flashcards";
@@ -14,12 +16,27 @@ type Params = {
   slug: string;
 };
 
+async function saveAndComplete({
+  sessionId,
+  answers,
+}: {
+  sessionId: string;
+  answers: RecordedAnswer[];
+}): Promise<void> {
+  await syncAnswers({ sessionId, answers });
+  await completeSession({ sessionId, score: answers.filter((a) => a.isCorrect).length });
+}
+
+const errorMessage = (e: unknown) => (e instanceof Error ? e.message : "Something went wrong");
+
 export function QuizPage({ params }: { params: Params }) {
   const session = useSessionStore((s) => s.sessions[params.slug]);
   const record = useSessionStore((s) => s.recordAnswer);
   const advance = useSessionStore((s) => s.advance);
   const setIndex = useSessionStore((s) => s.setIndex);
   const [, navigate] = useLocation();
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
 
   const hasSession = !!session && session.questions.length > 0;
 
@@ -35,11 +52,14 @@ export function QuizPage({ params }: { params: Params }) {
     if (!session || session.questions.length === 0) return;
     normalizedRef.current = true;
     if (session.answers.length >= session.questions.length) {
-      const sid = session.sessionId;
-      const score = session.answers.filter((a) => a.isCorrect).length;
+      const { sessionId, answers } = session;
       void (async () => {
-        await completeSession({ sessionId: sid, score });
-        navigate(`/m/${params.slug}/results/${sid}`, { replace: true });
+        try {
+          await saveAndComplete({ sessionId, answers });
+          navigate(`/m/${params.slug}/results/${sessionId}`, { replace: true });
+        } catch (e) {
+          setSaveError(errorMessage(e));
+        }
       })();
       return;
     }
@@ -51,50 +71,71 @@ export function QuizPage({ params }: { params: Params }) {
   if (!session || session.questions.length === 0) return null;
 
   const { sessionId, mode, questions, currentIndex, answers } = session;
+
+  const finish = async (latestAnswers: RecordedAnswer[]) => {
+    setSaving(true);
+    setSaveError(null);
+    try {
+      await saveAndComplete({ sessionId, answers: latestAnswers });
+      navigate(`/m/${params.slug}/results/${sessionId}`, { replace: true });
+    } catch (e) {
+      setSaveError(errorMessage(e));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (saveError) {
+    return (
+      <div className={styles.page}>
+        <Card className={styles.saveError}>
+          <p className={styles.saveErrorText}>
+            We couldn't save your results ({saveError}). Your answers are still on this device.
+          </p>
+          <Button onClick={() => void finish(answers)} disabled={saving}>
+            {saving ? "Saving…" : "Try again"}
+          </Button>
+        </Card>
+      </div>
+    );
+  }
+
   if (currentIndex >= questions.length) return null;
 
   const question = questions[currentIndex];
   const total = questions.length;
   const codeLanguage = codeLanguageForModule({ slug: params.slug });
 
-  const finishIfDone = async (latestAnswers: typeof answers) => {
+  const finishIfDone = async (latestAnswers: RecordedAnswer[]) => {
     if (latestAnswers.length !== total) return;
-    const score = latestAnswers.filter((a) => a.isCorrect).length;
-    await completeSession({ sessionId, score });
-    navigate(`/m/${params.slug}/results/${sessionId}`, { replace: true });
+    await finish(latestAnswers);
   };
 
-  const handleMc = async (payload: { choiceId: string; isCorrect: boolean }) => {
-    record(params.slug, {
+  const saveAnswer = async (answer: RecordedAnswer) => {
+    record(params.slug, answer);
+    try {
+      await recordAnswer({ sessionId, ...answer });
+    } catch {
+      // The answer stays in the local session, and finish() saves every
+      // answer again before completing, so a dropped request isn't lost.
+    }
+  };
+
+  const handleMc = (payload: { choiceId: string; isCorrect: boolean }) =>
+    saveAnswer({
       questionId: question.id,
       choiceId: payload.choiceId,
       selfGrade: null,
       isCorrect: payload.isCorrect,
     });
-    await recordAnswer({
-      sessionId,
-      questionId: question.id,
-      choiceId: payload.choiceId,
-      selfGrade: null,
-      isCorrect: payload.isCorrect,
-    });
-  };
 
-  const handleSelfGrade = async (payload: { selfGrade: boolean; isCorrect: boolean }) => {
-    record(params.slug, {
+  const handleSelfGrade = (payload: { selfGrade: boolean; isCorrect: boolean }) =>
+    saveAnswer({
       questionId: question.id,
       choiceId: null,
       selfGrade: payload.selfGrade,
       isCorrect: payload.isCorrect,
     });
-    await recordAnswer({
-      sessionId,
-      questionId: question.id,
-      choiceId: null,
-      selfGrade: payload.selfGrade,
-      isCorrect: payload.isCorrect,
-    });
-  };
 
   const handleNext = async () => {
     advance(params.slug);
