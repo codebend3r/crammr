@@ -13,9 +13,10 @@ type Props = {
   question: Question;
   onAnswer: (payload: AnswerPayload) => Promise<void>;
   onNext: () => void;
+  codeLanguage?: string;
 };
 
-export function Recap({ question, onAnswer, onNext }: Props) {
+export function Recap({ question, onAnswer, onNext, codeLanguage }: Props) {
   const [revealed, setRevealed] = useState(false);
   const [graded, setGraded] = useState(false);
 
@@ -33,9 +34,9 @@ export function Recap({ question, onAnswer, onNext }: Props) {
 
   return (
     <div className={styles.wrap}>
-      <h2 className={styles.prompt}>
-        <Markdown inline>{question.prompt}</Markdown>
-      </h2>
+      <section className={styles.prompt} aria-label="Question">
+        <Markdown codeLanguage={codeLanguage}>{question.prompt}</Markdown>
+      </section>
 
       {!revealed ? (
         <Button onClick={() => setRevealed(true)} block>
@@ -45,7 +46,7 @@ export function Recap({ question, onAnswer, onNext }: Props) {
         <div className={styles.answer}>
           <div className={styles.answerLabel}>Canonical answer</div>
           <div className={styles.answerText}>
-            <Markdown>{question.recap_answer}</Markdown>
+            <Markdown codeLanguage={codeLanguage}>{question.recap_answer}</Markdown>
           </div>
         </div>
       )}

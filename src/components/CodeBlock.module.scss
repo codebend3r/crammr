@@ -1,0 +1,205 @@
+.window {
+  display: grid;
+  grid-template-areas: "header" "viewport" "footer";
+  min-width: 0;
+  overflow: hidden;
+  border: var(--code-border-width) solid var(--code-border);
+  border-radius: var(--radius-md);
+  background: var(--code-bg);
+  color: var(--code-text);
+  box-shadow: 0 0 var(--code-glow-size) var(--code-glow);
+  text-align: left;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  line-height: var(--line-height-code);
+  color-scheme: dark;
+
+  &[data-code-theme="studio"],
+  &[data-code-theme="paper"] {
+    color-scheme: light;
+  }
+}
+
+.header {
+  grid-area: header;
+  display: grid;
+  grid-template-areas: "lights filename tools";
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: var(--code-panel);
+  border-bottom: var(--code-border-width) solid var(--code-border);
+}
+
+.trafficLights {
+  grid-area: lights;
+  display: flex;
+  gap: var(--space-2);
+
+  span {
+    width: var(--code-light-size);
+    height: var(--code-light-size);
+    border-radius: 50%;
+  }
+}
+
+.red {
+  background: var(--color-window-red);
+}
+
+.yellow {
+  background: var(--color-window-yellow);
+}
+
+.green {
+  background: var(--color-window-green);
+}
+
+.filename {
+  grid-area: filename;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--code-text);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+}
+
+.tools {
+  grid-area: tools;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.themeSelect,
+.copy {
+  min-height: var(--code-control-height);
+  border: var(--code-border-width) solid var(--code-muted);
+  border-radius: var(--radius-sm);
+  background: var(--code-bg);
+  color: var(--code-text);
+  font: inherit;
+  font-size: var(--font-size-xs);
+
+  &:focus-visible {
+    outline: var(--code-border-width) solid var(--code-border);
+    outline-offset: var(--space-1);
+  }
+}
+
+.themeSelect {
+  max-width: 100%;
+  padding: var(--space-1) var(--space-2);
+  cursor: pointer;
+}
+
+.copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--code-control-height);
+  padding: var(--space-2);
+  transition: border-color var(--code-motion-duration) ease;
+
+  &:hover {
+    border-color: var(--code-border);
+  }
+}
+
+.viewport {
+  grid-area: viewport;
+  display: grid;
+  grid-template-areas: "gutter code";
+  grid-template-columns: auto minmax(0, 1fr);
+  min-width: 0;
+  padding: var(--space-4) 0;
+  background: var(--code-bg);
+}
+
+.gutter {
+  grid-area: gutter;
+  display: grid;
+  grid-auto-rows: calc(var(--font-size-sm) * var(--line-height-code));
+  align-content: start;
+  padding: 0 var(--space-3) 0 var(--space-4);
+  border-right: var(--code-border-width) solid var(--code-panel);
+  color: var(--code-muted);
+  font-family: var(--font-mono);
+  text-align: right;
+  user-select: none;
+}
+
+.code {
+  grid-area: code;
+  min-width: 0;
+  overflow-x: auto;
+  padding: 0 var(--space-4);
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: inherit;
+  line-height: inherit;
+  tab-size: 2;
+
+  &:focus-visible {
+    outline: var(--code-border-width) solid var(--code-border);
+    outline-offset: calc(-1 * var(--code-border-width));
+  }
+
+  code {
+    display: block;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--code-text);
+    font-size: inherit;
+    white-space: pre;
+  }
+}
+
+.footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border-top: var(--code-border-width) solid var(--code-panel);
+  color: var(--code-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+}
+
+.status {
+  text-align: right;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .header {
+    grid-template-areas: "lights filename" "tools tools";
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+
+  .tools {
+    justify-content: space-between;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copy {
+    transition: none;
+  }
+}

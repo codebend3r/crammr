@@ -1,0 +1,75 @@
+.theme {
+  @each $theme in neon, nord, studio, paper {
+    &[data-code-theme="#{$theme}"],
+    &[data-inline-theme="#{$theme}"] {
+      @each $token in bg, panel, text, muted, border, glow, keyword, string, number, function {
+        --code-#{$token}: var(--code-#{$theme}-#{$token});
+      }
+    }
+  }
+}
+
+.tokens {
+  color: var(--code-text);
+
+  [class~="hljs-comment"],
+  [class~="hljs-quote"] {
+    color: var(--code-muted);
+    font-style: italic;
+  }
+
+  [class~="hljs-keyword"],
+  [class~="hljs-literal"],
+  [class~="hljs-selector-tag"],
+  [class~="hljs-section"],
+  [class~="hljs-link"],
+  [class~="hljs-deletion"] {
+    color: var(--code-keyword);
+  }
+
+  [class~="hljs-string"],
+  [class~="hljs-regexp"],
+  [class~="hljs-template-tag"],
+  [class~="hljs-addition"] {
+    color: var(--code-string);
+  }
+
+  [class~="hljs-number"],
+  [class~="hljs-symbol"],
+  [class~="hljs-meta"],
+  [class~="hljs-built_in"],
+  [class~="hljs-type"],
+  [class~="hljs-attr"],
+  [class~="hljs-attribute"],
+  [class~="hljs-variable"],
+  [class~="hljs-tag"],
+  [class~="hljs-operator"],
+  [class~="hljs-bullet"] {
+    color: var(--code-number);
+  }
+
+  [class~="hljs-title"],
+  [class~="hljs-name"],
+  [class~="hljs-property"],
+  [class~="hljs-selector-class"],
+  [class~="hljs-selector-id"],
+  [class~="hljs-selector-attr"],
+  [class~="hljs-selector-pseudo"],
+  [class~="hljs-subst"],
+  [class~="hljs-template-variable"] {
+    color: var(--code-function);
+  }
+
+  [class~="hljs-punctuation"],
+  [class~="hljs-params"] {
+    color: var(--code-text);
+  }
+
+  [class~="hljs-emphasis"] {
+    font-style: italic;
+  }
+
+  [class~="hljs-strong"] {
+    font-weight: 700;
+  }
+}

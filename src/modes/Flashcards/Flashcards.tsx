@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Question } from "@/lib/types";
 import { Button } from "@/components/Button";
 import { Markdown } from "@/components/Markdown";
-import styles from "@/modes/Flashcards/Flashcards.module.css";
+import styles from "@/modes/Flashcards/Flashcards.module.scss";
 
 export type AnswerPayload = {
   selfGrade: boolean;
@@ -13,9 +13,10 @@ type Props = {
   question: Question;
   onAnswer: (payload: AnswerPayload) => Promise<void>;
   onNext: () => void;
+  codeLanguage?: string;
 };
 
-export function Flashcards({ question, onAnswer, onNext }: Props) {
+export function Flashcards({ question, onAnswer, onNext, codeLanguage }: Props) {
   const [flipped, setFlipped] = useState(false);
   const [graded, setGraded] = useState(false);
 
@@ -33,20 +34,24 @@ export function Flashcards({ question, onAnswer, onNext }: Props) {
 
   return (
     <div className={styles.wrap}>
-      <button
-        type="button"
-        className={styles.card}
-        onClick={() => setFlipped((f) => !f)}
-        aria-pressed={flipped}
-      >
+      <div className={styles.card}>
         <div className={styles.face}>
           <span className={styles.faceLabel}>{flipped ? "Answer" : "Question"}</span>
-          <span className={styles.faceText}>
-            <Markdown inline>{flipped ? question.flashcard_back : question.prompt}</Markdown>
-          </span>
+          <div className={styles.faceText}>
+            <Markdown codeLanguage={codeLanguage}>
+              {flipped ? question.flashcard_back : question.prompt}
+            </Markdown>
+          </div>
         </div>
-        <span className={styles.hint}>{flipped ? "Click to flip back" : "Click to reveal"}</span>
-      </button>
+        <button
+          type="button"
+          className={styles.flip}
+          onClick={() => setFlipped((value) => !value)}
+          aria-pressed={flipped}
+        >
+          {flipped ? "Flip back to question" : "Reveal answer"}
+        </button>
+      </div>
       {flipped && !graded ? (
         <div className={styles.gradeRow}>
           <Button variant="danger" onClick={() => grade(false)}>

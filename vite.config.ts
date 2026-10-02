@@ -6,6 +6,11 @@ import pkg from "./package.json" with { type: "json" };
 
 export default defineConfig({
   plugins: [react()],
+  css: {
+    preprocessorOptions: {
+      scss: { api: "modern" },
+    },
+  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),

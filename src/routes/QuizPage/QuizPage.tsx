@@ -3,6 +3,7 @@ import { useLocation } from "wouter";
 import { LogOut } from "lucide-react";
 import { useSessionStore } from "@/store/sessionStore";
 import { completeSession, recordAnswer } from "@/lib/queries";
+import { codeLanguageForModule } from "@/lib/codeLanguages";
 import { ProgressBar } from "@/components/ProgressBar";
 import { MultipleChoice } from "@/modes/MultipleChoice/MultipleChoice";
 import { Flashcards } from "@/modes/Flashcards/Flashcards";
@@ -54,6 +55,7 @@ export function QuizPage({ params }: { params: Params }) {
 
   const question = questions[currentIndex];
   const total = questions.length;
+  const codeLanguage = codeLanguageForModule({ slug: params.slug });
 
   const finishIfDone = async (latestAnswers: typeof answers) => {
     if (latestAnswers.length !== total) return;
@@ -115,11 +117,26 @@ export function QuizPage({ params }: { params: Params }) {
       </div>
 
       {mode === "multiple_choice" ? (
-        <MultipleChoice question={question} onAnswer={handleMc} onNext={handleNext} />
+        <MultipleChoice
+          question={question}
+          onAnswer={handleMc}
+          onNext={handleNext}
+          codeLanguage={codeLanguage}
+        />
       ) : mode === "flashcards" ? (
-        <Flashcards question={question} onAnswer={handleSelfGrade} onNext={handleNext} />
+        <Flashcards
+          question={question}
+          onAnswer={handleSelfGrade}
+          onNext={handleNext}
+          codeLanguage={codeLanguage}
+        />
       ) : (
-        <Recap question={question} onAnswer={handleSelfGrade} onNext={handleNext} />
+        <Recap
+          question={question}
+          onAnswer={handleSelfGrade}
+          onNext={handleNext}
+          codeLanguage={codeLanguage}
+        />
       )}
 
       <div className={styles.bottom}>

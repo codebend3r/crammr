@@ -1,0 +1,70 @@
+.wrap {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.card {
+  display: grid;
+  grid-template-areas: "face" "flip";
+  align-content: center;
+  gap: var(--space-4);
+  min-width: 0;
+  min-height: var(--flashcard-height);
+  padding: var(--space-6) var(--space-5);
+  border: var(--code-border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-align: center;
+}
+
+.face {
+  grid-area: face;
+  display: grid;
+  grid-template-areas: "label" "text";
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.faceLabel {
+  grid-area: label;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+}
+
+.faceText {
+  grid-area: text;
+  min-width: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: var(--line-height-prose);
+}
+
+.flip {
+  grid-area: flip;
+  justify-self: center;
+  min-height: var(--code-control-height);
+  padding: var(--space-2) var(--space-4);
+  border: var(--code-border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+
+  &:hover {
+    border-color: var(--color-accent);
+  }
+
+  &:focus-visible {
+    outline: var(--code-border-width) solid var(--color-accent);
+    outline-offset: var(--space-1);
+  }
+}
+
+.gradeRow {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+}

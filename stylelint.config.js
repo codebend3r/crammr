@@ -20,7 +20,7 @@ export default {
     // range syntax (`width <= 640px`) is newer than Vite's default build target
     // (Safari 14), so keep the prefixed `max-width` form
     "media-feature-range-notation": "prefix",
-    // blank lines group the design tokens in `global.css` by kind
+    // blank lines group the design tokens in `globals.scss` by kind
     "custom-property-empty-line-before": null,
     // the base/variant CSS module pattern (`.filter` + `.filterActive`) trips
     // this without an actual cascade conflict
