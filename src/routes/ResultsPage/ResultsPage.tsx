@@ -17,8 +17,12 @@ export function ResultsPage({ params }: { params: Params }) {
   const [data, setData] = useState<SessionWithAnswers | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const reset = useSessionStore((s) => s.reset);
+  const finish = useSessionStore((s) => s.finish);
   const [, navigate] = useLocation();
+
+  useEffect(() => {
+    finish({ slug: params.slug, sessionId: params.id });
+  }, [finish, params.slug, params.id]);
 
   useEffect(() => {
     const state = { alive: true };
@@ -50,15 +54,8 @@ export function ResultsPage({ params }: { params: Params }) {
   const score = session.score ?? answers.filter((a) => a.is_correct).length;
   const pct = total === 0 ? 0 : Math.round((score / total) * 100);
 
-  const tryAgain = () => {
-    reset();
-    navigate(`/m/${params.slug}`);
-  };
-
-  const goHome = () => {
-    reset();
-    navigate("/");
-  };
+  const tryAgain = () => navigate(`/m/${params.slug}`);
+  const goHome = () => navigate("/");
 
   return (
     <div className={styles.page}>

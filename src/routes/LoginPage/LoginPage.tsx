@@ -12,6 +12,7 @@ export function LoginPage() {
   const signIn = useAuthStore((s) => s.signIn);
   const signUp = useAuthStore((s) => s.signUp);
   const signInWithMagicLink = useAuthStore((s) => s.signInWithMagicLink);
+  const sendPasswordReset = useAuthStore((s) => s.sendPasswordReset);
   const [, navigate] = useLocation();
 
   const [tab, setTab] = useState<Tab>("signin");
@@ -52,6 +53,20 @@ export function LoginPage() {
     try {
       await signInWithMagicLink(email);
       setInfo("Magic link sent. Check your email.");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Something went wrong");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const forgotPassword = async () => {
+    setBusy(true);
+    setError(null);
+    setInfo(null);
+    try {
+      await sendPasswordReset(email);
+      setInfo("If there's an account for that email, a reset link is on its way.");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong");
     } finally {
@@ -113,6 +128,17 @@ export function LoginPage() {
           <Button type="submit" block disabled={busy}>
             {busy ? "…" : tab === "signin" ? "Continue" : "Create account"}
           </Button>
+
+          {tab === "signin" ? (
+            <Button
+              type="button"
+              variant="ghost"
+              disabled={busy || !email}
+              onClick={forgotPassword}
+            >
+              Forgot password?
+            </Button>
+          ) : null}
         </form>
 
         <div className={styles.divider}>or</div>

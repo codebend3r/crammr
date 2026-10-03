@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { Sidebar } from "@/components/Sidebar";
 import { OnboardingModal } from "@/components/OnboardingModal";
 import { LoginPage } from "@/routes/LoginPage/LoginPage";
+import { ResetPasswordPage } from "@/routes/ResetPasswordPage/ResetPasswordPage";
 import { HomePage } from "@/routes/HomePage/HomePage";
 import { ModulePage } from "@/routes/ModulePage/ModulePage";
 import { QuizPage } from "@/routes/QuizPage/QuizPage";
@@ -45,6 +46,9 @@ export function App() {
           <Switch>
             <Route path="/login">
               <LoginPage />
+            </Route>
+            <Route path="/reset-password">
+              <ResetPasswordPage />
             </Route>
             <Route path="/_design">
               <DesignSystem />

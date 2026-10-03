@@ -12,6 +12,8 @@ type AuthState = {
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string) => Promise<void>;
   signInWithMagicLink: (email: string) => Promise<void>;
+  sendPasswordReset: (email: string) => Promise<void>;
+  updatePassword: (password: string) => Promise<void>;
   signOut: () => Promise<void>;
   bootstrap: () => Promise<void>;
 };
@@ -55,6 +57,18 @@ export const useAuthStore = create<AuthState>((set) => ({
       email,
       options: { emailRedirectTo: window.location.origin },
     });
+    if (error) throw error;
+  },
+
+  sendPasswordReset: async (email) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    if (error) throw error;
+  },
+
+  updatePassword: async (password) => {
+    const { error } = await supabase.auth.updateUser({ password });
     if (error) throw error;
   },
 

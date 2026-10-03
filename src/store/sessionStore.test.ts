@@ -104,6 +104,26 @@ describe("useSessionStore", () => {
     expect(useSessionStore.getState().sessions.python?.sessionId).toBe("s2");
   });
 
+  it("finish removes the finished session and keeps other modules' sessions", () => {
+    useSessionStore.getState().start("javascript", startArgs);
+    useSessionStore.getState().start("python", { ...startArgs, sessionId: "s2" });
+    useSessionStore.getState().finish({ slug: "javascript", sessionId: "s1" });
+    expect(useSessionStore.getState().sessions.javascript).toBeUndefined();
+    expect(useSessionStore.getState().sessions.python?.sessionId).toBe("s2");
+  });
+
+  it("finish keeps a newer session for the same module", () => {
+    useSessionStore.getState().start("javascript", { ...startArgs, sessionId: "s3" });
+    useSessionStore.getState().finish({ slug: "javascript", sessionId: "s1" });
+    expect(useSessionStore.getState().sessions.javascript?.sessionId).toBe("s3");
+  });
+
+  it("finish ignores unknown slugs", () => {
+    const before = useSessionStore.getState().sessions;
+    useSessionStore.getState().finish({ slug: "missing", sessionId: "s1" });
+    expect(useSessionStore.getState().sessions).toEqual(before);
+  });
+
   it("reset clears all sessions", () => {
     useSessionStore.getState().start("javascript", startArgs);
     useSessionStore.getState().reset();
