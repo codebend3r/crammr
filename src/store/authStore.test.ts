@@ -11,9 +11,16 @@ const mock = vi.hoisted(() => {
     error: Error | null;
     handler: AuthChangeHandler | null;
     calls: string[];
+    resetRedirect: string | null;
   };
 
-  const state: MockState = { session: null, error: null, handler: null, calls: [] };
+  const state: MockState = {
+    session: null,
+    error: null,
+    handler: null,
+    calls: [],
+    resetRedirect: null,
+  };
 
   const storage = new Map<string, string>();
   const localStorageStub = {
@@ -64,6 +71,15 @@ vi.mock("@/lib/supabase", () => ({
         mock.state.calls.push("signOut");
         return Promise.resolve({ error: mock.state.error });
       },
+      resetPasswordForEmail: (_email: string, options: { redirectTo: string }) => {
+        mock.state.calls.push("resetPasswordForEmail");
+        mock.state.resetRedirect = options.redirectTo;
+        return Promise.resolve({ error: mock.state.error });
+      },
+      updateUser: () => {
+        mock.state.calls.push("updateUser");
+        return Promise.resolve({ error: mock.state.error });
+      },
     },
   },
 }));
@@ -89,6 +105,7 @@ beforeEach(() => {
   mock.state.error = null;
   mock.state.handler = null;
   mock.state.calls = [];
+  mock.state.resetRedirect = null;
 });
 
 describe("useAuthStore", () => {
@@ -140,6 +157,23 @@ describe("useAuthStore", () => {
     await useAuthStore.getState().signOut();
     expect(useSessionStore.getState().sessions).toEqual({});
     expect(mock.state.calls).toContain("signOut");
+  });
+
+  it("sendPasswordReset emails a link back to the reset page and throws on error", async () => {
+    await expect(useAuthStore.getState().sendPasswordReset("a@b.co")).resolves.toBeUndefined();
+    expect(mock.state.calls).toContain("resetPasswordForEmail");
+    expect(mock.state.resetRedirect).toBe("http://localhost:5173/reset-password");
+    mock.state.error = new Error("rate limited");
+    await expect(useAuthStore.getState().sendPasswordReset("a@b.co")).rejects.toThrow(
+      "rate limited",
+    );
+  });
+
+  it("updatePassword resolves on success and throws on error", async () => {
+    await expect(useAuthStore.getState().updatePassword("new-pw")).resolves.toBeUndefined();
+    expect(mock.state.calls).toContain("updateUser");
+    mock.state.error = new Error("weak password");
+    await expect(useAuthStore.getState().updatePassword("new-pw")).rejects.toThrow("weak password");
   });
 
   it("signOut throws when supabase errors", async () => {
